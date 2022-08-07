@@ -691,8 +691,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 	 * on stderr if signed attributes don't check out.
 	 *
 	 * @see #getDocSigningCertificate()
-	 * @see #getSignature()
-	 * 
+	 *
 	 * @return the contents of the security object over which the
 	 *         signature is to be computed
 	 */
