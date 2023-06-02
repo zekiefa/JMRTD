@@ -127,7 +127,7 @@ public class PassportApduService extends CardService {
 	 */
 	public PassportApduService(CardService service) throws CardServiceException {
 		this.service = service;
-		plainTextAPDUListeners = new HashSet<APDUListener>();
+		plainTextAPDUListeners = new HashSet<>();
 		plainAPDUCount = 0;
 		try {
 			mac = Mac.getInstance("ISO9797Alg3Mac", BC_PROVIDER);

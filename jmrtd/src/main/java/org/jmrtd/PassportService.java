@@ -69,9 +69,7 @@ import org.jmrtd.lds.PACEInfo;
  * Card service for reading files (such as data groups) and using the BAC and AA
  * protocols on the passport. Defines secure messaging. Defines active
  * authentication.
- * 
  * Based on ICAO-TR-PKI and ICAO-TR-LDS.
- * 
  * Usage:
  * 
  * <pre>

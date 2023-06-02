@@ -105,7 +105,7 @@ public class DG12File extends DataGroup {
 		super(EF_DG12_TAG);
 		this.issuingAuthority = issuingAuthority;
 		this.dateOfIssue = dateOfIssue;
-		this.namesOfOtherPersons = namesOfOtherPersons == null ? new ArrayList<String>() : new ArrayList<String>(namesOfOtherPersons);
+		this.namesOfOtherPersons = namesOfOtherPersons == null ? new ArrayList<>() : new ArrayList<>(namesOfOtherPersons);
 		this.endorseMentsAndObservations = endorseMentsAndObservations;
 		this.taxOrExitRequirements = taxOrExitRequirements;
 		this.imageOfFront = imageOfFront;
@@ -138,7 +138,7 @@ public class DG12File extends DataGroup {
 		ByteArrayInputStream tagListBytesInputStream = new ByteArrayInputStream(tlvInputStream.readValue());
 		
 		/* Find out which tags are present. */
-		List<Integer> tagList = new ArrayList<Integer>(expectedTagCount + 1);
+		List<Integer> tagList = new ArrayList<>(expectedTagCount + 1);
 		while (tagListBytesRead < tagListLength) {
 			/* We're using another TLV inputstream everytime to read each tag. */
 			TLVInputStream anotherTLVInputStream = new TLVInputStream(tagListBytesInputStream);
@@ -160,7 +160,7 @@ public class DG12File extends DataGroup {
 	 */
 	public List<Integer> getTagPresenceList() {
 		if (tagPresenceList != null) { return tagPresenceList; }
-		tagPresenceList = new ArrayList<Integer>(10);
+		tagPresenceList = new ArrayList<>(10);
 		if(issuingAuthority != null) { tagPresenceList.add(ISSUING_AUTHORITY_TAG); }
 		if(dateOfIssue != null) { tagPresenceList.add(DATE_OF_ISSUE_TAG); }
 		if(namesOfOtherPersons != null && namesOfOtherPersons.size() > 0) { tagPresenceList.add(NAME_OF_OTHER_PERSON_TAG); }
@@ -245,7 +245,7 @@ public class DG12File extends DataGroup {
 	}
 
 	private synchronized void parseNameOfOtherPerson(byte[] value) {
-		if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<String>(); }
+		if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<>(); }
 		String field = new String(value, StandardCharsets.UTF_8);
 		namesOfOtherPersons.add(field.trim());
 	}
@@ -427,7 +427,7 @@ public class DG12File extends DataGroup {
 				tlvOut.writeValue(SDF.format(dateOfIssue).getBytes(StandardCharsets.UTF_8));
 				break;
 			case NAME_OF_OTHER_PERSON_TAG:
-				if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<String>(); }
+				if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<>(); }
 				tlvOut.writeTag(CONTENT_SPECIFIC_CONSTRUCTED_TAG);
 				tlvOut.writeTag(COUNT_TAG);
 				tlvOut.write(namesOfOtherPersons.size());

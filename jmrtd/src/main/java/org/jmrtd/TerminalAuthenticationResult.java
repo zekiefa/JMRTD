@@ -45,7 +45,7 @@ public class TerminalAuthenticationResult  {
 	
 	private final ChipAuthenticationResult chipAuthenticationResult;
 	private final CVCPrincipal caReference;
-	private final List<CardVerifiableCertificate> terminalCertificates = new ArrayList<CardVerifiableCertificate>();
+	private final List<CardVerifiableCertificate> terminalCertificates = new ArrayList<>();
 	private final PrivateKey terminalKey;
 	private final String documentNumber;
 	private final byte[] cardChallenge;

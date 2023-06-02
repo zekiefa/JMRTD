@@ -48,7 +48,7 @@ public class StandardBiometricHeader implements Serializable {
 	 * @param elements the elements, consisting of a tag and value
 	 */
 	public StandardBiometricHeader(Map<Integer, byte[]> elements) {
-		this.elements = new TreeMap<Integer, byte[]>(elements);
+		this.elements = new TreeMap<>(elements);
 	}
 
 	/**
@@ -57,6 +57,6 @@ public class StandardBiometricHeader implements Serializable {
 	 * @return the elements, each consisting of a tag and value
 	 */
 	public SortedMap<Integer, byte[]> getElements() {
-		return new TreeMap<Integer, byte[]>(elements);
+		return new TreeMap<>(elements);
 	}
 }

@@ -138,17 +138,17 @@ public class DG11File extends DataGroup {
 			List<String> otherValidTDNumbers, String custodyInformation) {
 		super(EF_DG11_TAG);
 		this.nameOfHolder = nameOfHolder;
-		this.otherNames = otherNames == null ? new ArrayList<String>() : new ArrayList<String>(otherNames);
+		this.otherNames = otherNames == null ? new ArrayList<>() : new ArrayList<String>(otherNames);
 		this.personalNumber = personalNumber;
 		this.fullDateOfBirth = fullDateOfBirth;
-		this.placeOfBirth = placeOfBirth == null ? new ArrayList<String>() : new ArrayList<String>(placeOfBirth);
+		this.placeOfBirth = placeOfBirth == null ? new ArrayList<>() : new ArrayList<String>(placeOfBirth);
 		this.permanentAddress = permanentAddress;
 		this.telephone = telephone;
 		this.profession = profession;
 		this.title = title;
 		this.personalSummary = personalSummary;
 		this.proofOfCitizenship = proofOfCitizenship; // FIXME: deep copy
-		this.otherValidTDNumbers = otherValidTDNumbers == null ? new ArrayList<String>() : new ArrayList<String>(otherValidTDNumbers);
+		this.otherValidTDNumbers = otherValidTDNumbers == null ? new ArrayList<>() : new ArrayList<>(otherValidTDNumbers);
 		this.custodyInformation = custodyInformation;
 	}
 
@@ -176,7 +176,7 @@ public class DG11File extends DataGroup {
 		ByteArrayInputStream tagListBytesInputStream = new ByteArrayInputStream(tlvInputStream.readValue());
 
 		/* Find out which tags are present. */
-		List<Integer> tagList = new ArrayList<Integer>(expectedTagCount + 1);
+		List<Integer> tagList = new ArrayList<>(expectedTagCount + 1);
 		while (tagListBytesRead < tagListLength) {
 			/* We're using another TLV inputstream everytime to read each tag. */
 			TLVInputStream anotherTLVInputStream = new TLVInputStream(tagListBytesInputStream);
@@ -243,7 +243,7 @@ public class DG11File extends DataGroup {
 	private void parseOtherValidTDNumbers(byte[] value) {
 		String field = new String(value).trim();
 		field = new String(value, StandardCharsets.UTF_8);
-		otherValidTDNumbers = new ArrayList<String>();
+		otherValidTDNumbers = new ArrayList<>();
 		StringTokenizer st = new StringTokenizer(field, "<");
 		while (st.hasMoreTokens()) {
 			String number = st.nextToken().trim();
@@ -285,7 +285,7 @@ public class DG11File extends DataGroup {
 		String field = new String(value);
 		field = new String(value, StandardCharsets.UTF_8);
 		StringTokenizer st = new StringTokenizer(field, "<");
-		permanentAddress = new ArrayList<String>();
+		permanentAddress = new ArrayList<>();
 		while (st.hasMoreTokens()) {
 			String line = st.nextToken().trim();
 			permanentAddress.add(line);
@@ -296,7 +296,7 @@ public class DG11File extends DataGroup {
 		String field = new String(value);
 		field = new String(value, StandardCharsets.UTF_8);
 		StringTokenizer st = new StringTokenizer(field, "<");
-		placeOfBirth = new ArrayList<String>();
+		placeOfBirth = new ArrayList<>();
 		while (st.hasMoreTokens()) {
 			String line = st.nextToken().trim();
 			placeOfBirth.add(line);
@@ -321,7 +321,7 @@ public class DG11File extends DataGroup {
 	}
 
 	private synchronized void parseOtherName(byte[] value) {
-		if (otherNames == null) { otherNames = new ArrayList<String>(); }
+		if (otherNames == null) { otherNames = new ArrayList<>(); }
 		String field = new String(value, StandardCharsets.UTF_8);
 		otherNames.add(field.trim());
 	}
@@ -351,7 +351,7 @@ public class DG11File extends DataGroup {
 	 */
 	public List<Integer> getTagPresenceList() {
 		if (tagPresenceList != null) { return tagPresenceList; }
-		tagPresenceList = new ArrayList<Integer>(12);
+		tagPresenceList = new ArrayList<>(12);
 		if (nameOfHolder != null) {
 			tagPresenceList.add(FULL_NAME_TAG);
 		}
@@ -409,7 +409,7 @@ public class DG11File extends DataGroup {
 	 * @return the other names, or empty list when not present
 	 */
 	public List<String> getOtherNames() {
-		return otherNames == null ? new ArrayList<String>() : new ArrayList<String>(otherNames);
+		return otherNames == null ? new ArrayList<>() : new ArrayList<>(otherNames);
 	}
 
 	/**
@@ -564,7 +564,7 @@ public class DG11File extends DataGroup {
 				tlvOut.writeValue(nameOfHolder.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case OTHER_NAME_TAG:
-				if (otherNames == null) { otherNames = new ArrayList<String>(); }
+				if (otherNames == null) { otherNames = new ArrayList<>(); }
 				tlvOut.writeTag(CONTENT_SPECIFIC_CONSTRUCTED_TAG);
 				tlvOut.writeTag(COUNT_TAG);
 				tlvOut.write(otherNames.size());

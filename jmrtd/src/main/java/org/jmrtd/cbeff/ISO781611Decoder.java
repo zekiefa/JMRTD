@@ -166,7 +166,7 @@ public class ISO781611Decoder implements ISO781611 {
 			String warning = "Expected tag " + Integer.toHexString(expectedBHTTag) + ", found " + Integer.toHexString(bhtTag);
 			if (LOGGER != null) { LOGGER.warning(warning); }
 		}
-		Map<Integer, byte[]> elements = new HashMap<Integer, byte[]>();
+		Map<Integer, byte[]> elements = new HashMap<>();
 		int bytesRead = 0;
 		while (bytesRead < bhtLength) {
 			int tag = tlvIn.readTag(); bytesRead += TLVUtil.getTagLength(tag);

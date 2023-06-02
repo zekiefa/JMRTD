@@ -59,7 +59,7 @@ public class FragmentBuffer implements Serializable {
 	 */
 	public FragmentBuffer(int length) {
 		this.buffer = new byte[length];
-		this.fragments = new HashSet<Fragment>();
+		this.fragments = new HashSet<>();
 	}
 
 	public synchronized void updateFrom(FragmentBuffer other) {
@@ -99,7 +99,7 @@ public class FragmentBuffer implements Serializable {
 		System.arraycopy(bytes, srcOffset, buffer, offset, srcLength);
 		int thisOffset = offset;
 		int thisLength = srcLength;
-		final Collection<Fragment> otherFragments = new ArrayList<Fragment>(fragments);
+		final Collection<Fragment> otherFragments = new ArrayList<>(fragments);
 		for (Fragment other: otherFragments) {
 			/* On partial overlap we change this fragment, possibly remove the other overlapping fragments we encounter. */
 			if (other.getOffset() <= thisOffset && thisOffset + thisLength <= other.getOffset() + other.getLength()) {
@@ -248,7 +248,6 @@ public class FragmentBuffer implements Serializable {
 				 * 
 				 * The other fragment is contained in this fragment. We send this fragment as is.
 				 */
-				continue;
 			} else if (offset <= other.getOffset() && other.getOffset() < thisOffset + thisLength) {
 				/*
 				 *        [...other fragment...]

@@ -110,7 +110,7 @@ public class LDS {
 	}
 
 	public List<Short> getFileList() {
-		Set<Short> fileSet = new HashSet<Short>();
+		Set<Short> fileSet = new HashSet<>();
 		fileSet.addAll(fetchers.keySet());
 		fileSet.addAll(files.keySet());
 		fileSet.addAll(getDataGroupList());
@@ -125,13 +125,13 @@ public class LDS {
 				LOGGER.severe("Could not read EF.DG14");
 			}
 		}
-		List<Short> fileList = new ArrayList<Short>(fileSet);
+		List<Short> fileList = new ArrayList<>(fileSet);
 		Collections.sort(fileList);
 		return fileList;
 	}
 
 	public List<Short> getDataGroupList() {
-		Set<Short> result = new TreeSet<Short>();
+		Set<Short> result = new TreeSet<>();
 		try {
 			COMFile com = getCOMFile();
 			int[] comTagList = com.getTagList();
@@ -152,7 +152,7 @@ public class LDS {
 		} catch (IOException ioe) {
 			LOGGER.severe("Could not read EF.SOd");
 		}
-		List<Short> resultList = new ArrayList<Short>(result);
+		List<Short> resultList = new ArrayList<>(result);
 		Collections.sort(resultList);
 		return resultList;		
 	}
@@ -280,7 +280,7 @@ public class LDS {
 		LOGGER.warning("DEBUG: cvcaFIDs = " + cvcaFIDs);
 		if (cvcaFIDs != null && cvcaFIDs.size() != 0) {
 			if (cvcaFIDs.size() > 1) { LOGGER.warning("More than one CVCA file id present in DG14."); }
-			cvcaFID = cvcaFIDs.get(0).shortValue();
+			cvcaFID = cvcaFIDs.get(0);
 		}
 		CVCAFile cvca = (CVCAFile)getFile(cvcaFID); // FIXME: should we check for ClassCastException?
 		return cvca;
