@@ -186,14 +186,13 @@ public class IrisImageInfo extends AbstractImageInfo {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-        final String result = "IrisImageInfo ["
+        return "IrisImageInfo ["
                         + "image number: " + imageNumber + ", "
                         + "quality: " + quality + ", "
                         + "image: "
                         + getWidth() + " x " + getHeight()
                         + "mime-type: " + getMimeTypeFromImageFormat(imageFormat)
                         + "]";
-		return result;
 	}
 
 	protected void readObject(InputStream inputStream) throws IOException {

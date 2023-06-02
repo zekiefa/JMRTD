@@ -353,7 +353,6 @@ public final class Util {
 	 * Recovers the M1 part of the message sent back by the AA protocol
 	 * (INTERNAL AUTHENTICATE command). The algorithm is described in
 	 * ISO 9796-2:2002 9.3.
-	 * 
 	 * Based on code by Ronny (ronny@cs.ru.nl) who presumably ripped this
 	 * from Bouncy Castle. 
 	 * 

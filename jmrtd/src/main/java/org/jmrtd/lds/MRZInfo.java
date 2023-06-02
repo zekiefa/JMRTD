@@ -859,7 +859,7 @@ public class MRZInfo extends AbstractLDSInfo {
 		if (str == null) { throw new IllegalArgumentException("Attempting to MRZ format null"); }
 		if (str.length() > width) { throw new IllegalArgumentException("Argument too wide (" + str.length() + " > " + width + ")"); }
 		str = str.toUpperCase().trim();
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
 			if (MRZ_CHARS.indexOf(c) == -1) {
@@ -883,7 +883,7 @@ public class MRZInfo extends AbstractLDSInfo {
 	 * @return a boolean indicating whether the strings are equal modulo filler characters
 	 */
 	public static boolean equalsModuloFillerChars(String str1, String str2) {
-		if (str1 == str2) { return true; }
+		if (str1.equals(str2)) { return true; }
 		if (str1 == null) { str1 = ""; }
 		if (str2 == null) { str2 = ""; }
 		int length = Math.max(str1.length(), str2.length());
@@ -892,14 +892,11 @@ public class MRZInfo extends AbstractLDSInfo {
 
 	/**
 	 * Determines the document type based on the document code (the first two characters of the MRZ).
-	 * 
 	 * ICAO Doc 9303 part 3 vol 1 defines MRTDs with 3-line MRZs,
 	 * in this case the document code starts with "A", "C", or "I"
 	 * according to note j to Section 6.6 (page V-9).
-	 * 
 	 * ICAO Doc 9303 part 2 defines MRVs with 2-line MRZs,
 	 * in this case the document code starts with "V". 
-	 * 
 	 * ICAO Doc 9303 part 1 vol 1 defines MRPs with 2-line MRZs,
 	 * in this case the document code starts with "P"
 	 * according to Section 9.6 (page IV-15).
@@ -955,7 +952,7 @@ public class MRZInfo extends AbstractLDSInfo {
 			char personalNumberCheckDigit = checkDigit(mrzFormat(optionalData1, 14), true); /* FIXME: Uses '<' over '0'. Where specified? */
 			optionalData1 = personalNumber + personalNumberCheckDigit;
 		}
-		StringBuffer composite = new StringBuffer();
+		StringBuilder composite = new StringBuilder();
 		if (documentType == DOC_TYPE_ID1) {
 			/*
 			 * Based on 6.6 in Part V of Doc 9303 Part 3 Vol 1.

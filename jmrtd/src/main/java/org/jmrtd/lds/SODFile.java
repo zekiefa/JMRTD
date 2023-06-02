@@ -496,8 +496,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		 */
 		try {
 			CertificateFactory factory = CertificateFactory.getInstance("X.509");
-			X509Certificate cert = (X509Certificate)factory.generateCertificate(new ByteArrayInputStream(certSpec));
-			return cert;
+			return (X509Certificate)factory.generateCertificate(new ByteArrayInputStream(certSpec));
 		} catch (Exception e) {
 			/* NOTE: Reconstructing using preferred provider didn't work?!?! */
 			return certObject;
@@ -508,7 +507,6 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 	 * Verifies the signature over the contents of the security object.
 	 * Clients can also use the accessors of this class and check the
 	 * validity of the signature for themselves.
-	 * 
 	 * See RFC 3369, Cryptographic Message Syntax, August 2002,
 	 * Section 5.4 for details.
 	 * 
@@ -601,8 +599,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 	 */
 	public BigInteger getSerialNumber() {
 		IssuerAndSerialNumber issuerAndSerialNumber = getIssuerAndSerialNumber();
-		BigInteger serialNumber = issuerAndSerialNumber.getSerialNumber().getValue();
-		return serialNumber;
+		return issuerAndSerialNumber.getSerialNumber().getValue();
 	}
 
 	/**
@@ -682,10 +679,8 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 	/**
 	 * Gets the contents of the security object over which the
 	 * signature is to be computed. 
-	 * 
 	 * See RFC 3369, Cryptographic Message Syntax, August 2002,
 	 * Section 5.4 for details.
-	 * 
 	 * FIXME: Maybe throw an exception instead of issuing warnings
 	 * on stderr if signed attributes don't check out.
 	 *
@@ -835,8 +830,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 			byte[] certSpec = cert.getEncoded();
 			ASN1InputStream asn1In = new ASN1InputStream(certSpec);
 			try {
-				ASN1Sequence certSeq = (ASN1Sequence)asn1In.readObject();
-				return certSeq;
+				return (ASN1Sequence)asn1In.readObject();
 			} finally {
 				asn1In.close();
 			}

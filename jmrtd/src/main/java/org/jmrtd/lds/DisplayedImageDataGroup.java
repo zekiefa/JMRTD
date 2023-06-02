@@ -142,12 +142,12 @@ abstract class DisplayedImageDataGroup extends DataGroup {
 	 * @return images
 	 */
 	public List<DisplayedImageInfo> getImages() {
-		return new ArrayList<DisplayedImageInfo>(imageInfos);
+		return new ArrayList<>(imageInfos);
 	}
 
 	private void add(DisplayedImageInfo image) {
 		if (imageInfos == null) {
-			imageInfos = new ArrayList<DisplayedImageInfo>();
+			imageInfos = new ArrayList<>();
 		}
 		imageInfos.add(image);
 	}

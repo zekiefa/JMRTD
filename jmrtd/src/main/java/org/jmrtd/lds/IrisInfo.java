@@ -528,7 +528,7 @@ public class IrisInfo extends AbstractListInfo<IrisBiometricSubtypeInfo> impleme
 			byte[] formatOwner = { (byte)((FORMAT_OWNER_VALUE & 0xFF00) >> 8), (byte)(FORMAT_OWNER_VALUE & 0xFF) };
 			byte[] formatType = { (byte)((FORMAT_TYPE_VALUE & 0xFF00) >> 8), (byte)(FORMAT_TYPE_VALUE & 0xFF) };
 
-			SortedMap<Integer, byte[]> elements = new TreeMap<Integer, byte[]>();
+			SortedMap<Integer, byte[]> elements = new TreeMap<>();
 			elements.put(ISO781611.BIOMETRIC_TYPE_TAG, biometricType);
 			elements.put(ISO781611.BIOMETRIC_SUBTYPE_TAG, biometricSubtype);
 			elements.put(ISO781611.FORMAT_OWNER_TAG, formatOwner);

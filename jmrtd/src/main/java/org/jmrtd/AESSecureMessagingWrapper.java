@@ -284,8 +284,7 @@ public class AESSecureMessagingWrapper extends SecureMessagingWrapper implements
 		bOut.write(do8E);
 		byte[] data = bOut.toByteArray();
 
-		CommandAPDU wc = new CommandAPDU(maskedHeader[0], maskedHeader[1], maskedHeader[2], maskedHeader[3], data, 256);
-		return wc;
+		return new CommandAPDU(maskedHeader[0], maskedHeader[1], maskedHeader[2], maskedHeader[3], data, 256);
 	}
 
 	/**
@@ -377,8 +376,7 @@ public class AESSecureMessagingWrapper extends SecureMessagingWrapper implements
 		byte[] ciphertext = new byte[length];
 		inputStream.readFully(ciphertext);
 		byte[] paddedData = cipher.doFinal(ciphertext);
-		byte[] data = Util.unpad(paddedData);
-		return data;
+		return Util.unpad(paddedData);
 	}
 
 	/**

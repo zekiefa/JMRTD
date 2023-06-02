@@ -58,8 +58,8 @@ public class LDS {
 	private final Map<Short, SplittableInputStream> fetchers;
 
 	public LDS() {
-		this.files = new TreeMap<Short, LDSFile>();
-		this.fetchers = new TreeMap<Short, SplittableInputStream>();
+		this.files = new TreeMap<>();
+		this.fetchers = new TreeMap<>();
 	}
 
 	public synchronized boolean isSameDocument(LDS other) throws IOException {
@@ -205,7 +205,6 @@ public class LDS {
 	 * Adds a new file. If the LDS already contained a file
 	 * with the same tag, the old copy is replaced. Use this for
 	 * constructed files.
-	 * 
 	 * Note that EF.COM and EF.SOd will not be updated as a result of adding
 	 * data groups.
 	 * 
@@ -282,8 +281,7 @@ public class LDS {
 			if (cvcaFIDs.size() > 1) { LOGGER.warning("More than one CVCA file id present in DG14."); }
 			cvcaFID = cvcaFIDs.get(0);
 		}
-		CVCAFile cvca = (CVCAFile)getFile(cvcaFID); // FIXME: should we check for ClassCastException?
-		return cvca;
+		return (CVCAFile)getFile(cvcaFID); // FIXME: should we check for ClassCastException?
 	}
 	
 	private void put(short fid, LDSFile file) {

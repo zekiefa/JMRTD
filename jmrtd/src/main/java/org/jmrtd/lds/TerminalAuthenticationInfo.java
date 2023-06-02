@@ -152,11 +152,10 @@ public class TerminalAuthenticationInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		final String result = "TerminalAuthenticationInfo"
+		return "TerminalAuthenticationInfo"
 						+ "["
 						+ "fileID = " + getFileId()
 						+ "]";
-		return result;
 	}
 
 	public int hashCode() {
@@ -226,8 +225,7 @@ public class TerminalAuthenticationInfo extends SecurityInfo {
 
 	private static short getFileId(ASN1Sequence efCVCA) {
 		if (efCVCA == null) { return -1; }
-		ASN1Sequence s = efCVCA;
-		DEROctetString fid = (DEROctetString)s.getObjectAt(0);
+		DEROctetString fid = (DEROctetString)efCVCA.getObjectAt(0);
 		byte[] bytes = fid.getOctets();
 		return (short)(((bytes[0] & 0xFF) << 8) | (bytes[1] & 0xFF));		
 	}

@@ -939,9 +939,8 @@ public class PassportService extends PassportApduService implements Serializable
 
 		documentNumber = fixDocumentNumber(documentNumber);
 
-		byte[] keySeed = Util.computeKeySeedForPACE(documentNumber, dateOfBirth, dateOfExpiry);
+		return Util.computeKeySeedForPACE(documentNumber, dateOfBirth, dateOfExpiry);
 
-		return keySeed;
 	}
 
 	private static String fixDocumentNumber(String documentNumber) {
@@ -949,10 +948,10 @@ public class PassportService extends PassportApduService implements Serializable
 		String minDocumentNumber = documentNumber.replace('<', ' ').trim().replace(' ', '<');
 
 		/* The document number, including trailing '<' until length 9. */
-		String maxDocumentNumber = minDocumentNumber;
+		StringBuilder maxDocumentNumber = new StringBuilder(minDocumentNumber);
 		while (maxDocumentNumber.length() < 9) {
-			maxDocumentNumber += "<";
+			maxDocumentNumber.append("<");
 		}
-		return maxDocumentNumber;
+		return maxDocumentNumber.toString();
 	}
 }

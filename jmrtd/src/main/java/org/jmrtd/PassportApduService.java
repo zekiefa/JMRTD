@@ -55,7 +55,6 @@ import org.bouncycastle.asn1.ASN1ObjectIdentifier;
  * responsible for maintaining information about the state of the authentication
  * or secure messaging protocols. It merely offers the basic functionality for
  * sending passport specific APDUs to the passport.
- * 
  * Based on ICAO-TR-PKI. Defines the following commands:
  * <ul>
  * <li><code>GET CHALLENGE</code></li>

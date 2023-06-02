@@ -380,7 +380,7 @@ public class DG12File extends DataGroup {
 	 * @return a textual representation of this file
 	 */
 	public String toString() {
-		final String result = "DG12File ["
+		return "DG12File ["
 						+ (issuingAuthority == null ? "" : issuingAuthority) + ", "
 						+ (dateOfIssue == null ? "" : SDF.format(dateOfIssue)) + ", "
 						+ (namesOfOtherPersons == null || namesOfOtherPersons.size() == 0 ? "" : namesOfOtherPersons) + ", "
@@ -391,7 +391,6 @@ public class DG12File extends DataGroup {
 						+ (dateAndTimeOfPersonalization == null ? "" : SDF.format(dateAndTimeOfPersonalization)) + ", "
 						+ (personalizationSystemSerialNumber == null ? "" : personalizationSystemSerialNumber)
 						+ "]";
-		return result;
 	}
 
 	public boolean equals(Object obj) {

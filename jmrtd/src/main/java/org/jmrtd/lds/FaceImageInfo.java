@@ -841,13 +841,12 @@ public class FaceImageInfo extends AbstractImageInfo {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			final String out = "( point: " + getMajorCode() + "." + getMinorCode()
+			return "( point: " + getMajorCode() + "." + getMinorCode()
 							+ ", "
 							+ "type: " + Integer.toHexString(type) + ", "
 							+ "(" + x + ", "
 							+ y + ")"
 							+ ")";
-			return out;
 		}
 	}
 }

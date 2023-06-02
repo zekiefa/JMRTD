@@ -307,7 +307,7 @@ public class FingerImageInfo extends AbstractImageInfo {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		final String result = "FingerImageInfo ["
+		return "FingerImageInfo ["
 						+ "quality: " + quality + ", "
 						+ "position: " + positionToString(position) + ", "
 						+ "impression type: " + impressionTypeToString(impressionType) + ", "
@@ -317,7 +317,6 @@ public class FingerImageInfo extends AbstractImageInfo {
 						+ getWidth() + " x " + getHeight()
 						+ " \"" + FingerInfo.toMimeType(compressionAlgorithm) + "\""
 						+ "]";
-		return result;
 	}
 
 	private static String positionToString(int position) {

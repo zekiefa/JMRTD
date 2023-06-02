@@ -129,11 +129,10 @@ public class ActiveAuthenticationInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		final String result = "ActiveAuthenticationInfo"
+		return "ActiveAuthenticationInfo"
 						+ "["
 						+ "signatureAlgorithmOID = " + getSignatureAlgorithmOID()
 						+ "]";
-		return result;
 	}
 
 	public int hashCode() {
