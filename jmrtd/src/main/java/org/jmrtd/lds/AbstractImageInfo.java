@@ -223,8 +223,7 @@ abstract class AbstractImageInfo implements ImageInfo {
 	public InputStream getImageInputStream() {
 		/* DEBUG: START */
 		if (splittableInputStream != null) {
-			InputStream imageInputStream = splittableInputStream.getInputStream(imagePositionInInputStream);
-			return imageInputStream;
+			return splittableInputStream.getInputStream(imagePositionInInputStream);
 			/* DEBUG: END */
 		} else if (imageBytes != null) {
 			return new ByteArrayInputStream(imageBytes);
@@ -298,10 +297,9 @@ abstract class AbstractImageInfo implements ImageInfo {
 	/* ONLY PRIVATE METHODS BELOW */
 
 	private byte[] getImageBytes() throws IOException {
-		InputStream inputStream = null;
 		int length = getImageLength();
 		byte[] imageBytes = new byte[length];
-		inputStream = getImageInputStream();
+		InputStream inputStream = getImageInputStream();
 		DataInputStream imageInputStream = new DataInputStream(inputStream);
 		imageInputStream.readFully(imageBytes);
 		return imageBytes;

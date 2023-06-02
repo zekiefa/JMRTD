@@ -24,7 +24,6 @@ package org.jmrtd.cbeff;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.SortedMap;
 

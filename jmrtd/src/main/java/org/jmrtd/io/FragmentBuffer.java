@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * A buffer that can be partially filled.
@@ -264,21 +265,22 @@ public class FragmentBuffer implements Serializable {
 	public synchronized String toString() {
 		return "FragmentBuffer [" + buffer.length + ", " + fragments + "]";
 	}
-	
-	public synchronized boolean equals(Object otherObject) {
-		if (otherObject == null) { return false; }
-		if (otherObject == this) { return true; }
-		if (!otherObject.getClass().equals(FragmentBuffer.class)) { return false; }
-		FragmentBuffer otherBuffer = (FragmentBuffer)otherObject;
-		if (otherBuffer.buffer == null && this.buffer != null) { return false; }
-		if (otherBuffer.buffer != null && this.buffer == null) { return false; }
-		if (otherBuffer.fragments == null && this.fragments != null) { return false; }
-		if (otherBuffer.fragments != null && this.fragments == null) { return false; }
-		return Arrays.equals(otherBuffer.buffer, this.buffer) && otherBuffer.fragments.equals(this.fragments);
+
+	@Override
+	public boolean equals(final Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof FragmentBuffer))
+			return false;
+		final FragmentBuffer that = (FragmentBuffer) o;
+		return Arrays.equals(getBuffer(), that.getBuffer()) && Objects.equals(getFragments(), that.getFragments());
 	}
-	
+
+	@Override
 	public int hashCode() {
-		return 3 * Arrays.hashCode(buffer) + 2 * fragments.hashCode() + 7;
+		int result = Objects.hash(getFragments());
+		result = 31 * result + Arrays.hashCode(getBuffer());
+		return result;
 	}
 
 	private synchronized void setLength(int length) {
