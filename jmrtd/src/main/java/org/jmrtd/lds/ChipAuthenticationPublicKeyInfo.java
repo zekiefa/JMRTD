@@ -66,9 +66,9 @@ public class ChipAuthenticationPublicKeyInfo extends SecurityInfo {
 	
 	private static final Provider BC_PROVIDER = JMRTDSecurityProvider.getBouncyCastleProvider();
 
-	private String oid;
-	private SubjectPublicKeyInfo subjectPublicKeyInfo;
-	private BigInteger keyId;
+	private final String oid;
+	private final SubjectPublicKeyInfo subjectPublicKeyInfo;
+	private final BigInteger keyId;
 
 	/**
 	 * Constructs a new object.
@@ -113,7 +113,7 @@ public class ChipAuthenticationPublicKeyInfo extends SecurityInfo {
 	ASN1Primitive getDERObject() {
 		ASN1EncodableVector vector = new ASN1EncodableVector();
 		vector.add(new ASN1ObjectIdentifier(oid));
-		vector.add((ASN1Sequence)subjectPublicKeyInfo.toASN1Primitive());
+		vector.add(subjectPublicKeyInfo.toASN1Primitive());
 		if (keyId.compareTo(BigInteger.ZERO) >= 0) {
 			vector.add(new ASN1Integer(keyId));
 		}

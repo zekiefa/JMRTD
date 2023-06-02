@@ -53,7 +53,7 @@ abstract class CBEFFDataGroup<R extends BiometricDataBlock> extends DataGroup {
 
 	protected static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
-	private Random random;
+	private final Random random;
 	
 	/** Records in the BIT group. Each record represents a single BIT. */
 	private List<R> subRecords;

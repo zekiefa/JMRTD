@@ -439,7 +439,7 @@ public class FingerInfo extends AbstractListInfo<FingerImageInfo> implements Bio
 		long result = 0L;
 		for (int i = 0; i < byteCount; i++) {
 			result <<= 8;
-			result += (int)(buf[i] & 0xFF);
+			result += buf[i] & 0xFF;
 		}
 		return result;
 	}
@@ -451,7 +451,7 @@ public class FingerInfo extends AbstractListInfo<FingerImageInfo> implements Bio
 		}
 		if (byteCount > 8) { byteCount = 8; }
 		for (int i = (byteCount - 1); i >= 0; i--) {
-			long mask = (long)(0xFFL << (i * 8));
+			long mask = 0xFFL << (i * 8);
 			byte b = (byte)((value & mask) >> (i * 8));
 			out.write(b);
 		}		

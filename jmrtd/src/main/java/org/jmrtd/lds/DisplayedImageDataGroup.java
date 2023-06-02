@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.sf.scuba.tlv.TLVInputStream;
 import net.sf.scuba.tlv.TLVOutputStream;
@@ -132,7 +133,7 @@ abstract class DisplayedImageDataGroup extends DataGroup {
 		if (other == this) { return true; }
 		if (!getClass().equals(other.getClass())) { return false; }
 		DisplayedImageDataGroup otherDG = (DisplayedImageDataGroup)other;
-		return this.imageInfos == otherDG.imageInfos || this.imageInfos != null && this.imageInfos.equals(otherDG.imageInfos);
+		return Objects.equals(this.imageInfos, otherDG.imageInfos);
 	}
 
 	/**
@@ -156,12 +157,14 @@ abstract class DisplayedImageDataGroup extends DataGroup {
 			switch (imageInfo.getType()) {
 			case ImageInfo.TYPE_SIGNATURE_OR_MARK:
 				if (displayedImageTagToUse != DisplayedImageInfo.DISPLAYED_SIGNATURE_OR_MARK_TAG) {
-					throw new IllegalArgumentException("\'Portrait\' image cannot be part of a \'Signature or usual mark\' displayed image datagroup");
+					throw new IllegalArgumentException(
+									"'Portrait' image cannot be part of a 'Signature or usual mark' displayed image datagroup");
 				}
 				break;
 			case ImageInfo.TYPE_PORTRAIT:
 				if (displayedImageTagToUse != DisplayedImageInfo.DISPLAYED_PORTRAIT_TAG) {
-					throw new IllegalArgumentException("\'Signature or usual mark\' image cannot be part of a \'Portrait\' displayed image datagroup");
+					throw new IllegalArgumentException(
+									"'Signature or usual mark' image cannot be part of a 'Portrait' displayed image datagroup");
 				}
 			}
 		}

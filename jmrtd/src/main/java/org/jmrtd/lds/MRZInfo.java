@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 import net.sf.scuba.data.Gender;
@@ -201,7 +202,7 @@ public class MRZInfo extends AbstractLDSInfo {
 		if (str == null) { throw new IllegalArgumentException("Null string"); }
 		str = str.trim().replace("\n", "");
 		try {
-			readObject(new ByteArrayInputStream(str.getBytes("UTF-8")), str.length());
+			readObject(new ByteArrayInputStream(str.getBytes(StandardCharsets.UTF_8)), str.length());
 		} catch (UnsupportedEncodingException uee) {
 			/* NOTE: never happens, UTF-8 is supported. */
 			LOGGER.severe("Exception: " + uee.getMessage());
@@ -326,7 +327,7 @@ public class MRZInfo extends AbstractLDSInfo {
 				 */
 				writeString(documentNumber.substring(0, 9), dataOut, 9);
 				dataOut.write('<'); /* NOTE: instead of check digit */
-				writeString(documentNumber.substring(9, documentNumber.length()) + documentNumberCheckDigit + "<", dataOut, 15);
+				writeString(documentNumber.substring(9) + documentNumberCheckDigit + "<", dataOut, 15);
 			} else {
 				writeString(documentNumber, dataOut, 9); /* FIXME: max size of field */
 				dataOut.write(documentNumberCheckDigit);
@@ -637,23 +638,18 @@ public class MRZInfo extends AbstractLDSInfo {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		try {
-			String str = new String(getEncoded(), "UTF-8");
-			switch(str.length()) {
-			case 90: /* ID1 */
-				return str.substring(0, 30) + "\n"
-				+ str.substring(30, 60) + "\n"
-				+ str.substring(60, 90) + "\n";
-			case 88: /* ID3 */
-				return str.substring(0, 44) + "\n"
-				+ str.substring(44, 88) + "\n";
-			default:
-				/* TODO: consider throwing an exception in this case. */
-				return str;
-			}
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-			throw new IllegalStateException(uee.getMessage());
+		String str = new String(getEncoded(), StandardCharsets.UTF_8);
+		switch(str.length()) {
+		case 90: /* ID1 */
+			return str.substring(0, 30) + "\n"
+			+ str.substring(30, 60) + "\n"
+			+ str.substring(60, 90) + "\n";
+		case 88: /* ID3 */
+			return str.substring(0, 44) + "\n"
+			+ str.substring(44, 88) + "\n";
+		default:
+			/* TODO: consider throwing an exception in this case. */
+			return str;
 		}
 	}
 
@@ -719,31 +715,31 @@ public class MRZInfo extends AbstractLDSInfo {
 	}
 
 	private void writeString(String string, DataOutputStream dataOut, int width) throws IOException {
-		dataOut.write(mrzFormat(string, width).getBytes("UTF-8"));
+		dataOut.write(mrzFormat(string, width).getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeIssuingState(DataOutputStream dataOut) throws IOException {
-		dataOut.write(issuingState.getBytes("UTF-8"));
+		dataOut.write(issuingState.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeDateOfExpiry(DataOutputStream dataOut) throws IOException {
-		dataOut.write(dateOfExpiry.getBytes("UTF-8"));
+		dataOut.write(dateOfExpiry.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeGender(DataOutputStream dataOut) throws IOException {
-		dataOut.write(genderToString().getBytes("UTF-8"));
+		dataOut.write(genderToString().getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeDateOfBirth(DataOutputStream dataOut) throws IOException {
-		dataOut.write(dateOfBirth.getBytes("UTF-8"));
+		dataOut.write(dateOfBirth.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeNationality(DataOutputStream dataOut) throws IOException {
-		dataOut.write(nationality.getBytes("UTF-8"));
+		dataOut.write(nationality.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeName(DataOutputStream dataOut, int width) throws IOException {
-		dataOut.write(nameToString(width).getBytes("UTF-8"));
+		dataOut.write(nameToString(width).getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void writeDocumentType(DataOutputStream dataOut) throws IOException {
@@ -1004,7 +1000,7 @@ public class MRZInfo extends AbstractLDSInfo {
 	 */
 	private static char checkDigit(String str, boolean preferFillerOverZero) {
 		try {
-			byte[] chars = str == null ? new byte[]{ } : str.getBytes("UTF-8");
+			byte[] chars = str == null ? new byte[]{ } : str.getBytes(StandardCharsets.UTF_8);
 			int[] weights = { 7, 3, 1 };
 			int result = 0;
 			for (int i = 0; i < chars.length; i++) {
@@ -1012,16 +1008,12 @@ public class MRZInfo extends AbstractLDSInfo {
 			}
 			String checkDigitString = Integer.toString(result);
 			if (checkDigitString.length() != 1) { throw new IllegalStateException("Error in computing check digit."); /* NOTE: Never happens. */ }
-			char checkDigit = (char)checkDigitString.getBytes("UTF-8")[0];
+			char checkDigit = (char)checkDigitString.getBytes(StandardCharsets.UTF_8)[0];
 			if (preferFillerOverZero && checkDigit == '0') { checkDigit = '<'; }
 			return checkDigit;
 		} catch (NumberFormatException nfe) {
 			/* NOTE: never happens. */
 			LOGGER.severe("Exception: " + nfe.getMessage());
-			throw new IllegalStateException("Error in computing check digit.");
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: never happens. */
-			LOGGER.severe("Exception: " + usee.getMessage());
 			throw new IllegalStateException("Error in computing check digit.");
 		} catch (Exception e) {
 			LOGGER.severe("Exception: " + e.getMessage());
@@ -1062,7 +1054,7 @@ public class MRZInfo extends AbstractLDSInfo {
 		case 'y': case 'Y': return 34; case 'z': case 'Z': return 35;
 		default:
 			throw new NumberFormatException("Could not decode MRZ character "
-					+ ch + " ('" + Character.toString((char)ch) + "')");
+					+ ch + " ('" + (char) ch + "')");
 		}
 	}
 }

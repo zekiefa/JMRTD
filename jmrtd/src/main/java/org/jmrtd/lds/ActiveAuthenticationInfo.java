@@ -74,9 +74,9 @@ public class ActiveAuthenticationInfo extends SecurityInfo {
 	ECDSA_PLAIN_SHA512_OID = ECDSA_PLAIN_SIGNATURES + ".5", /* 0.4.0.127.0.7.1.1.4.1.5, ecdsa-plain-SHA512 */
 	ECDSA_PLAIN_RIPEMD160_OID = ECDSA_PLAIN_SIGNATURES + ".6"; /* 0.4.0.127.0.7.1.1.4.1.6, ecdsa-plain-RIPEMD160 */
 
-	private String oid;
-	private int version;
-	private String signatureAlgorithmOID;
+	private final String oid;
+	private final int version;
+	private final String signatureAlgorithmOID;
 
 	/**
 	 * Constructs a new object.
@@ -129,12 +129,11 @@ public class ActiveAuthenticationInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append("ActiveAuthenticationInfo");
-		result.append("[");
-		result.append("signatureAlgorithmOID = " + getSignatureAlgorithmOID());
-		result.append("]");
-		return result.toString();
+		final String result = "ActiveAuthenticationInfo"
+						+ "["
+						+ "signatureAlgorithmOID = " + getSignatureAlgorithmOID()
+						+ "]";
+		return result;
 	}
 
 	public int hashCode() {

@@ -39,9 +39,9 @@ public class CVCPrincipal implements Principal, Serializable {
 
 	private static final long serialVersionUID = -4905647207367309688L;
 
-	private Country country;
-	private String mnemonic;
-	private String seqNumber;
+	private final Country country;
+	private final String mnemonic;
+	private final String seqNumber;
 
 	/**
 	 * Constructs a principal.
@@ -55,7 +55,7 @@ public class CVCPrincipal implements Principal, Serializable {
 		}
 		country = Country.getInstance(name.substring(0, 2).toUpperCase());
 		mnemonic = name.substring(2, name.length() - 5);
-		seqNumber = name.substring(name.length() - 5, name.length());
+		seqNumber = name.substring(name.length() - 5);
 	}
 
 	/**

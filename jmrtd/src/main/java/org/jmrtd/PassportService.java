@@ -25,6 +25,7 @@ package org.jmrtd;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -217,7 +218,7 @@ public class PassportService extends PassportApduService implements Serializable
 	protected SecureMessagingWrapper wrapper;
 
 	protected Random random;
-	private MRTDFileSystem fs;
+	private final MRTDFileSystem fs;
 
 	/**
 	 * Creates a new passport service for accessing the passport.
@@ -755,7 +756,7 @@ public class PassportService extends PassportApduService implements Serializable
 					/* Manage Security Environment: Set for verification: Digital Signature Template,
 					 * indicate authority of cert to check.
 					 */
-					byte[] authorityRefBytes = Util.wrapDO((byte) 0x83, authorityReference.getName().getBytes("ISO-8859-1"));
+					byte[] authorityRefBytes = Util.wrapDO((byte) 0x83, authorityReference.getName().getBytes(StandardCharsets.ISO_8859_1));
 					sendMSESetDST(wrapper, authorityRefBytes);
 
 					/* Cert body is already in TLV format. */
@@ -786,7 +787,7 @@ public class PassportService extends PassportApduService implements Serializable
 
 			/* Step 3: MSE Set AT */
 			CVCPrincipal holderRef = terminalCert.getHolderReference();
-			byte[] holderRefBytes = Util.wrapDO((byte) 0x83, holderRef.getName().getBytes("ISO-8859-1"));
+			byte[] holderRefBytes = Util.wrapDO((byte) 0x83, holderRef.getName().getBytes(StandardCharsets.ISO_8859_1));
 			/* Manage Security Environment: Set for external authentication: Authentication Template */
 			sendMSESetATExtAuth(wrapper, holderRefBytes);
 
@@ -796,7 +797,7 @@ public class PassportService extends PassportApduService implements Serializable
 			/* Step 5: external authenticate. */
 			/* FIXME: idPICC should be public key in case of PACE. See BSI TR 03110 v2.03 4.4. */
 			byte[] idPICC = new byte[documentNumber.length() + 1];
-			System.arraycopy(documentNumber.getBytes("ISO-8859-1"), 0, idPICC, 0, documentNumber.length());
+			System.arraycopy(documentNumber.getBytes(StandardCharsets.ISO_8859_1), 0, idPICC, 0, documentNumber.length());
 			idPICC[idPICC.length - 1] = (byte)MRZInfo.checkDigit(documentNumber);
 
 			ByteArrayOutputStream dtbs = new ByteArrayOutputStream();

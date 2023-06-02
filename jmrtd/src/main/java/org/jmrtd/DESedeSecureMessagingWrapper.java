@@ -65,9 +65,10 @@ public class DESedeSecureMessagingWrapper extends SecureMessagingWrapper impleme
 
 	public static final IvParameterSpec ZERO_IV_PARAM_SPEC = new IvParameterSpec(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 });
 
-	private SecretKey ksEnc, ksMac;
-	private transient Cipher cipher;
-	private transient Mac mac;
+	private final SecretKey ksEnc;
+	private final SecretKey ksMac;
+	private final transient Cipher cipher;
+	private final transient Mac mac;
 
 	private long ssc;
 
@@ -210,7 +211,7 @@ public class DESedeSecureMessagingWrapper extends SecureMessagingWrapper impleme
 			bOut.reset();
 			bOut.write(hasDO85 ? (byte)0x85 : (byte)0x87);
 			bOut.write(TLVUtil.getLengthAsBytes(ciphertext.length + (hasDO85 ? 0 : 1)));
-			if(!hasDO85) { bOut.write(0x01); };
+			if(!hasDO85) { bOut.write(0x01); }
 			bOut.write(ciphertext, 0, ciphertext.length);
 			do8587 = bOut.toByteArray();
 		}

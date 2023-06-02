@@ -338,7 +338,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		if (!(content instanceof ASN1Sequence)) {
 			throw new IOException("Was expecting an ASN.1 sequence as content");
 		}
-		this.signedData = SignedData.getInstance((ASN1Sequence)content);
+		this.signedData = SignedData.getInstance(content);
 	}
 
 	protected void writeContent(OutputStream out) throws IOException {
@@ -483,7 +483,8 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		}
 		X509CertificateObject certObject = null;
 		for (int i = 0; i < certs.size(); i++) {
-			org.bouncycastle.asn1.x509.Certificate certAsASN1Object = org.bouncycastle.asn1.x509.Certificate.getInstance((ASN1Sequence)certs.getObjectAt(i));
+			org.bouncycastle.asn1.x509.Certificate certAsASN1Object = org.bouncycastle.asn1.x509.Certificate.getInstance(
+							certs.getObjectAt(i));
 			certObject = new X509CertificateObject(certAsASN1Object); // NOTE: >= BC 1.48
 			//			certObject = new X509CertificateObject(X509CertificateStructure.getInstance(certAsASN1Object)); // NOTE: <= BC 1.47
 			certSpec = certObject.getEncoded();
@@ -639,7 +640,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 			LOGGER.warning("Found " + signerInfos.size() + " signerInfos");
 		}
 		for (int i = 0; i < signerInfos.size(); i++) {
-			return SignerInfo.getInstance((ASN1Sequence)signerInfos.getObjectAt(i));
+			return SignerInfo.getInstance(signerInfos.getObjectAt(i));
 		}
 		return null;
 	}
@@ -716,7 +717,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 				Enumeration<?> attributes = signedAttributesSet.getObjects();
 				byte[] storedDigestedContent = null;
 				while (attributes.hasMoreElements()) {
-					Attribute attribute = Attribute.getInstance((ASN1Sequence)attributes.nextElement());
+					Attribute attribute = Attribute.getInstance(attributes.nextElement());
 					ASN1ObjectIdentifier attrType = attribute.getAttrType();
 					if (RFC_3369_MESSAGE_DIGEST_OID.equals(attrType.getId())) {
 						ASN1Set attrValuesSet = attribute.getAttrValues();
@@ -878,9 +879,9 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 			String digestEncryptionAlgorithm, byte[] content,
 			byte[] encryptedDigest, X509Certificate docSigningCertificate) throws NoSuchAlgorithmException {
 		/* Get the issuer name (CN, O, OU, C) from the cert and put it in a SignerIdentifier struct. */
-		X500Principal docSignerPrincipal = ((X509Certificate)docSigningCertificate).getIssuerX500Principal();
+		X500Principal docSignerPrincipal = docSigningCertificate.getIssuerX500Principal();
 		X500Name docSignerName = new X500Name(docSignerPrincipal.getName(X500Principal.RFC2253));
-		BigInteger serial = ((X509Certificate)docSigningCertificate).getSerialNumber();
+		BigInteger serial = docSigningCertificate.getSerialNumber();
 		SignerIdentifier sid = new SignerIdentifier(new IssuerAndSerialNumber(docSignerName, serial));
 
 		AlgorithmIdentifier digestAlgorithmObject = new AlgorithmIdentifier(new ASN1ObjectIdentifier(lookupOIDByMnemonic(digestAlgorithm)));

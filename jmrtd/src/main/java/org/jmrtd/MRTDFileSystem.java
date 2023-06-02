@@ -64,8 +64,8 @@ class MRTDFileSystem implements FileSystemStructured, Serializable {
 	/** Indicates whether we actually already sent the SELECT command to select <code>selectedFID</code>. */
 	private boolean isSelected;
 
-	private PassportService service;
-	private Map<Short, MRTDFileInfo> fileInfos;
+	private final PassportService service;
+	private final Map<Short, MRTDFileInfo> fileInfos;
 
 	public MRTDFileSystem(PassportService service) {
 		this.service = service;
@@ -169,7 +169,7 @@ class MRTDFileSystem implements FileSystemStructured, Serializable {
 			fileInfos.put(selectedFID, fileInfo);
 			return fileInfo;
 		} catch (IOException ioe) {
-			throw new CardServiceException(ioe.toString() + " getting file info for " + Integer.toHexString(selectedFID));
+			throw new CardServiceException(ioe + " getting file info for " + Integer.toHexString(selectedFID));
 		}
 	}
 
@@ -177,8 +177,8 @@ class MRTDFileSystem implements FileSystemStructured, Serializable {
 
 		private static final long serialVersionUID = 6727369753765119839L;
 
-		private short fid;
-		private FragmentBuffer buffer;
+		private final short fid;
+		private final FragmentBuffer buffer;
 
 		public MRTDFileInfo(short fid, int length) {
 			this.fid = fid;

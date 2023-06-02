@@ -40,7 +40,7 @@ public class SplittableInputStream extends InputStream {
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 	
 	public InputStreamBuffer inputStreamBuffer; // FIXME should be private
-	private InputStreamBuffer.SubInputStream carrier;
+	private final InputStreamBuffer.SubInputStream carrier;
 
 	/**
 	 * Wraps an input stream so that copy streams can be split off.

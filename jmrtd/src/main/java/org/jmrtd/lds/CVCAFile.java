@@ -45,7 +45,7 @@ public class CVCAFile extends AbstractLDSFile {
 	public static final byte CAR_TAG = 0x42;
 	public static final int LENGTH = 36;
 
-	private short fid;
+	private final short fid;
 	
 	private String caReference = null;
 

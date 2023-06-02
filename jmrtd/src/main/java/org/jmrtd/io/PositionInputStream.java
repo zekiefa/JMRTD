@@ -32,7 +32,7 @@ public class PositionInputStream extends InputStream {
 
 	private static final long MARK_NOT_SET = -1L;
 
-	private InputStream carrier;
+	private final InputStream carrier;
 
 	private long position;
 	private long markedPosition;

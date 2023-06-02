@@ -43,7 +43,7 @@ public class FragmentBuffer implements Serializable {
 	private byte[] buffer; // FIXME can we make this buffer grow dynamically?
 
 	/** Administration of which parts of buffer are filled. */
-	private Collection<Fragment> fragments;
+	private final Collection<Fragment> fragments;
 
 	/**
 	 * Creates a fragment buffer.
@@ -296,7 +296,8 @@ public class FragmentBuffer implements Serializable {
 
 		private static final long serialVersionUID = -3795931618553980328L;
 
-		private int offset, length;
+		private final int offset;
+		private final int length;
 
 		public int getOffset() {
 			return offset;

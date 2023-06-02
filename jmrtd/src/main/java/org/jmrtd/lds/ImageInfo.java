@@ -32,13 +32,13 @@ import java.io.InputStream;
 public interface ImageInfo extends LDSElement {
 
 	/** Mime-types. */
-	static String
+    String
 	JPEG_MIME_TYPE = "image/jpeg",
 	JPEG2000_MIME_TYPE = "image/jp2",
 	WSQ_MIME_TYPE = "image/x-wsq";
 	
 	/** Type of image. */
-	static final int
+    int
 	TYPE_PORTRAIT = 0,
 	TYPE_SIGNATURE_OR_MARK = 1,
 	TYPE_FINGER = 2,

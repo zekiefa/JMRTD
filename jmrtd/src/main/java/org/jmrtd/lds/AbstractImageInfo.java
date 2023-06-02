@@ -161,13 +161,12 @@ abstract class AbstractImageInfo implements ImageInfo {
 	 * @return a textual representation of this image info
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append(this.getClass().getSimpleName());
-		result.append(" [");
-		result.append("type: " + typeToString(type) + ", ");
-		result.append("size: " + getImageLength());
-		result.append("]");
-		return result.toString();
+		final String result = this.getClass().getSimpleName()
+						+ " ["
+						+ "type: " + typeToString(type) + ", "
+						+ "size: " + getImageLength()
+						+ "]";
+		return result;
 	}
 
 	public int hashCode() {

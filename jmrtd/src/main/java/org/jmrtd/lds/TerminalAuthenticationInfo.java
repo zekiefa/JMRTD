@@ -60,9 +60,9 @@ public class TerminalAuthenticationInfo extends SecurityInfo {
 
 	public static final int VERSION_NUM = 1;
 
-	private String oid;
-	private int version;
-	private ASN1Sequence efCVCA; /* FIXME: this contains just a file identifier, and possibly a short file identifier? Why not byte (or short?) instead of ASN1Sequence? -- MO */
+	private final String oid;
+	private final int version;
+	private final ASN1Sequence efCVCA; /* FIXME: this contains just a file identifier, and possibly a short file identifier? Why not byte (or short?) instead of ASN1Sequence? -- MO */
 
 	/**
 	 * Constructs a new object.
@@ -153,12 +153,11 @@ public class TerminalAuthenticationInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append("TerminalAuthenticationInfo");
-		result.append("[");
-		result.append("fileID = " + getFileId());
-		result.append("]");
-		return result.toString();
+		final String result = "TerminalAuthenticationInfo"
+						+ "["
+						+ "fileID = " + getFileId()
+						+ "]";
+		return result;
 	}
 
 	public int hashCode() {
@@ -228,7 +227,7 @@ public class TerminalAuthenticationInfo extends SecurityInfo {
 
 	private static short getFileId(ASN1Sequence efCVCA) {
 		if (efCVCA == null) { return -1; }
-		ASN1Sequence s = (ASN1Sequence)efCVCA;
+		ASN1Sequence s = efCVCA;
 		DEROctetString fid = (DEROctetString)s.getObjectAt(0);
 		byte[] bytes = fid.getOctets();
 		return (short)(((bytes[0] & 0xFF) << 8) | (bytes[1] & 0xFF));		

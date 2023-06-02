@@ -46,7 +46,7 @@ public class ISO781611Decoder implements ISO781611 {
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 	
-	private BiometricDataBlockDecoder<?> bdbDecoder;
+	private final BiometricDataBlockDecoder<?> bdbDecoder;
 	
 	/**
 	 * Constructs an ISO7816-11 decoder that uses the given BDB decoder.
@@ -82,15 +82,13 @@ public class ISO781611Decoder implements ISO781611 {
 	private ComplexCBEFFInfo readBITGroup(InputStream inputStream) throws IOException {
 		TLVInputStream tlvIn = inputStream instanceof TLVInputStream ? (TLVInputStream)inputStream : new TLVInputStream(inputStream);
 		int tag = tlvIn.readTag();
-		switch (tag) {
-		case BIOMETRIC_INFORMATION_GROUP_TEMPLATE_TAG:
+		if (tag == BIOMETRIC_INFORMATION_GROUP_TEMPLATE_TAG) {
 			int length = tlvIn.readLength();
 			return readBITGroup(tag, length, inputStream);
-		default:
-			throw new IllegalArgumentException("Expected tag "
-				+ Integer.toHexString(BIOMETRIC_INFORMATION_GROUP_TEMPLATE_TAG)
-				+ ", found " + Integer.toHexString(tag));
 		}
+		throw new IllegalArgumentException("Expected tag "
+						+ Integer.toHexString(BIOMETRIC_INFORMATION_GROUP_TEMPLATE_TAG)
+						+ ", found " + Integer.toHexString(tag));
 	}
 
 	private ComplexCBEFFInfo readBITGroup(int tag, int length, InputStream inputStream) throws IOException {

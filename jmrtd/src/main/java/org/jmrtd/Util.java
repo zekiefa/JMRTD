@@ -35,6 +35,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -283,11 +284,11 @@ public final class Util {
 		long ssc = 0;
 		for (int i = 4; i < 8; i++) {
 			ssc <<= 8;
-			ssc += (long)(rndICC[i] & 0x000000FF);
+			ssc += rndICC[i] & 0x000000FF;
 		}
 		for (int i = 4; i < 8; i++) {
 			ssc <<= 8;
-			ssc += (long)(rndIFD[i] & 0x000000FF);
+			ssc += rndIFD[i] & 0x000000FF;
 		}
 		return ssc;
 	}
@@ -588,7 +589,7 @@ public final class Util {
 	public static DHParameterSpec toExplicitDHParameterSpec(DHParameters params) {
 		BigInteger p = params.getP();
 		BigInteger generator = params.getG();
-		int order = (int)params.getL();
+		int order = params.getL();
 		return new DHParameterSpec(p, generator, order);
 	}
 
@@ -1123,12 +1124,7 @@ public final class Util {
 
 	private static byte[] getBytes(String str) {
 		byte[] bytes = str.getBytes();
-		try {
-			bytes = str.getBytes("UTF-8");
-		} catch (UnsupportedEncodingException use) {
-			/* NOTE: unlikely. */
-			LOGGER.severe("Exception: " + use.getMessage());
-		}
+		bytes = str.getBytes(StandardCharsets.UTF_8);
 		return bytes;
 	}
 

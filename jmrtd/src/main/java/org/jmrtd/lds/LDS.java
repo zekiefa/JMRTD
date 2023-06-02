@@ -55,8 +55,8 @@ public class LDS {
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
-	private Map<Short, LDSFile> files;
-	private Map<Short, SplittableInputStream> fetchers;
+	private final Map<Short, LDSFile> files;
+	private final Map<Short, SplittableInputStream> fetchers;
 
 	public LDS() {
 		this.files = new TreeMap<Short, LDSFile>();

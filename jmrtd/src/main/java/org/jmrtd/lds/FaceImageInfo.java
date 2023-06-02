@@ -71,7 +71,8 @@ public class FaceImageInfo extends AbstractImageInfo {
 			}
 			return null;
 		}
-	};
+	}
+
 
 	public static final int
 	EYE_COLOR_UNSPECIFIED = 0x00,
@@ -85,7 +86,9 @@ public class FaceImageInfo extends AbstractImageInfo {
 	EYE_COLOR_UNKNOWN = 0x08;
 
 	/** Hair color code based on Section 5.5.5 of ISO 19794-5. */
-	public enum HairColor { UNSPECIFIED, BALD, BLACK, BLONDE, BROWN, GRAY, WHITE, RED, GREEN, BLUE, UNKNOWN };
+	public enum HairColor { UNSPECIFIED, BALD, BLACK, BLONDE, BROWN, GRAY, WHITE, RED, GREEN, BLUE, UNKNOWN }
+
+
 	public static final int
 	HAIR_COLOR_UNSPECIFIED = 0x00,
 	HAIR_COLOR_BALD = 0x01,
@@ -100,7 +103,9 @@ public class FaceImageInfo extends AbstractImageInfo {
 	HAIR_COLOR_UNKNOWN = 0xFF;
 
 	/** Feature flags meaning based on Section 5.5.6 of ISO 19794-5. */
-	public enum Features { FEATURES_ARE_SPECIFIED, GLASSES, MOUSTACHE, BEARD, TEETH_VISIBLE, BLINK, MOUTH_OPEN, LEFT_EYE_PATCH, RIGHT_EYE_PATCH, DARK_GLASSES, DISTORTING_MEDICAL_CONDITION };
+	public enum Features { FEATURES_ARE_SPECIFIED, GLASSES, MOUSTACHE, BEARD, TEETH_VISIBLE, BLINK, MOUTH_OPEN, LEFT_EYE_PATCH, RIGHT_EYE_PATCH, DARK_GLASSES, DISTORTING_MEDICAL_CONDITION }
+
+
 	private static final int
 	FEATURE_FEATURES_ARE_SPECIFIED_FLAG = 0x000001,
 	FEATURE_GLASSES_FLAG = 0x000002,
@@ -115,7 +120,9 @@ public class FaceImageInfo extends AbstractImageInfo {
 	FEATURE_DISTORTING_MEDICAL_CONDITION = 0x000400;
 
 	/** Expression code based on Section 5.5.7 of ISO 19794-5. */
-	public enum Expression { UNSPECIFIED, NEUTRAL, SMILE_CLOSED, SMILE_OPEN, RAISED_EYEBROWS, EYES_LOOKING_AWAY, SQUINTING, FROWNING }; 
+	public enum Expression { UNSPECIFIED, NEUTRAL, SMILE_CLOSED, SMILE_OPEN, RAISED_EYEBROWS, EYES_LOOKING_AWAY, SQUINTING, FROWNING }
+
+
 	public static final short
 	EXPRESSION_UNSPECIFIED = 0x0000,
 	EXPRESSION_NEUTRAL = 0x0001,
@@ -127,20 +134,26 @@ public class FaceImageInfo extends AbstractImageInfo {
 	EXPRESSION_FROWNING = 0x0007;
 
 	/** Face image type code based on Section 5.7.1 of ISO 19794-5. */
-	public enum FaceImageType { BASIC, FULL_FRONTAL, TOKEN_FRONTAL }; 
+	public enum FaceImageType { BASIC, FULL_FRONTAL, TOKEN_FRONTAL }
+
+
 	public static final int
 	FACE_IMAGE_TYPE_BASIC = 0x00,
 	FACE_IMAGE_TYPE_FULL_FRONTAL = 0x01,
 	FACE_IMAGE_TYPE_TOKEN_FRONTAL = 0x02;
 
 	/** Image data type code based on Section 5.7.2 of ISO 19794-5. */
-	public enum ImageDataType { TYPE_JPEG, TYPE_JPEG2000 };
+	public enum ImageDataType { TYPE_JPEG, TYPE_JPEG2000 }
+
+
 	public static final int
 	IMAGE_DATA_TYPE_JPEG = 0x00,
 	IMAGE_DATA_TYPE_JPEG2000 = 0x01;
 
 	/** Color space code based on Section 5.7.4 of ISO 19794-5. */
-	public enum ImageColorSpace { UNSPECIFIED, RGB24, YUV422, GRAY8, OTHER }; 
+	public enum ImageColorSpace { UNSPECIFIED, RGB24, YUV422, GRAY8, OTHER }
+
+
 	public static final int
 	IMAGE_COLOR_SPACE_UNSPECIFIED = 0x00,
 	IMAGE_COLOR_SPACE_RGB24 = 0x01,
@@ -149,7 +162,8 @@ public class FaceImageInfo extends AbstractImageInfo {
 	IMAGE_COLOR_SPACE_OTHER = 0x04;
 
 	/** Source type based on Section 5.7.6 of ISO 19794-5. */
-	public enum SourceType { UNSPECIFIED, STATIC_PHOTO_UNKNOWN_SOURCE, STATIC_PHOTO_DIGITAL_CAM, STATIC_PHOTO_SCANNER, VIDEO_FRAME_UNKNOWN_SOURCE, VIDEO_FRAME_ANALOG_CAM, VIDEO_FRAME_DIGITAL_CAM, UNKNOWN };
+	public enum SourceType { UNSPECIFIED, STATIC_PHOTO_UNKNOWN_SOURCE, STATIC_PHOTO_DIGITAL_CAM, STATIC_PHOTO_SCANNER, VIDEO_FRAME_UNKNOWN_SOURCE, VIDEO_FRAME_ANALOG_CAM, VIDEO_FRAME_DIGITAL_CAM, UNKNOWN }
+
 
 	public static final int
 	SOURCE_TYPE_UNSPECIFIED = 0x00,
@@ -237,7 +251,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		this.poseAngleUncertainty = new int[3];
 		System.arraycopy(poseAngleUncertainty, 0, this.poseAngleUncertainty, 0, 3);
 		this.imageDataType = imageDataType;
-		this.recordLength = 20 + 8 * featurePointCount + 12 + imageLength;
+		this.recordLength = 20 + 8L * featurePointCount + 12 + imageLength;
 		
 		this.faceImageType = faceImageType;
 		this.colorSpace = colorSpace;
@@ -612,7 +626,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		}
 		StringBuffer out = new StringBuffer();
 		for (Iterator<String> it = features.iterator(); it.hasNext();) {
-			out.append(it.next().toString());
+			out.append(it.next());
 			if (it.hasNext()) {
 				out.append(", ");
 			}
@@ -739,11 +753,11 @@ public class FaceImageInfo extends AbstractImageInfo {
 	 */
 	public static class FeaturePoint
 	{
-		private int type;
-		private int majorCode;
-		private int minorCode;
-		private int x;
-		private int y;
+		private final int type;
+		private final int majorCode;
+		private final int minorCode;
+		private final int x;
+		private final int y;
 
 		/**
 		 * Constructs a new feature point.
@@ -772,7 +786,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		 * @param y Y-coordinate
 		 */
 		FeaturePoint(int type, byte code, int x, int y) {
-			this(type, (int)((code & 0xF0) >> 4), (int)(code & 0x0F), x ,y);
+			this(type, (code & 0xF0) >> 4, code & 0x0F, x ,y);
 		}
 
 		/**
@@ -828,14 +842,13 @@ public class FaceImageInfo extends AbstractImageInfo {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			StringBuffer out = new StringBuffer();
-			out.append("( point: "); out.append(getMajorCode()); out.append("."); out.append(getMinorCode());
-			out.append(", ");
-			out.append("type: "); out.append(Integer.toHexString(type)); out.append(", ");
-			out.append("("); out.append(x); out.append(", ");
-			out.append(y); out.append(")");
-			out.append(")");
-			return out.toString();
+			final String out = "( point: " + getMajorCode() + "." + getMinorCode()
+							+ ", "
+							+ "type: " + Integer.toHexString(type) + ", "
+							+ "(" + x + ", "
+							+ y + ")"
+							+ ")";
+			return out;
 		}
 	}
 }

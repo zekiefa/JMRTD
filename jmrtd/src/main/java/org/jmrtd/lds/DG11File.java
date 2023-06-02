@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -236,23 +237,14 @@ public class DG11File extends DataGroup {
 	/* Field parsing and interpretation below. */
 
 	private void parseCustodyInformation(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			//		custodyInformation = in.replace("<", " ").trim();
-			custodyInformation = field.trim();
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-			custodyInformation = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		//		custodyInformation = in.replace("<", " ").trim();
+		custodyInformation = field.trim();
 	}
 
 	private void parseOtherValidTDNumbers(byte[] value) {
 		String field = new String(value).trim();
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		otherValidTDNumbers = new ArrayList<String>();
 		StringTokenizer st = new StringTokenizer(field, "<");
 		while (st.hasMoreTokens()) {
@@ -266,56 +258,34 @@ public class DG11File extends DataGroup {
 	}
 
 	private void parsePersonalSummary(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			//		personalSummary = in.replace("<", " ").trim();
-			personalSummary = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			LOGGER.severe("Exception: " + usee.getMessage());
-			personalSummary = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		//		personalSummary = in.replace("<", " ").trim();
+		personalSummary = field.trim();
 	}
 
 	private void parseTitle(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			//		title = in.replace("<", " ").trim();
-			title = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			LOGGER.severe("Exception: " + usee.getMessage());
-			title = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		//		title = in.replace("<", " ").trim();
+		title = field.trim();
 	}
 
 	private void parseProfession(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		//		profession = in.replace("<", " ").trim();
 		profession = field.trim();
 	}
 
 	private void parseTelephone(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		//		telephone = in.replace("<", " ").trim();
 		telephone = field.replace("<", " ").trim();
 	}
 
 	private void parsePermanentAddress(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		StringTokenizer st = new StringTokenizer(field, "<");
 		permanentAddress = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
@@ -326,11 +296,7 @@ public class DG11File extends DataGroup {
 
 	private void parsePlaceOfBirth(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		StringTokenizer st = new StringTokenizer(field, "<");
 		placeOfBirth = new ArrayList<String>();
 		while (st.hasMoreTokens()) {
@@ -347,11 +313,7 @@ public class DG11File extends DataGroup {
 				field = Hex.bytesToHexString(value);
 			} else {
 				field = new String(value);
-				try {
-					field = new String(value, "UTF-8");
-				} catch (UnsupportedEncodingException usee) {
-					LOGGER.severe("Exception: " + usee.getMessage());
-				}
+				field = new String(value, StandardCharsets.UTF_8);
 			}
 			// in = in.replace("<", " ").trim();
 			fullDateOfBirth = SDF.parse(field);
@@ -362,32 +324,19 @@ public class DG11File extends DataGroup {
 
 	private synchronized void parseOtherName(byte[] value) {
 		if (otherNames == null) { otherNames = new ArrayList<String>(); }
-		try {
-			String field = new String(value, "UTF-8");
-			otherNames.add(field.trim());
-		} catch (UnsupportedEncodingException usee) {
-			LOGGER.severe("Exception: " + usee.getMessage());
-			otherNames.add(new String(value).trim());
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		otherNames.add(field.trim());
 	}
 
 	private void parsePersonalNumber(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		personalNumber = field.trim();
 	}
 
 	private void parseNameOfHolder(byte[] value) {
 		String field = new String(value);
-		try {
-			field = new String(value, "UTF-8");
-		} catch (UnsupportedEncodingException uee) {
-			LOGGER.severe("Exception: " + uee.getMessage());
-		}
+		field = new String(value, StandardCharsets.UTF_8);
 		nameOfHolder = field.trim();
 	}
 
@@ -570,23 +519,22 @@ public class DG11File extends DataGroup {
 	 * @return a textual representation of this file
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append("DG11File [");
-		result.append(nameOfHolder == null ? "" : nameOfHolder); result.append(", ");
-		result.append(otherNames == null || otherNames.size() == 0 ? "[]" : otherNames); result.append(", ");
-		result.append(personalNumber == null ? "" : personalNumber); result.append(", ");
-		result.append(fullDateOfBirth == null ? "" : SDF.format(fullDateOfBirth)); result.append(", ");
-		result.append(placeOfBirth == null || placeOfBirth.size() == 0 ? "[]" : placeOfBirth.toString()); result.append(", ");
-		result.append(permanentAddress == null || permanentAddress.size() == 0 ? "[]" : permanentAddress.toString()); result.append(", ");
-		result.append(telephone == null ? "" : telephone); result.append(", ");
-		result.append(profession == null ? "" : profession); result.append(", ");
-		result.append(title == null ? "" : title); result.append(", ");
-		result.append(personalSummary == null ? "" : personalSummary); result.append(", ");
-		result.append(proofOfCitizenship == null ? "" : "image (" + proofOfCitizenship.length + ")"); result.append(", ");
-		result.append(otherValidTDNumbers == null || otherValidTDNumbers.size() == 0 ? "[]" : otherValidTDNumbers.toString()); result.append(", ");
-		result.append(custodyInformation == null ? "" : custodyInformation);
-		result.append("]");
-		return result.toString();
+		final String result = "DG11File ["
+						+ (nameOfHolder == null ? "" : nameOfHolder) + ", "
+						+ (otherNames == null || otherNames.size() == 0 ? "[]" : otherNames) + ", "
+						+ (personalNumber == null ? "" : personalNumber) + ", "
+						+ (fullDateOfBirth == null ? "" : SDF.format(fullDateOfBirth)) + ", "
+						+ (placeOfBirth == null || placeOfBirth.size() == 0 ? "[]" : placeOfBirth.toString()) + ", "
+						+ (permanentAddress == null || permanentAddress.size() == 0 ? "[]" : permanentAddress.toString()) + ", "
+						+ (telephone == null ? "" : telephone) + ", "
+						+ (profession == null ? "" : profession) + ", "
+						+ (title == null ? "" : title) + ", "
+						+ (personalSummary == null ? "" : personalSummary) + ", "
+						+ (proofOfCitizenship == null ? "" : "image (" + proofOfCitizenship.length + ")") + ", "
+						+ (otherValidTDNumbers == null || otherValidTDNumbers.size() == 0 ? "[]" : otherValidTDNumbers.toString()) + ", "
+						+ (custodyInformation == null ? "" : custodyInformation)
+						+ "]";
+		return result;
 	}
 
 	public boolean equals(Object obj) {
@@ -615,7 +563,7 @@ public class DG11File extends DataGroup {
 			switch (tag) {
 			case FULL_NAME_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(nameOfHolder.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(nameOfHolder.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case OTHER_NAME_TAG:
 				if (otherNames == null) { otherNames = new ArrayList<String>(); }
@@ -625,13 +573,13 @@ public class DG11File extends DataGroup {
 				tlvOut.writeValueEnd(); /* COUNT_TAG */
 				for (String otherName: otherNames) {
 					tlvOut.writeTag(OTHER_NAME_TAG);
-					tlvOut.writeValue(otherName.trim().getBytes("UTF-8"));
+					tlvOut.writeValue(otherName.trim().getBytes(StandardCharsets.UTF_8));
 				}
 				tlvOut.writeValueEnd(); /* CONTENT_SPECIFIC_CONSTRUCTED_TAG */
 				break; 	
 			case PERSONAL_NUMBER_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(personalNumber.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(personalNumber.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case FULL_DATE_OF_BIRTH_TAG:
 				tlvOut.writeTag(tag);
@@ -645,7 +593,7 @@ public class DG11File extends DataGroup {
 				for (String detail: placeOfBirth) {
 					if (detail != null) {
 						if (isFirstOne) { isFirstOne = false; } else { tlvOut.write('<'); }
-						tlvOut.write(detail.trim().getBytes("UTF-8"));
+						tlvOut.write(detail.trim().getBytes(StandardCharsets.UTF_8));
 					}
 				}
 				tlvOut.writeValueEnd(); /* PLACE_OF_BIRTH_TAG */
@@ -656,26 +604,26 @@ public class DG11File extends DataGroup {
 				for (String detail: permanentAddress) {
 					if (detail != null) {
 						if (isFirstOne) { isFirstOne = false; } else { tlvOut.write('<'); }
-						tlvOut.write(detail.trim().getBytes("UTF-8"));
+						tlvOut.write(detail.trim().getBytes(StandardCharsets.UTF_8));
 					}
 				}
 				tlvOut.writeValueEnd(); /* PERMANENT_ADDRESS_TAG */
 				break;
 			case TELEPHONE_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(telephone.trim().replace(' ', '<').getBytes("UTF-8"));
+				tlvOut.writeValue(telephone.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 				break;
 			case PROFESSION_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(profession.trim().replace(' ', '<').getBytes("UTF-8"));
+				tlvOut.writeValue(profession.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 				break;
 			case TITLE_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(title.trim().replace(' ', '<').getBytes("UTF-8"));
+				tlvOut.writeValue(title.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 				break;
 			case PERSONAL_SUMMARY_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(personalSummary.trim().replace(' ', '<').getBytes("UTF-8"));
+				tlvOut.writeValue(personalSummary.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 				break;
 			case PROOF_OF_CITIZENSHIP_TAG:
 				tlvOut.writeTag(tag);
@@ -687,14 +635,14 @@ public class DG11File extends DataGroup {
 				for (String detail: otherValidTDNumbers) {
 					if (detail != null) {
 						if (isFirstOne) { isFirstOne = false; } else { tlvOut.write('<'); }
-						tlvOut.write(detail.trim().replace(' ', '<').getBytes("UTF-8"));
+						tlvOut.write(detail.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 					}
 				}
 				tlvOut.writeValueEnd(); /* OTHER_VALID_TD_NUMBERS_TAG */
 				break;
 			case CUSTODY_INFORMATION_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(custodyInformation.trim().replace(' ', '<').getBytes("UTF-8"));
+				tlvOut.writeValue(custodyInformation.trim().replace(' ', '<').getBytes(StandardCharsets.UTF_8));
 				break;
 			default: throw new IllegalStateException("Unknown tag in DG11: " + Integer.toHexString(tag));
 			}

@@ -48,7 +48,7 @@ public class IrisBiometricSubtypeInfo extends AbstractListInfo<IrisImageInfo> {
 	EYE_RIGHT = 1,
 	EYE_LEFT = 2;
 
-	private int imageFormat;
+	private final int imageFormat;
 	private int biometricSubtype;
 
 	/**

@@ -35,7 +35,7 @@ public interface LDSFile extends LDSElement {
 	 * ICAO specific datagroup tag.
 	 * In EAC documents there is also the CVCA file that has no tag!
 	 */
-	public static final int
+    int
 	EF_COM_TAG = 0x60,
 	EF_DG1_TAG = 0x61,
 	EF_DG2_TAG = 0x75,

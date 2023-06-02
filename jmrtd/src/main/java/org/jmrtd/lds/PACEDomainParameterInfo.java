@@ -55,9 +55,9 @@ public class PACEDomainParameterInfo extends SecurityInfo {
 	 */
 	private static final String ID_EC_PUBLIC_KEY = "1.2.840.10045.2.1";
 
-	private String protocolOID;
-	private AlgorithmIdentifier domainParameter;
-	private int parameterId;
+	private final String protocolOID;
+	private final AlgorithmIdentifier domainParameter;
+	private final int parameterId;
 
 	/**
 	 * 

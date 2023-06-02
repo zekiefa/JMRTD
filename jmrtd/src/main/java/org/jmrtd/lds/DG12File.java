@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -213,14 +214,8 @@ public class DG12File extends DataGroup {
 	/* Field parsing below. */
 
 	private void parsePersonalizationSystemSerialNumber(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			personalizationSystemSerialNumber = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: UTF-8 not supported? Unlikely. In any case use default charset. */
-			LOGGER.severe("Exception: " + usee.getMessage());
-			personalizationSystemSerialNumber = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		personalizationSystemSerialNumber = field.trim();
 	}
 
 	private void parseDateAndTimeOfPersonalization(byte[] value) {
@@ -241,37 +236,19 @@ public class DG12File extends DataGroup {
 	}
 
 	private void parseTaxOrExitRequirements(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			taxOrExitRequirements = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: UTF-8 not supported? Unlikely. In any case use default charset. */
-			LOGGER.severe("Exception: " + usee.getMessage());
-			taxOrExitRequirements = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		taxOrExitRequirements = field.trim();
 	}
 
 	private void parseEndorsementsAndObservations(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			endorseMentsAndObservations = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: UTF-8 not supported? Unlikely. In any case use default charset. */
-			LOGGER.severe("Exception: " + usee.getMessage());
-			endorseMentsAndObservations = new String(value).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		endorseMentsAndObservations = field.trim();
 	}
 
 	private synchronized void parseNameOfOtherPerson(byte[] value) {
 		if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<String>(); }
-		try {
-			String field = new String(value, "UTF-8");
-			namesOfOtherPersons.add(field.trim());
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: UTF-8 not supported? Unlikely. In any case use default charset. */
-			LOGGER.severe("Exception: " + usee.getMessage());
-			namesOfOtherPersons.add(new String(value).trim());
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		namesOfOtherPersons.add(field.trim());
 	}
 
 	private void parseDateOfIssue(byte[] value) {
@@ -280,12 +257,9 @@ public class DG12File extends DataGroup {
 		/* Try to interpret value as a ccyymmdd formatted date string as per Doc 9303. */
 		if (value.length == 8) {
 			try {
-				String dateString = new String(value, "UTF-8");
+				String dateString = new String(value, StandardCharsets.UTF_8);
 				dateOfIssue = SDF.parse(dateString.trim());
 				return;
-			} catch (UnsupportedEncodingException usee) {
-				/* NOTE: never happens, UTF-8 is supported. */
-				LOGGER.severe("Exception: " + usee.getMessage());
 			} catch (ParseException e) {
 				/* NOTE: ok, something went wrong here, it's not the date format that we expect. */
 				LOGGER.severe("Exception: " + e.getMessage());
@@ -310,14 +284,8 @@ public class DG12File extends DataGroup {
 	}
 
 	private void parseIssuingAuthority(byte[] value) {
-		try {
-			String field = new String(value, "UTF-8");
-			issuingAuthority = field.trim();
-		} catch (UnsupportedEncodingException usee) {
-			/* NOTE: Default charset, wtf, UTF-8 not supported? */
-			LOGGER.severe("Exception: " + usee.getMessage());
-			issuingAuthority = (new String(value)).trim();
-		}
+		String field = new String(value, StandardCharsets.UTF_8);
+		issuingAuthority = field.trim();
 	}
 
 	/* Accessors below. */
@@ -413,19 +381,18 @@ public class DG12File extends DataGroup {
 	 * @return a textual representation of this file
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append("DG12File [");
-		result.append(issuingAuthority == null ? "" : issuingAuthority); result.append(", ");
-		result.append(dateOfIssue == null ? "" : SDF.format(dateOfIssue)); result.append(", ");
-		result.append(namesOfOtherPersons == null || namesOfOtherPersons.size() == 0 ? "" : namesOfOtherPersons); result.append(", ");
-		result.append(endorseMentsAndObservations == null ? "" : endorseMentsAndObservations); result.append(", ");
-		result.append(taxOrExitRequirements == null ? "" : taxOrExitRequirements); result.append(", ");
-		result.append(imageOfFront == null ? "" : "image (" + imageOfFront.length + ")"); result.append(", ");
-		result.append(imageOfRear == null ? "" : "image (" + imageOfRear.length + ")"); result.append(", ");
-		result.append(dateAndTimeOfPersonalization == null ? "" : SDF.format(dateAndTimeOfPersonalization)); result.append(", ");
-		result.append(personalizationSystemSerialNumber== null ? "" : personalizationSystemSerialNumber);
-		result.append("]");
-		return result.toString();
+		final String result = "DG12File ["
+						+ (issuingAuthority == null ? "" : issuingAuthority) + ", "
+						+ (dateOfIssue == null ? "" : SDF.format(dateOfIssue)) + ", "
+						+ (namesOfOtherPersons == null || namesOfOtherPersons.size() == 0 ? "" : namesOfOtherPersons) + ", "
+						+ (endorseMentsAndObservations == null ? "" : endorseMentsAndObservations) + ", "
+						+ (taxOrExitRequirements == null ? "" : taxOrExitRequirements) + ", "
+						+ (imageOfFront == null ? "" : "image (" + imageOfFront.length + ")") + ", "
+						+ (imageOfRear == null ? "" : "image (" + imageOfRear.length + ")") + ", "
+						+ (dateAndTimeOfPersonalization == null ? "" : SDF.format(dateAndTimeOfPersonalization)) + ", "
+						+ (personalizationSystemSerialNumber == null ? "" : personalizationSystemSerialNumber)
+						+ "]";
+		return result;
 	}
 
 	public boolean equals(Object obj) {
@@ -454,11 +421,11 @@ public class DG12File extends DataGroup {
 			switch (tag) {
 			case ISSUING_AUTHORITY_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(issuingAuthority.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(issuingAuthority.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case DATE_OF_ISSUE_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(new String(SDF.format(dateOfIssue)).getBytes("UTF-8"));
+				tlvOut.writeValue(SDF.format(dateOfIssue).getBytes(StandardCharsets.UTF_8));
 				break;
 			case NAME_OF_OTHER_PERSON_TAG:
 				if (namesOfOtherPersons == null) { namesOfOtherPersons = new ArrayList<String>(); }
@@ -468,17 +435,17 @@ public class DG12File extends DataGroup {
 				tlvOut.writeValueEnd(); /* COUNT_TAG */
 				for (String nameOfOtherPerson: namesOfOtherPersons) {
 					tlvOut.writeTag(NAME_OF_OTHER_PERSON_TAG);
-					tlvOut.writeValue(nameOfOtherPerson.trim().getBytes("UTF-8"));
+					tlvOut.writeValue(nameOfOtherPerson.trim().getBytes(StandardCharsets.UTF_8));
 				}
 				tlvOut.writeValueEnd(); /* CONTENT_SPECIFIC_CONSTRUCTED_TAG */
 				break; 
 			case ENDORSEMENTS_AND_OBSERVATIONS_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(endorseMentsAndObservations.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(endorseMentsAndObservations.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case TAX_OR_EXIT_REQUIREMENTS_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(taxOrExitRequirements.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(taxOrExitRequirements.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			case IMAGE_OF_FRONT_TAG:
 				tlvOut.writeTag(tag);
@@ -494,7 +461,7 @@ public class DG12File extends DataGroup {
 				break;
 			case PERSONALIZATION_SYSTEM_SERIAL_NUMBER_TAG:
 				tlvOut.writeTag(tag);
-				tlvOut.writeValue(personalizationSystemSerialNumber.trim().getBytes("UTF-8"));
+				tlvOut.writeValue(personalizationSystemSerialNumber.trim().getBytes(StandardCharsets.UTF_8));
 				break;
 			default:
 				throw new IllegalArgumentException("Unknown field tag in DG12: " + Integer.toHexString(tag));

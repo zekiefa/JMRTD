@@ -30,13 +30,17 @@
     <java.version>11</java.version>
     <bouncycastle.version>1.73</bouncycastle.version>
     <cert-cvc.version>1.4.13</cert-cvc.version>
+    <scuba-smartcards.version>0.0.19</scuba-smartcards.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <junit-jupiter-engine.version>5.9.3</junit-jupiter-engine.version>
+    <mockito-core.version>5.3.1</mockito-core.version>
   </properties>
 
   <dependencies>
     <dependency>
       <groupId>net.sf.scuba</groupId>
       <artifactId>scuba-smartcards</artifactId>
-      <version>0.0.19</version>
+      <version>${scuba-smartcards.version}</version>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
@@ -63,6 +67,19 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter-engine.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-core.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -70,7 +87,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>${java.version}</source> <!-- depending on your project -->
           <target>${java.version}</target> <!-- depending on your project -->

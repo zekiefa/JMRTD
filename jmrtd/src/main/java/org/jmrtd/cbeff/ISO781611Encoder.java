@@ -39,7 +39,7 @@ import net.sf.scuba.tlv.TLVOutputStream;
  */
 public class ISO781611Encoder<B extends BiometricDataBlock> implements ISO781611 {
 
-	private BiometricDataBlockEncoder<B> bdbEncoder;
+	private final BiometricDataBlockEncoder<B> bdbEncoder;
 	
 	/**
 	 * Constructs an ISO7816-11 encoder that uses the given BDB encoder.
@@ -60,7 +60,7 @@ public class ISO781611Encoder<B extends BiometricDataBlock> implements ISO781611
 	 */
 	public void encode(CBEFFInfo cbeffInfo, OutputStream outputStream) throws IOException {
 		if (cbeffInfo instanceof SimpleCBEFFInfo) {
-			writeBITGroup(Arrays.asList(new CBEFFInfo[] { cbeffInfo }), outputStream);
+			writeBITGroup(Arrays.asList(cbeffInfo), outputStream);
 		} else if (cbeffInfo instanceof ComplexCBEFFInfo) {
 			ComplexCBEFFInfo complexCBEFFInfo = (ComplexCBEFFInfo)cbeffInfo;
 			writeBITGroup(complexCBEFFInfo.getSubRecords(), outputStream);

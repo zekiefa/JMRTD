@@ -51,7 +51,8 @@ public class PACEInfo extends SecurityInfo {
 	private static final long serialVersionUID = 7960925013249578359L;
 
 	/** Generic mapping and Integrated mapping. */
-	public enum MappingType { GM, IM };
+	public enum MappingType { GM, IM }
+
 
 	/** Standardized domain parameters. Based on Table 6. */
 	public static final int
@@ -90,9 +91,9 @@ public class PACEInfo extends SecurityInfo {
 	PARAMS_ECP_BRAINPOOL_P384_R1 = Util.toExplicitECParameterSpec(ECNamedCurveTable.getParameterSpec("brainpoolp384r1")),
 	PARAMS_ECP_BRAINPOOL_P512_R1 = Util.toExplicitECParameterSpec(ECNamedCurveTable.getParameterSpec("brainpoolp512r1"));
 
-	private String protocolOID;
-	private int version;
-	private int parameterId;
+	private final String protocolOID;
+	private final int version;
+	private final int parameterId;
 
 	/**
 	 * Creates a PACEInfo instance.

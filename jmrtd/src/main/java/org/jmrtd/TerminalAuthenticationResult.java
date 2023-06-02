@@ -43,12 +43,12 @@ public class TerminalAuthenticationResult  {
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 	
-	private ChipAuthenticationResult chipAuthenticationResult;
-	private CVCPrincipal caReference;
-	private List<CardVerifiableCertificate> terminalCertificates = new ArrayList<CardVerifiableCertificate>();
-	private PrivateKey terminalKey;
-	private String documentNumber;
-	private byte[] cardChallenge;
+	private final ChipAuthenticationResult chipAuthenticationResult;
+	private final CVCPrincipal caReference;
+	private final List<CardVerifiableCertificate> terminalCertificates = new ArrayList<CardVerifiableCertificate>();
+	private final PrivateKey terminalKey;
+	private final String documentNumber;
+	private final byte[] cardChallenge;
 
 	/**
 	 * Constructs a new event.

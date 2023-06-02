@@ -72,7 +72,7 @@ public class CardVerifiableCertificate extends Certificate {
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
 	/** The EJBCA CVC that we wrap. */
-	private org.ejbca.cvc.CVCertificate cvCertificate;
+	private final org.ejbca.cvc.CVCertificate cvCertificate;
 
 	private transient KeyFactory rsaKeyFactory;
 

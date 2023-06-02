@@ -59,9 +59,9 @@ public class ChipAuthenticationInfo extends SecurityInfo {
 	
 	public static final int VERSION_NUM = 1;
 
-	private String oid;
-	private int version;
-	private BigInteger keyId;
+	private final String oid;
+	private final int version;
+	private final BigInteger keyId;
 
 	/**
 	 * Constructs a new object.

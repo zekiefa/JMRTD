@@ -40,7 +40,7 @@ public class StandardBiometricHeader implements Serializable {
 
 	private static final long serialVersionUID = 4113147521594478513L;
 
-	private SortedMap<Integer, byte[]> elements;
+	private final SortedMap<Integer, byte[]> elements;
 	
 	/**
 	 * Constructs a standard biometric header.

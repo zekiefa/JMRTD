@@ -101,12 +101,12 @@ public class PassportApduService extends CardService {
 	private byte[] atr;
 
 	/** DESede encryption/decryption cipher. */
-	private transient Cipher cipher;
+	private final transient Cipher cipher;
 
 	/** ISO9797Alg3Mac. */
-	private transient Mac mac;
+	private final transient Mac mac;
 
-	private Collection<APDUListener> plainTextAPDUListeners;
+	private final Collection<APDUListener> plainTextAPDUListeners;
 
 	private int plainAPDUCount;
 

@@ -548,11 +548,10 @@ public class IrisInfo extends AbstractListInfo<IrisBiometricSubtypeInfo> impleme
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
-		result.append("IrisInfo [");
-		/* TODO: contents */
-		result.append("]");
-		return result.toString();
+		final String result = "IrisInfo ["
+						/* TODO: contents */
+						+ "]";
+		return result;
 	}
 
 	/**

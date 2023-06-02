@@ -38,8 +38,8 @@ import org.jmrtd.io.FragmentBuffer.Fragment;
  */
 public class InputStreamBuffer {
 
-	private PositionInputStream carrier;
-	private FragmentBuffer buffer;
+	private final PositionInputStream carrier;
+	private final FragmentBuffer buffer;
 
 	/**
 	 * Creates an input stream buffer.
@@ -95,7 +95,7 @@ public class InputStreamBuffer {
 		private int position;
 		private int markedPosition;
 
-		private Object syncObject;
+		private final Object syncObject;
 
 		public SubInputStream(Object syncObject) {
 			position = 0;

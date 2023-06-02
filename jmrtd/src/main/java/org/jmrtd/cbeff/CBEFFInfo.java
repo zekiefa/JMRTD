@@ -39,7 +39,7 @@ public interface CBEFFInfo {
 	 * Table C.2 in ISO/IEC 7816-11,
 	 * Section 6.5.6 of ISO/IEC 19785-1.
 	 */
-	public static final int
+	int
 	BIOMETRIC_TYPE_NO_INFORMATION_GIVEN = 0x000000,
 	BIOMETRIC_TYPE_MULTIPLE_BIOMETRICS_USED = 0x000001,
 	BIOMETRIC_TYPE_FACIAL_FEATURES = 0x000002,
@@ -68,7 +68,7 @@ public interface CBEFFInfo {
 	 * Table C.3 in ISO/IEC 7816-11,
 	 * Section 6.5.7 of ISO/IEC 19785-1.
 	 */
-	public static final int
+	int
 	BIOMETRIC_SUBTYPE_NONE = 0x00,					/* 00000000 */
 	BIOMETRIC_SUBTYPE_MASK_RIGHT = 0x01,			/* xxxxxx01 */
 	BIOMETRIC_SUBTYPE_MASK_LEFT = 0x02,				/* xxxxxx10 */

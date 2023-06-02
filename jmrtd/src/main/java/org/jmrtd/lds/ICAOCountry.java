@@ -52,7 +52,7 @@ public class ICAOCountry extends Country {
 	XXC = new ICAOCountry("XX","XXC","Refugee (other)", "Refugee (other)"),
 	XXX = new ICAOCountry("XX","XXX","Unspecified", "Unspecified");
 
-	private static ICAOCountry[] VALUES = {
+	private static final ICAOCountry[] VALUES = {
 		DE,
 		GBD, GBN, GBO, GBP, GBS,
 		UNO, UNA, UNK,

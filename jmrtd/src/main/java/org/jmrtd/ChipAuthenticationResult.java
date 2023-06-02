@@ -35,10 +35,10 @@ import java.security.PublicKey;
  */
 public class ChipAuthenticationResult {
 
-	private BigInteger keyId;
-	private PublicKey publicKey;
-	private byte[] keyHash;
-	private KeyPair keyPair;
+	private final BigInteger keyId;
+	private final PublicKey publicKey;
+	private final byte[] keyHash;
+	private final KeyPair keyPair;
 
 	/**
 	 * Creates a result.

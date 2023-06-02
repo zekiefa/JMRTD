@@ -44,9 +44,9 @@ public class CVCAuthorizationTemplate {
 		DV_F  (0x40),
 		IS    (0x00);
 
-		private byte value;
+		private final byte value;
 
-		private Role(int value) {
+		Role(int value) {
 			this.value = (byte)value;
 		}
 
@@ -74,9 +74,9 @@ public class CVCAuthorizationTemplate {
 		READ_ACCESS_DG4         (0x02),
 		READ_ACCESS_DG3_AND_DG4 (0x03);
 
-		private byte value;
+		private final byte value;
 
-		private Permission(int value){
+		Permission(int value){
 			this.value = (byte)value;
 		}
 

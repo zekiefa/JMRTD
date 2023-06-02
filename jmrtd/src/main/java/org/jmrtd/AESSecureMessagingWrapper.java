@@ -59,9 +59,10 @@ public class AESSecureMessagingWrapper extends SecureMessagingWrapper implements
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
-	private SecretKey ksEnc, ksMac;
+	private final SecretKey ksEnc;
+	private final SecretKey ksMac;
 	private transient Cipher cipher;
-	private transient Mac mac;
+	private final transient Mac mac;
 
 	private long ssc;
 
@@ -243,7 +244,7 @@ public class AESSecureMessagingWrapper extends SecureMessagingWrapper implements
 			bOut.reset();
 			bOut.write(hasDO85 ? (byte)0x85 : (byte)0x87);
 			bOut.write(TLVUtil.getLengthAsBytes(ciphertext.length + (hasDO85 ? 0 : 1)));
-			if(!hasDO85) { bOut.write(0x01); };
+			if(!hasDO85) { bOut.write(0x01); }
 			bOut.write(ciphertext, 0, ciphertext.length);
 			do8587 = bOut.toByteArray();
 		}
