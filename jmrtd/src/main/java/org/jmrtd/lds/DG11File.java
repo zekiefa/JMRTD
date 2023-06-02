@@ -27,7 +27,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +45,6 @@ import net.sf.scuba.util.Hex;
 /**
  * File structure for the EF_DG11 file.
  * Datagroup 11 contains additional personal detail(s).
- * 
  * All fields are optional. See Section 16 of LDS-TR.
  * <ol>
  * <li>Name of Holder (Primary and Secondary Identifiers, in full)</li>

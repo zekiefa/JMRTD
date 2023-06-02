@@ -36,7 +36,6 @@ import org.bouncycastle.asn1.DLSequence;
 /**
  * A concrete SecurityInfo structure that stores terminal authentication
  * info, see EAC 1.11 specification.
- * 
  * This data structure provides detailed information on an implementation of Terminal Authentication.
  * <ul>
  * <li>The object identifier <code>protocol</code> SHALL identify the Terminal

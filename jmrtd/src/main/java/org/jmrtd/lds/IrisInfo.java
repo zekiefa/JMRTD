@@ -41,7 +41,6 @@ import org.jmrtd.cbeff.StandardBiometricHeader;
  * Iris record header and biometric subtype blocks
  * based on Section 6.5.3 and Table 2 of
  * ISO/IEC 19794-6 2005.
- * 
  * TODO: proper enums for fields.
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)

@@ -46,7 +46,6 @@ import net.sf.scuba.util.Hex;
 
 /**
  * An AES secure messaging wrapper for APDUs. Based on TR-SAC.
- * 
  * FIXME: WORK IN PROGRESS
  *
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)

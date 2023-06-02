@@ -41,7 +41,6 @@ import org.jmrtd.io.SplittableInputStream;
 
 /**
  * The ICAO logical data structure version 1.7.
- * 
  * This is basically a collection of input streams for the
  * data groups, combined with some status information (progress).
  * 

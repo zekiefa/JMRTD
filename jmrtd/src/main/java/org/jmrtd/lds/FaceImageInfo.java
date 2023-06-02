@@ -38,7 +38,6 @@ import net.sf.scuba.data.Gender;
  * Data structure for storing facial image data. This represents
  * a facial record data block as specified in Section 5.5, 5.6,
  * and 5.7 of ISO/IEC FCD 19794-5 (2004-03-22, AKA Annex D).
- *
  * A facial record data block contains a single facial image.
  *
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)

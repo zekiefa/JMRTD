@@ -81,7 +81,6 @@ import org.jmrtd.JMRTDSecurityProvider;
 /**
  * File structure for the EF_SOD file (the Document Security Object).
  * Based on Appendix 3 of Doc 9303 Part 1 Vol 2.
- * 
  * Basically the Document Security Object is a SignedData type as specified in
  * <a href="http://www.ietf.org/rfc/rfc3369.txt">RFC 3369</a>.
  * 

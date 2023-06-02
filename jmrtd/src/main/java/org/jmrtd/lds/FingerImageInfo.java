@@ -36,7 +36,6 @@ import org.jmrtd.cbeff.CBEFFInfo;
  * image, multi-finger image, or palm. This represents a
  * finger image record header as specified in Section 7.2
  * of ISO/IEC FCD 19794-4 aka Annex F.
- *
  * TODO: proper enums for data types
  * 
  * @author Martijn Oostdijk (martijn.oostdijk@gmail.com)

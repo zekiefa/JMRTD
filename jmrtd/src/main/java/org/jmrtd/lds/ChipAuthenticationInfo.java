@@ -34,7 +34,6 @@ import org.bouncycastle.asn1.DLSequence;
 /**
  * A concrete SecurityInfo structure that stores chip authentication info,
  * see EAC 1.11 specification.
- * 
  * This data structure provides detailed information on an implementation of
  * Chip Authentication.
  * <ul>
@@ -136,7 +135,6 @@ public class ChipAuthenticationInfo extends SecurityInfo {
 	/**
 	 * Checks whether the given object identifier identifies a
 	 * ChipAuthenticationInfo structure.
-	 * 
 	 * FIXME: for EAC 1.11 only the 3DES OIDs are allowed.
 	 * 
 	 * @param oid

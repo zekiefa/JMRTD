@@ -54,10 +54,8 @@ import org.ejbca.cvc.exception.ConstructionException;
 
 /**
  * Card verifiable certificates as specified in TR 03110.
- * 
  * Just a wrapper around <code>org.ejbca.cvc.CVCertificate</code> by Keijo Kurkinen of EJBCA.org,
  * so that we can subclass <code>java.security.cert.Certificate</code>.
- * 
  * We also hide some of the internal structure (no more calls to get the "body" just to get some
  * attributes).
  * 

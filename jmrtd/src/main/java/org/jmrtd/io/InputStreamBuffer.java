@@ -30,7 +30,6 @@ import org.jmrtd.io.FragmentBuffer.Fragment;
 /**
  * Buffers an inputstream (whose length is known in advance) and can supply clients with fresh
  * &quot;copies&quot; of that inputstream served from the buffer.
- * 
  * NOTE: the original inputstream should no longer be read from, clients should only read bytes
  * from the sub-inputstreams.
  * 

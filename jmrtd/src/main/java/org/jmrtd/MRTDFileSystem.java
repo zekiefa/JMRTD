@@ -41,7 +41,6 @@ import org.jmrtd.lds.CVCAFile;
 
 /**
  * A file system for ICAO MRTDs.
- * 
  * TODO: use maxBlockSize to fetch extra bytes in APDU when space left (e.g. first APDU after length determination will be 0xD7 instead of 0xDF
  * TODO: join fragments in addFragment that are next to each other (overlap 0, currently only on positive overlap)
  * 

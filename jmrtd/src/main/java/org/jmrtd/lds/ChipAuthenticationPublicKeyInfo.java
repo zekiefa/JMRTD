@@ -32,7 +32,6 @@ import org.bouncycastle.asn1.ASN1EncodableVector;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DLSequence;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.jmrtd.JMRTDSecurityProvider;
@@ -41,7 +40,6 @@ import org.jmrtd.Util;
 /**
  * A concrete SecurityInfo structure that stores chip authentication public
  * key info, see EAC TR 03110 1.11 specification.
- * 
  * This data structure provides a Chip Authentication Public Key of the MRTD chip.
  * <ul>
  * <li>The object identifier <code>protocol</code> SHALL identify the type of the public key
@@ -54,7 +52,6 @@ import org.jmrtd.Util;
  * </ul>
  * 
  * @author Wojciech Mostowski (woj@cs.ru.nl)
- * 
  * FIXME: interface dependency on BC classes?
  * FIXME: maybe clean up some of these constructors...
  */

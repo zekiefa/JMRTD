@@ -173,7 +173,6 @@ public class SplittableInputStream extends InputStream {
 	/**
 	 * Repositions this stream to the position at the time the
 	 * <code>mark</code> method was last called on this input stream.
-	 *
 	 * The general contract of <code>reset</code> is:
 	 *
 	 * <ul>
