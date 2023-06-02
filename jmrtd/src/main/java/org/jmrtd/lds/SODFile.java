@@ -639,8 +639,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 			LOGGER.warning("Found " + signerInfos.size() + " signerInfos");
 		}
 		for (int i = 0; i < signerInfos.size(); i++) {
-			SignerInfo info = new SignerInfo((ASN1Sequence)signerInfos.getObjectAt(i));
-			return info;
+			return SignerInfo.getInstance((ASN1Sequence)signerInfos.getObjectAt(i));
 		}
 		return null;
 	}
@@ -775,7 +774,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		byte[] content = ((DEROctetString)contentInfo.getContent()).getOctets();
 		ASN1Set certificates =  createSingletonSet(createCertificate(docSigningCertificate));
 		ASN1Set crls = null;
-		ASN1Set signerInfos = createSingletonSet(createSignerInfo(digestAlgorithm, digestEncryptionAlgorithm, content, encryptedDigest, docSigningCertificate).toASN1Object());
+		ASN1Set signerInfos = createSingletonSet(createSignerInfo(digestAlgorithm, digestEncryptionAlgorithm, content, encryptedDigest, docSigningCertificate));
 		return new SignedData(digestAlgorithmsSet, contentInfo, certificates, crls, signerInfos);
 	}
 
@@ -819,7 +818,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		ASN1Set crls = null;
 		ASN1Set signerInfos = createSingletonSet(createSignerInfo(
 				digestAlgorithm, digestEncryptionAlgorithm, content,
-				encryptedDigest, docSigningCertificate).toASN1Object());
+				encryptedDigest, docSigningCertificate));
 		return new SignedData(digestAlgorithmsSet, contentInfo, certificates, crls, signerInfos);
 	}
 
@@ -884,8 +883,8 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		BigInteger serial = ((X509Certificate)docSigningCertificate).getSerialNumber();
 		SignerIdentifier sid = new SignerIdentifier(new IssuerAndSerialNumber(docSignerName, serial));
 
-		AlgorithmIdentifier digestAlgorithmObject = new AlgorithmIdentifier(lookupOIDByMnemonic(digestAlgorithm)); 
-		AlgorithmIdentifier digestEncryptionAlgorithmObject = new AlgorithmIdentifier(lookupOIDByMnemonic(digestEncryptionAlgorithm));
+		AlgorithmIdentifier digestAlgorithmObject = new AlgorithmIdentifier(new ASN1ObjectIdentifier(lookupOIDByMnemonic(digestAlgorithm)));
+		AlgorithmIdentifier digestEncryptionAlgorithmObject = new AlgorithmIdentifier(new ASN1ObjectIdentifier(lookupOIDByMnemonic(digestEncryptionAlgorithm)));
 
 		ASN1Set authenticatedAttributes = createAuthenticatedAttributes(digestAlgorithm, content); // struct containing the hash of content
 		ASN1OctetString encryptedDigestObject = new DEROctetString(encryptedDigest); // this is the signature

@@ -648,8 +648,8 @@ public class PassportService extends PassportApduService implements Serializable
 				keyHash = md.digest(keyData);
 			} else if ("ECDH".equals(agreementAlg)) {
 				org.bouncycastle.jce.interfaces.ECPublicKey ecPublicKey = (org.bouncycastle.jce.interfaces.ECPublicKey)keyPair.getPublic();
-				keyData = ecPublicKey.getQ().getEncoded();
-				byte[] t = Util.i2os(ecPublicKey.getQ().getX().toBigInteger());
+				keyData = ecPublicKey.getQ().getEncoded(false);
+				byte[] t = Util.i2os(ecPublicKey.getQ().getXCoord().toBigInteger());
 				keyHash = Util.alignKeyDataToSize(t, ecPublicKey.getParameters().getCurve().getFieldSize() / 8);
 			}
 			keyData = Util.wrapDO((byte)0x91, keyData);

@@ -22,6 +22,13 @@
 
 package org.jmrtd;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
+import javax.crypto.spec.DHPublicKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
@@ -53,30 +60,22 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Mac;
-import javax.crypto.SecretKey;
-import javax.crypto.interfaces.DHPublicKey;
-import javax.crypto.spec.DHParameterSpec;
-import javax.crypto.spec.DHPublicKeySpec;
-import javax.crypto.spec.SecretKeySpec;
-
 import net.sf.scuba.tlv.TLVOutputStream;
 import net.sf.scuba.util.Hex;
-
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Integer;
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.eac.EACObjectIdentifiers;
 import org.bouncycastle.asn1.pkcs.DHParameter;
 import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x9.X962NamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
+import org.bouncycastle.asn1.x9.X9ECPoint;
 import org.bouncycastle.crypto.params.DHParameters;
+import org.bouncycastle.internal.asn1.eac.EACObjectIdentifiers;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECCurve;
@@ -98,7 +97,7 @@ import org.jmrtd.lds.SecurityInfo;
  * 
  * @version $Revision$
  */
-public class Util {
+public final class Util {
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
@@ -748,8 +747,8 @@ public class Util {
 					/* Reconstruct the parameters. */
 					org.bouncycastle.math.ec.ECPoint generator = params.getG();
 					org.bouncycastle.math.ec.ECCurve curve = generator.getCurve();
-					generator = curve.createPoint(generator.getX().toBigInteger(), generator.getY().toBigInteger(), false);
-					params = new X9ECParameters(params.getCurve(), generator, params.getN(), params.getH(), params.getSeed());
+					generator = curve.createPoint(generator.getXCoord().toBigInteger(), generator.getYCoord().toBigInteger());
+					params = new X9ECParameters(params.getCurve(), new X9ECPoint(generator, false), params.getN(), params.getH(), params.getSeed());
 				} else {
 					/* It's not a named curve, we can just return the decoded public key info. */
 					return subjectPublicKeyInfo;
@@ -762,7 +761,7 @@ public class Util {
 					/* FIXME: investigate the compressed versus uncompressed point issue. What is allowed in TR03110? -- MO */
 					// In case we would like to compress the point:
 					// p = p.getCurve().createPoint(p.getX().toBigInteger(), p.getY().toBigInteger(), true);
-					subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded());
+					subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded(false));
 					return subjectPublicKeyInfo;
 				} else {
 					return subjectPublicKeyInfo;
@@ -1193,7 +1192,7 @@ public class Util {
 
 	private static org.bouncycastle.math.ec.ECPoint toBouncyCastleECPoint(ECPoint point, ECParameterSpec params) {
 		org.bouncycastle.math.ec.ECCurve bcCurve = toBouncyCastleECCurve(params);
-		return bcCurve.createPoint(point.getAffineX(), point.getAffineY(), false);
+		return bcCurve.createPoint(point.getAffineX(), point.getAffineY());
 		// return new org.bouncycastle.math.ec.ECPoint.Fp(bcCurve, bcCurve.fromBigInteger(point.getAffineX()), bcCurve.fromBigInteger(point.getAffineY()));
 	}
 

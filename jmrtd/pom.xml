@@ -28,6 +28,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>11</java.version>
+    <bouncycastle.version>1.73</bouncycastle.version>
+    <cert-cvc.version>1.4.13</cert-cvc.version>
   </properties>
 
   <dependencies>
@@ -38,13 +40,28 @@
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.52</version>
+      <artifactId>bcprov-jdk18on</artifactId>
+      <version>${bouncycastle.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcutil-jdk18on</artifactId>
+      <version>${bouncycastle.version}</version>
     </dependency>
     <dependency>
       <groupId>org.ejbca.cvc</groupId>
       <artifactId>cert-cvc</artifactId>
-      <version>1.4.13</version>
+      <version>${cert-cvc.version}</version>
+      <exclusions>
+        <!--
+          Cxa9261daf-3755 high vulnerability
+          https://devhub.checkmarx.com/cve-details/Cxa9261daf-3755/?utm_source=jetbrains&utm_medium=referral&utm_campaign=idea
+         -->
+        <exclusion>
+          <groupId>org.bouncycastle</groupId>
+          <artifactId>bcprov-jdk15on</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
