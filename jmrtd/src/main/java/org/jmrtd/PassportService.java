@@ -22,6 +22,12 @@
 
 package org.jmrtd;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyAgreement;
+import javax.crypto.SecretKey;
+import javax.crypto.interfaces.DHPublicKey;
+import javax.crypto.spec.DHParameterSpec;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -39,18 +45,10 @@ import java.security.interfaces.ECPublicKey;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyAgreement;
-import javax.crypto.SecretKey;
-import javax.crypto.interfaces.DHPublicKey;
-import javax.crypto.spec.DHParameterSpec;
-import javax.crypto.spec.IvParameterSpec;
 
 import net.sf.scuba.smartcards.APDUWrapper;
 import net.sf.scuba.smartcards.CardFileInputStream;
@@ -58,7 +56,6 @@ import net.sf.scuba.smartcards.CardService;
 import net.sf.scuba.smartcards.CardServiceException;
 import net.sf.scuba.tlv.TLVOutputStream;
 import net.sf.scuba.util.Hex;
-
 import org.jmrtd.cert.CVCAuthorizationTemplate.Role;
 import org.jmrtd.cert.CVCPrincipal;
 import org.jmrtd.cert.CardVerifiableCertificate;
@@ -93,94 +90,7 @@ public class PassportService extends PassportApduService implements Serializable
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
-	/** Data group 1 contains the MRZ. */
-	public static final short EF_DG1 = 0x0101;
-
-	/** Data group 2 contains face image data. */
-	public static final short EF_DG2 = 0x0102;
-
-	/** Data group 3 contains finger print data. */
-	public static final short EF_DG3 = 0x0103;
-
-	/** Data group 4 contains iris data. */
-	public static final short EF_DG4 = 0x0104;
-
-	/** Data group 5 contains displayed portrait. */
-	public static final short EF_DG5 = 0x0105;
-
-	/** Data group 6 is RFU. */
-	public static final short EF_DG6 = 0x0106;
-
-	/** Data group 7 contains displayed signature. */
-	public static final short EF_DG7 = 0x0107;
-
-	/** Data group 8 contains data features. */
-	public static final short EF_DG8 = 0x0108;
-
-	/** Data group 9 contains structure features. */
-	public static final short EF_DG9 = 0x0109;
-
-	/** Data group 10 contains substance features. */
-	public static final short EF_DG10 = 0x010A;
-
-	/** Data group 11 contains additional personal details. */
-	public static final short EF_DG11 = 0x010B;
-
-	/** Data group 12 contains additional document details. */
-	public static final short EF_DG12 = 0x010C;
-
-	/** Data group 13 contains optional details. */
-	public static final short EF_DG13 = 0x010D;
-
-	/** Data group 14 is RFU. */
-	public static final short EF_DG14 = 0x010E;
-
-	/** Data group 15 contains the public key used for Active Authentication. */
-	public static final short EF_DG15 = 0x010F;
-
-	/** Data group 16 contains person(s) to notify. */
-	public static final short EF_DG16 = 0x0110;
-
-	/** CardAccess. */
-	public static final short EF_CARD_ACCESS = 0x011C;
-
-	/** The security document. */
-	public static final short EF_SOD = 0x011D;
-
-	/** The data group presence list. */
-	public static final short EF_COM = 0x011E;
-
-	/**
-	 * File with the EAC CVCA references. Note: this can be overridden by a file
-	 * identifier in the DG14 file (TerminalAuthenticationInfo). So check that
-	 * one first. Also, this file does not have a header tag, like the others.
-	 */
-	public static final short EF_CVCA = 0x011C;
-
 	/** Short file identifiers for the DGs */
-	public static final byte
-	SF_DG1 = 0x01,
-	SF_DG2 = 0x02,
-	SF_DG3 = 0x03,
-	SF_DG4 = 0x04,
-	SF_DG5 = 0x05,
-	SF_DG6 = 0x06,
-	SF_DG7 = 0x07,
-	SF_DG8 = 0x08,
-	SF_DG9 = 0x09,
-	SF_DG10 = 0x0A,
-	SF_DG11 = 0x0B,
-	SF_DG12 = 0x0C,
-	SF_DG13 = 0x0D,
-	SF_DG14 = 0x0E,
-	SF_DG15 = 0x0F,
-	SF_DG16 = 0x10,
-	SF_COM = 0x1E,
-	SF_SOD = 0x1D,
-	SF_CVCA = 0x1C;
-
-	public static final SimpleDateFormat SDF = new SimpleDateFormat("yyMMdd");
-
 	private final int TAG_CVCERTIFICATE_SIGNATURE = 0x5F37;
 
 	private static final Provider BC_PROVIDER = JMRTDSecurityProvider.getBouncyCastleProvider();

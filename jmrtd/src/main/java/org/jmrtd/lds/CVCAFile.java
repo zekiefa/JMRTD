@@ -22,6 +22,8 @@
 
 package org.jmrtd.lds;
 
+import static org.jmrtd.DataGroupEnum.EF_CVCA;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -52,7 +54,7 @@ public class CVCAFile extends AbstractLDSFile {
 	private String altCaReference = null;
 
 	public CVCAFile(InputStream inputStream) throws IOException {
-		this(PassportService.EF_CVCA, inputStream);
+		this(EF_CVCA.getDataGroup(), inputStream);
 	}
 	
 	/**
@@ -75,7 +77,7 @@ public class CVCAFile extends AbstractLDSFile {
 	 * @param altCaReference alternative CA reference
 	 */
 	public CVCAFile(String caReference, String altCaReference) {
-		this(PassportService.EF_CVCA, caReference, altCaReference);
+		this(EF_CVCA.getDataGroup(), caReference, altCaReference);
 	}
 	
 	/**

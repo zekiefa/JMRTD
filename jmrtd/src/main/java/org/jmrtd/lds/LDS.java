@@ -22,6 +22,22 @@
 
 package org.jmrtd.lds;
 
+import static org.jmrtd.DataGroupEnum.EF_CARD_ACCESS;
+import static org.jmrtd.DataGroupEnum.EF_COM;
+import static org.jmrtd.DataGroupEnum.EF_CVCA;
+import static org.jmrtd.DataGroupEnum.EF_DG1;
+import static org.jmrtd.DataGroupEnum.EF_DG11;
+import static org.jmrtd.DataGroupEnum.EF_DG12;
+import static org.jmrtd.DataGroupEnum.EF_DG14;
+import static org.jmrtd.DataGroupEnum.EF_DG15;
+import static org.jmrtd.DataGroupEnum.EF_DG2;
+import static org.jmrtd.DataGroupEnum.EF_DG3;
+import static org.jmrtd.DataGroupEnum.EF_DG4;
+import static org.jmrtd.DataGroupEnum.EF_DG5;
+import static org.jmrtd.DataGroupEnum.EF_DG6;
+import static org.jmrtd.DataGroupEnum.EF_DG7;
+import static org.jmrtd.DataGroupEnum.EF_SOD;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +52,6 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Logger;
 
-import org.jmrtd.PassportService;
 import org.jmrtd.io.SplittableInputStream;
 
 /**
@@ -114,7 +129,7 @@ public class LDS {
 		fileSet.addAll(fetchers.keySet());
 		fileSet.addAll(files.keySet());
 		fileSet.addAll(getDataGroupList());
-		if (fileSet.contains(PassportService.EF_DG14)) {
+		if (fileSet.contains(EF_DG14.getDataGroup())) {
 			try {
 				DG14File dg14 = getDG14File();
 				if (dg14 != null) {
@@ -213,14 +228,14 @@ public class LDS {
 	public void add(LDSFile file) {
 		if (file == null) { return; }
 		if (file instanceof COMFile) {
-			put(PassportService.EF_COM, file);
+			put(EF_COM.getDataGroup(), file);
 		} else if (file instanceof SODFile) {
-			put(PassportService.EF_SOD, file);
+			put(EF_SOD.getDataGroup(), file);
 		} else if (file instanceof CVCAFile) {
 			CVCAFile cvca = (CVCAFile)file;
 			put(cvca.getFID(), cvca);
 		} else if (file instanceof CardAccessFile) {
-			put(PassportService.EF_CARD_ACCESS, file);
+			put(EF_CARD_ACCESS.getDataGroup(), file);
 		} else if (file instanceof DataGroup) {
 			DataGroup dataGroup = (DataGroup)file;
 			int tag = dataGroup.getTag();
@@ -250,29 +265,29 @@ public class LDS {
 		return fetcher.getInputStream(0);
 	}
 
-	public COMFile getCOMFile() throws IOException { return (COMFile)getFile(PassportService.EF_COM); }
-	public SODFile getSODFile() throws IOException { return (SODFile)getFile(PassportService.EF_SOD); }
-	public DG1File getDG1File() throws IOException { return (DG1File)getFile(PassportService.EF_DG1); }
-	public DG2File getDG2File() throws IOException { return (DG2File)getFile(PassportService.EF_DG2); }
-	public DG3File getDG3File() throws IOException { return (DG3File)getFile(PassportService.EF_DG3); }
-	public DG4File getDG4File() throws IOException { return (DG4File)getFile(PassportService.EF_DG4); }
-	public DG5File getDG5File() throws IOException { return (DG5File)getFile(PassportService.EF_DG5); }
-	public DG6File getDG6File() throws IOException { return (DG6File)getFile(PassportService.EF_DG6); }
-	public DG7File getDG7File() throws IOException { return (DG7File)getFile(PassportService.EF_DG7); }
-	public DG11File getDG11File() throws IOException { return (DG11File)getFile(PassportService.EF_DG11); }
-	public DG12File getDG12File() throws IOException { return (DG12File)getFile(PassportService.EF_DG12); }
-	public DG14File getDG14File() throws IOException { return (DG14File)getFile(PassportService.EF_DG14); }
-	public DG15File getDG15File() throws IOException { return (DG15File)getFile(PassportService.EF_DG15); }
+	public COMFile getCOMFile() throws IOException { return (COMFile)getFile(EF_COM.getDataGroup()); }
+	public SODFile getSODFile() throws IOException { return (SODFile)getFile(EF_SOD.getDataGroup()); }
+	public DG1File getDG1File() throws IOException { return (DG1File)getFile(EF_DG1.getDataGroup()); }
+	public DG2File getDG2File() throws IOException { return (DG2File)getFile(EF_DG2.getDataGroup()); }
+	public DG3File getDG3File() throws IOException { return (DG3File)getFile(EF_DG3.getDataGroup()); }
+	public DG4File getDG4File() throws IOException { return (DG4File)getFile(EF_DG4.getDataGroup()); }
+	public DG5File getDG5File() throws IOException { return (DG5File)getFile(EF_DG5.getDataGroup()); }
+	public DG6File getDG6File() throws IOException { return (DG6File)getFile(EF_DG6.getDataGroup()); }
+	public DG7File getDG7File() throws IOException { return (DG7File)getFile(EF_DG7.getDataGroup()); }
+	public DG11File getDG11File() throws IOException { return (DG11File)getFile(EF_DG11.getDataGroup()); }
+	public DG12File getDG12File() throws IOException { return (DG12File)getFile(EF_DG12.getDataGroup()); }
+	public DG14File getDG14File() throws IOException { return (DG14File)getFile(EF_DG14.getDataGroup()); }
+	public DG15File getDG15File() throws IOException { return (DG15File)getFile(EF_DG15.getDataGroup()); }
 
 	/* FIXME: Both CVCA and CardAccess appear to use FID 0x011C. */
 
 	public CardAccessFile getCardAccessFile() throws IOException {
-		return (CardAccessFile)getFile(PassportService.EF_CARD_ACCESS);
+		return (CardAccessFile)getFile(EF_CARD_ACCESS.getDataGroup());
 	}
 
 	public CVCAFile getCVCAFile() throws IOException {
 		/* Check DG14 for available CVCA file ids. */
-		short cvcaFID = PassportService.EF_CVCA;
+		short cvcaFID = EF_CVCA.getDataGroup();
 		DG14File dg14 = getDG14File();
 		if (dg14 == null) { throw new IOException("EF.DF14 not available in LDS"); }
 		List<Short> cvcaFIDs = dg14.getCVCAFileIds();

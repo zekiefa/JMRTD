@@ -22,11 +22,31 @@
 
 package org.jmrtd.lds;
 
+import static org.jmrtd.DataGroupEnum.EF_COM;
+import static org.jmrtd.DataGroupEnum.EF_DG1;
+import static org.jmrtd.DataGroupEnum.EF_DG10;
+import static org.jmrtd.DataGroupEnum.EF_DG11;
+import static org.jmrtd.DataGroupEnum.EF_DG12;
+import static org.jmrtd.DataGroupEnum.EF_DG13;
+import static org.jmrtd.DataGroupEnum.EF_DG14;
+import static org.jmrtd.DataGroupEnum.EF_DG15;
+import static org.jmrtd.DataGroupEnum.EF_DG16;
+import static org.jmrtd.DataGroupEnum.EF_DG2;
+import static org.jmrtd.DataGroupEnum.EF_DG3;
+import static org.jmrtd.DataGroupEnum.EF_DG4;
+import static org.jmrtd.DataGroupEnum.EF_DG5;
+import static org.jmrtd.DataGroupEnum.EF_DG6;
+import static org.jmrtd.DataGroupEnum.EF_DG7;
+import static org.jmrtd.DataGroupEnum.EF_DG8;
+import static org.jmrtd.DataGroupEnum.EF_DG9;
+import static org.jmrtd.DataGroupEnum.EF_SOD;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
-import org.jmrtd.PassportService;
+import org.jmrtd.DataGroupEnum;
 
 /**
  * Static LDS file methods.
@@ -48,26 +68,26 @@ public class LDSFileUtil {
 	 * @throws IOException on reading error from the input stream
 	 */
 	public static AbstractLDSFile getLDSFile(short fid, InputStream inputStream) throws IOException {
-		switch (fid) {
-		case PassportService.EF_COM: return new COMFile(inputStream);
-		case PassportService.EF_DG1: return new DG1File(inputStream);
-		case PassportService.EF_DG2: return new DG2File(inputStream);
-		case PassportService.EF_DG3: return new DG3File(inputStream);
-		case PassportService.EF_DG4: return new DG4File(inputStream);
-		case PassportService.EF_DG5: return new DG5File(inputStream);
-		case PassportService.EF_DG6: return new DG6File(inputStream);
-		case PassportService.EF_DG7: return new DG7File(inputStream);
-		case PassportService.EF_DG8: throw new IllegalArgumentException("DG8 files are not yet supported");
-		case PassportService.EF_DG9: throw new IllegalArgumentException("DG9 files are not yet supported");
-		case PassportService.EF_DG10: throw new IllegalArgumentException("DG10 files are not yet supported");
-		case PassportService.EF_DG11: return new DG11File(inputStream);
-		case PassportService.EF_DG12: return new DG12File(inputStream);
-		case PassportService.EF_DG13: throw new IllegalArgumentException("DG13 files are not yet supported");
-		case PassportService.EF_DG14: return new DG14File(inputStream);
-		case PassportService.EF_DG15: return new DG15File(inputStream);
-		case PassportService.EF_DG16: throw new IllegalArgumentException("DG16 files are not yet supported");
-		case PassportService.EF_SOD: return new SODFile(inputStream);
-		case PassportService.EF_CVCA: return new CVCAFile(inputStream);
+		switch (DataGroupEnum.valueOf(fid)) {
+		case EF_COM: return new COMFile(inputStream);
+		case EF_DG1: return new DG1File(inputStream);
+		case EF_DG2: return new DG2File(inputStream);
+		case EF_DG3: return new DG3File(inputStream);
+		case EF_DG4: return new DG4File(inputStream);
+		case EF_DG5: return new DG5File(inputStream);
+		case EF_DG6: return new DG6File(inputStream);
+		case EF_DG7: return new DG7File(inputStream);
+		case EF_DG8: throw new IllegalArgumentException("DG8 files are not yet supported");
+		case EF_DG9: throw new IllegalArgumentException("DG9 files are not yet supported");
+		case EF_DG10: throw new IllegalArgumentException("DG10 files are not yet supported");
+		case EF_DG11: return new DG11File(inputStream);
+		case EF_DG12: return new DG12File(inputStream);
+		case EF_DG13: throw new IllegalArgumentException("DG13 files are not yet supported");
+		case EF_DG14: return new DG14File(inputStream);
+		case EF_DG15: return new DG15File(inputStream);
+		case EF_DG16: throw new IllegalArgumentException("DG16 files are not yet supported");
+		case EF_SOD: return new SODFile(inputStream);
+		case EF_CVCA: return new CVCAFile(inputStream);
 		default:
 			BufferedInputStream bufferedIn = new BufferedInputStream(inputStream, 37);
 			try {
@@ -92,24 +112,24 @@ public class LDSFileUtil {
 	 */
 	public static short lookupFIDByTag(int tag) {
 		switch(tag) {
-		case LDSFile.EF_COM_TAG: return PassportService.EF_COM;
-		case LDSFile.EF_DG1_TAG: return PassportService.EF_DG1;
-		case LDSFile.EF_DG2_TAG: return PassportService.EF_DG2;
-		case LDSFile.EF_DG3_TAG: return PassportService.EF_DG3;
-		case LDSFile.EF_DG4_TAG: return PassportService.EF_DG4;
-		case LDSFile.EF_DG5_TAG: return PassportService.EF_DG5;
-		case LDSFile.EF_DG6_TAG: return PassportService.EF_DG6;
-		case LDSFile.EF_DG7_TAG: return PassportService.EF_DG7;
-		case LDSFile.EF_DG8_TAG: return PassportService.EF_DG8;
-		case LDSFile.EF_DG9_TAG: return PassportService.EF_DG9;
-		case LDSFile.EF_DG10_TAG: return PassportService.EF_DG10;
-		case LDSFile.EF_DG11_TAG: return PassportService.EF_DG11;
-		case LDSFile.EF_DG12_TAG: return PassportService.EF_DG12;
-		case LDSFile.EF_DG13_TAG: return PassportService.EF_DG13;
-		case LDSFile.EF_DG14_TAG: return PassportService.EF_DG14;
-		case LDSFile.EF_DG15_TAG: return PassportService.EF_DG15;
-		case LDSFile.EF_DG16_TAG: return PassportService.EF_DG16;
-		case LDSFile.EF_SOD_TAG: return PassportService.EF_SOD;
+		case LDSFile.EF_COM_TAG: return EF_COM.getDataGroup();
+		case LDSFile.EF_DG1_TAG: return EF_DG1.getDataGroup();
+		case LDSFile.EF_DG2_TAG: return EF_DG2.getDataGroup();
+		case LDSFile.EF_DG3_TAG: return EF_DG3.getDataGroup();
+		case LDSFile.EF_DG4_TAG: return EF_DG4.getDataGroup();
+		case LDSFile.EF_DG5_TAG: return EF_DG5.getDataGroup();
+		case LDSFile.EF_DG6_TAG: return EF_DG6.getDataGroup();
+		case LDSFile.EF_DG7_TAG: return EF_DG7.getDataGroup();
+		case LDSFile.EF_DG8_TAG: return EF_DG8.getDataGroup();
+		case LDSFile.EF_DG9_TAG: return EF_DG9.getDataGroup();
+		case LDSFile.EF_DG10_TAG: return EF_DG10.getDataGroup();
+		case LDSFile.EF_DG11_TAG: return EF_DG11.getDataGroup();
+		case LDSFile.EF_DG12_TAG: return EF_DG12.getDataGroup();
+		case LDSFile.EF_DG13_TAG: return EF_DG13.getDataGroup();
+		case LDSFile.EF_DG14_TAG: return EF_DG14.getDataGroup();
+		case LDSFile.EF_DG15_TAG: return EF_DG15.getDataGroup();
+		case LDSFile.EF_DG16_TAG: return EF_DG16.getDataGroup();
+		case LDSFile.EF_SOD_TAG: return EF_SOD.getDataGroup();
 		default:
 			throw new NumberFormatException("Unknown tag " + Integer.toHexString(tag));
 		}
@@ -186,22 +206,22 @@ public class LDSFileUtil {
 	 */
 	public static short lookupFIDByDataGroupNumber(int number) {
 		switch (number) {
-		case 1: return PassportService.EF_DG1;
-		case 2: return PassportService.EF_DG2;
-		case 3: return PassportService.EF_DG3;
-		case 4: return PassportService.EF_DG4;
-		case 5: return PassportService.EF_DG5;
-		case 6: return PassportService.EF_DG6;
-		case 7: return PassportService.EF_DG7;
-		case 8: return PassportService.EF_DG8;
-		case 9: return PassportService.EF_DG9;
-		case 10: return PassportService.EF_DG10;
-		case 11: return PassportService.EF_DG11;
-		case 12: return PassportService.EF_DG12;
-		case 13: return PassportService.EF_DG13;
-		case 14: return PassportService.EF_DG14;
-		case 15: return PassportService.EF_DG15;
-		case 16: return PassportService.EF_DG16;
+		case 1: return EF_DG1.getDataGroup();
+		case 2: return EF_DG2.getDataGroup();
+		case 3: return EF_DG3.getDataGroup();
+		case 4: return EF_DG4.getDataGroup();
+		case 5: return EF_DG5.getDataGroup();
+		case 6: return EF_DG6.getDataGroup();
+		case 7: return EF_DG7.getDataGroup();
+		case 8: return EF_DG8.getDataGroup();
+		case 9: return EF_DG9.getDataGroup();
+		case 10: return EF_DG10.getDataGroup();
+		case 11: return EF_DG11.getDataGroup();
+		case 12: return EF_DG12.getDataGroup();
+		case 13: return EF_DG13.getDataGroup();
+		case 14: return EF_DG14.getDataGroup();
+		case 15: return EF_DG15.getDataGroup();
+		case 16: return EF_DG16.getDataGroup();
 		default:
 			throw new NumberFormatException("Unknown number " + number);   
 		}
@@ -217,25 +237,25 @@ public class LDSFileUtil {
 	 * @return a an ICAO tag (first byte of EF)
 	 */
 	public static short lookupTagByFID(short fid) {
-		switch(fid) {
-		case PassportService.EF_COM: return LDSFile.EF_COM_TAG;
-		case PassportService.EF_DG1: return LDSFile.EF_DG1_TAG;
-		case PassportService.EF_DG2: return LDSFile.EF_DG2_TAG;
-		case PassportService.EF_DG3: return LDSFile.EF_DG3_TAG;
-		case PassportService.EF_DG4: return LDSFile.EF_DG4_TAG;
-		case PassportService.EF_DG5: return LDSFile.EF_DG5_TAG;
-		case PassportService.EF_DG6: return LDSFile.EF_DG6_TAG;
-		case PassportService.EF_DG7: return LDSFile.EF_DG7_TAG;
-		case PassportService.EF_DG8: return LDSFile.EF_DG8_TAG;
-		case PassportService.EF_DG9: return LDSFile.EF_DG9_TAG;
-		case PassportService.EF_DG10: return LDSFile.EF_DG10_TAG;
-		case PassportService.EF_DG11: return LDSFile.EF_DG11_TAG;
-		case PassportService.EF_DG12: return LDSFile.EF_DG12_TAG;
-		case PassportService.EF_DG13: return LDSFile.EF_DG13_TAG;
-		case PassportService.EF_DG14: return LDSFile.EF_DG14_TAG;
-		case PassportService.EF_DG15: return LDSFile.EF_DG15_TAG;
-		case PassportService.EF_DG16: return LDSFile.EF_DG16_TAG;
-		case PassportService.EF_SOD: return LDSFile.EF_SOD_TAG;
+		switch(Objects.requireNonNull(DataGroupEnum.valueOf(fid))) {
+		case EF_COM: return LDSFile.EF_COM_TAG;
+		case EF_DG1: return LDSFile.EF_DG1_TAG;
+		case EF_DG2: return LDSFile.EF_DG2_TAG;
+		case EF_DG3: return LDSFile.EF_DG3_TAG;
+		case EF_DG4: return LDSFile.EF_DG4_TAG;
+		case EF_DG5: return LDSFile.EF_DG5_TAG;
+		case EF_DG6: return LDSFile.EF_DG6_TAG;
+		case EF_DG7: return LDSFile.EF_DG7_TAG;
+		case EF_DG8: return LDSFile.EF_DG8_TAG;
+		case EF_DG9: return LDSFile.EF_DG9_TAG;
+		case EF_DG10: return LDSFile.EF_DG10_TAG;
+		case EF_DG11: return LDSFile.EF_DG11_TAG;
+		case EF_DG12: return LDSFile.EF_DG12_TAG;
+		case EF_DG13: return LDSFile.EF_DG13_TAG;
+		case EF_DG14: return LDSFile.EF_DG14_TAG;
+		case EF_DG15: return LDSFile.EF_DG15_TAG;
+		case EF_DG16: return LDSFile.EF_DG16_TAG;
+		case EF_SOD: return LDSFile.EF_SOD_TAG;
 		default:
 			throw new NumberFormatException("Unknown fid " + Integer.toHexString(fid));
 		}
@@ -249,23 +269,23 @@ public class LDSFileUtil {
 	 * @return a data group number
 	 */
 	public static short lookupDataGroupNumberByFID(short fid) {
-		switch(fid) {
-		case PassportService.EF_DG1: return 1;
-		case PassportService.EF_DG2: return 2;
-		case PassportService.EF_DG3: return 3;
-		case PassportService.EF_DG4: return 4;
-		case PassportService.EF_DG5: return 5;
-		case PassportService.EF_DG6: return 6;
-		case PassportService.EF_DG7: return 7;
-		case PassportService.EF_DG8: return 8;
-		case PassportService.EF_DG9: return 9;
-		case PassportService.EF_DG10: return 10;
-		case PassportService.EF_DG11: return 11;
-		case PassportService.EF_DG12: return 12;
-		case PassportService.EF_DG13: return 13;
-		case PassportService.EF_DG14: return 14;
-		case PassportService.EF_DG15: return 15;
-		case PassportService.EF_DG16: return 16;
+		switch(Objects.requireNonNull(DataGroupEnum.valueOf(fid))) {
+		case EF_DG1: return 1;
+		case EF_DG2: return 2;
+		case EF_DG3: return 3;
+		case EF_DG4: return 4;
+		case EF_DG5: return 5;
+		case EF_DG6: return 6;
+		case EF_DG7: return 7;
+		case EF_DG8: return 8;
+		case EF_DG9: return 9;
+		case EF_DG10: return 10;
+		case EF_DG11: return 11;
+		case EF_DG12: return 12;
+		case EF_DG13: return 13;
+		case EF_DG14: return 14;
+		case EF_DG15: return 15;
+		case EF_DG16: return 16;
 		default:
 			throw new NumberFormatException("Unknown fid " + Integer.toHexString(fid));
 		}
@@ -312,25 +332,25 @@ public class LDSFileUtil {
 	 * @return a mnemonic name corresponding to the file represented by the given ICAO tag
 	 */
 	public static String lookupFileNameByFID(int fid) {
-		switch (fid) {
-		case PassportService.EF_COM: return "EF_COM";
-		case PassportService.EF_DG1: return "EF_DG1";
-		case PassportService.EF_DG2: return "EF_DG2";
-		case PassportService.EF_DG3: return "EF_DG3";
-		case PassportService.EF_DG4: return "EF_DG4";
-		case PassportService.EF_DG5: return "EF_DG5";
-		case PassportService.EF_DG6: return "EF_DG6";
-		case PassportService.EF_DG7: return "EF_DG7";
-		case PassportService.EF_DG8: return "EF_DG8";
-		case PassportService.EF_DG9: return "EF_DG9";
-		case PassportService.EF_DG10: return "EF_DG10";
-		case PassportService.EF_DG11: return "EF_DG11";
-		case PassportService.EF_DG12: return "EF_DG12";
-		case PassportService.EF_DG13: return "EF_DG13";
-		case PassportService.EF_DG14: return "EF_DG14";
-		case PassportService.EF_DG15: return "EF_DG15";
-		case PassportService.EF_DG16: return "EF_DG16";
-		case PassportService.EF_SOD: return "EF_SOD";
+		switch (Objects.requireNonNull(DataGroupEnum.valueOf(fid))) {
+		case EF_COM: return "EF_COM";
+		case EF_DG1: return "EF_DG1";
+		case EF_DG2: return "EF_DG2";
+		case EF_DG3: return "EF_DG3";
+		case EF_DG4: return "EF_DG4";
+		case EF_DG5: return "EF_DG5";
+		case EF_DG6: return "EF_DG6";
+		case EF_DG7: return "EF_DG7";
+		case EF_DG8: return "EF_DG8";
+		case EF_DG9: return "EF_DG9";
+		case EF_DG10: return "EF_DG10";
+		case EF_DG11: return "EF_DG11";
+		case EF_DG12: return "EF_DG12";
+		case EF_DG13: return "EF_DG13";
+		case EF_DG14: return "EF_DG14";
+		case EF_DG15: return "EF_DG15";
+		case EF_DG16: return "EF_DG16";
+		case EF_SOD: return "EF_SOD";
 		default: return "File with FID 0x" + Integer.toHexString(fid);
 		}
 	}
