@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.jmrtd.PassportService;
 import org.jmrtd.cert.CVCPrincipal;
 
 /**

@@ -103,7 +103,6 @@ public class LDSFileUtil {
 
 	/**
 	 * Finds a file identifier for an ICAO tag.
-	 *
 	 * Corresponds to Table A1 in ICAO-TR-LDS_1.7_2004-05-18.
 	 *
 	 * @param tag an ICAO tag (the first byte of the EF)
@@ -167,8 +166,7 @@ public class LDSFileUtil {
 
 	/**
 	 * Finds an ICAO tag for a data group number.
-	 * 
-	 * 
+	 *
 	 * @param number a data group number (1-16)
 	 *
 	 * @return an ICAO tag (the first byte of the EF)
@@ -198,8 +196,7 @@ public class LDSFileUtil {
 
 	/**
 	 * Finds an ICAO tag for a data group number.
-	 * 
-	 * 
+	 *
 	 * @param number a data group number (1-16)
 	 *
 	 * @return a file identifier
@@ -229,7 +226,6 @@ public class LDSFileUtil {
 
 	/**
 	 * Finds an ICAO tag for a file identifier.
-	 *
 	 * Corresponds to Table A1 in ICAO-TR-LDS_1.7_2004-05-18.
 	 *
 	 * @param fid a file identifier
