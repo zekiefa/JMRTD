@@ -1,0 +1,27 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.jmrtd</groupId>
+  <artifactId>jj2000_imageio</artifactId>
+  <version>0.5.2</version>
+  <name>JJ2000 ImageIO</name>
+  <description>JPEG 2000 image I/O adapter for ImageIO using JJ2000.</description>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>8</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>edu.ucar</groupId>
+      <artifactId>jj2000</artifactId>
+      <version>5.2</version>
+    </dependency>
+  </dependencies>
+</project>
