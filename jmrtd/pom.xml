@@ -22,6 +22,19 @@
       <name>Martijn Oostdijk</name>
     </developer>
   </developers>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>8</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
   <dependencies>
     <dependency>
       <groupId>net.sf.scuba</groupId>
@@ -32,6 +45,11 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
       <version>1.52</version>
+    </dependency>
+    <dependency>
+      <groupId>org.ejbca.cvc</groupId>
+      <artifactId>cert-cvc</artifactId>
+      <version>1.4.13</version>
     </dependency>
   </dependencies>
 </project>
