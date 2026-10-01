@@ -33,7 +33,7 @@ import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.DLSequence;
-import org.bouncycastle.crypto.agreement.DHStandardGroups;
+import org.jmrtd.RFC5114Groups;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.jmrtd.Util;
 
@@ -73,9 +73,9 @@ public class PACEInfo extends SecurityInfo {
 	/* RFU 19-31 */
 
 	private static final DHParameterSpec
-	PARAMS_GFP_1024_160 = Util.toExplicitDHParameterSpec(DHStandardGroups.rfc5114_1024_160),
-	PARAMS_GFP_2048_224 = Util.toExplicitDHParameterSpec(DHStandardGroups.rfc5114_2048_224),
-	PARAMS_GFP_2048_256 = Util.toExplicitDHParameterSpec(DHStandardGroups.rfc5114_2048_256);
+	PARAMS_GFP_1024_160 = Util.toExplicitDHParameterSpec(RFC5114Groups.rfc5114_1024_160),
+	PARAMS_GFP_2048_224 = Util.toExplicitDHParameterSpec(RFC5114Groups.rfc5114_2048_224),
+	PARAMS_GFP_2048_256 = Util.toExplicitDHParameterSpec(RFC5114Groups.rfc5114_2048_256);
 
 	private static final ECParameterSpec
 	PARAMS_ECP_NIST_P192_R1 = Util.toExplicitECParameterSpec(ECNamedCurveTable.getParameterSpec("secp192r1")),

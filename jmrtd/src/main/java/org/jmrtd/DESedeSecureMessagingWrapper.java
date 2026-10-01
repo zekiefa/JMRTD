@@ -115,6 +115,10 @@ public class DESedeSecureMessagingWrapper extends SecureMessagingWrapper impleme
 		mac = Mac.getInstance(macAlg);
 	}
 
+	public String getType() {
+		return "DESede";
+	}
+
 	/**
 	 * Wraps the apdu buffer <code>capdu</code> of a command apdu.
 	 * As a side effect, this method increments the internal send
@@ -140,13 +144,13 @@ public class DESedeSecureMessagingWrapper extends SecureMessagingWrapper impleme
 	 * Unwraps the apdu buffer <code>rapdu</code> of a response apdu.
 	 *
 	 * @param responseAPDU buffer containing the response apdu
-	 * @param len length of the actual response apdu
-	 * 
+	 * 	 * 
 	 * @return a new byte array containing the unwrapped buffer
 	 */
-	public ResponseAPDU unwrap(ResponseAPDU responseAPDU, int len) {
+	public ResponseAPDU unwrap(ResponseAPDU responseAPDU) {
 		try {
 			byte[] rapdu = responseAPDU.getBytes();
+			int len = rapdu.length;
 			if (rapdu.length == 2) {
 				// no sense in unwrapping - card indicates some kind of error
 				throw new IllegalStateException("Card indicates SM error, SW = " + Integer.toHexString(responseAPDU.getSW() & 0xFFFF));

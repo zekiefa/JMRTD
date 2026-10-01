@@ -181,6 +181,18 @@ public class PassportApduService extends CardService {
 		}
 	}
 
+	/**
+	 * Whether the given exception indicates the connection was lost.
+	 * Delegates to the underlying card service when possible.
+	 *
+	 * @param e the exception to inspect
+	 *
+	 * @return a boolean
+	 */
+	public boolean isConnectionLost(Exception e) {
+		return service == null || service.isConnectionLost(e);
+	}
+
 	public void setService(CardService service) {
 		this.service = service;
 	}
@@ -206,7 +218,7 @@ public class PassportApduService extends CardService {
 					throw new CardServiceException("Exception during transmission of wrapped APDU"
 							+ "\nC=" + Hex.bytesToHexString(plainCapdu.getBytes()), sw);
 				} else {
-					rapdu = wrapper.unwrap(rapdu, rapdu.getBytes().length);
+					rapdu = wrapper.unwrap(rapdu);
 				}
 			} catch (Exception e) {
 				if (e instanceof CardServiceException) {
@@ -231,7 +243,7 @@ public class PassportApduService extends CardService {
 		//			}
 		//			rapdu = transmit(capdu);
 		//			if (wrapper != null) {
-		//				rapdu = wrapper.unwrap(rapdu, rapdu.getBytes().length);
+		//				rapdu = wrapper.unwrap(rapdu);
 		//				notifyExchangedPlainTextAPDU(++plainAPDUCount, plainCapdu, rapdu);
 		//			}
 		//		}

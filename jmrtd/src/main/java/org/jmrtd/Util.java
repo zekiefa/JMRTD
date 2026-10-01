@@ -76,6 +76,7 @@ import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.asn1.x9.X962NamedCurves;
 import org.bouncycastle.asn1.x9.X9ECParameters;
+import org.bouncycastle.asn1.x9.X9ECPoint;
 import org.bouncycastle.crypto.params.DHParameters;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
@@ -748,8 +749,8 @@ public class Util {
 					/* Reconstruct the parameters. */
 					org.bouncycastle.math.ec.ECPoint generator = params.getG();
 					org.bouncycastle.math.ec.ECCurve curve = generator.getCurve();
-					generator = curve.createPoint(generator.getX().toBigInteger(), generator.getY().toBigInteger(), false);
-					params = new X9ECParameters(params.getCurve(), generator, params.getN(), params.getH(), params.getSeed());
+					generator = curve.createPoint(generator.getAffineXCoord().toBigInteger(), generator.getAffineYCoord().toBigInteger());
+					params = new X9ECParameters(params.getCurve(), new X9ECPoint(generator, false), params.getN(), params.getH(), params.getSeed());
 				} else {
 					/* It's not a named curve, we can just return the decoded public key info. */
 					return subjectPublicKeyInfo;
@@ -762,7 +763,7 @@ public class Util {
 					/* FIXME: investigate the compressed versus uncompressed point issue. What is allowed in TR03110? -- MO */
 					// In case we would like to compress the point:
 					// p = p.getCurve().createPoint(p.getX().toBigInteger(), p.getY().toBigInteger(), true);
-					subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded());
+					subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded(false));
 					return subjectPublicKeyInfo;
 				} else {
 					return subjectPublicKeyInfo;
@@ -1193,7 +1194,7 @@ public class Util {
 
 	private static org.bouncycastle.math.ec.ECPoint toBouncyCastleECPoint(ECPoint point, ECParameterSpec params) {
 		org.bouncycastle.math.ec.ECCurve bcCurve = toBouncyCastleECCurve(params);
-		return bcCurve.createPoint(point.getAffineX(), point.getAffineY(), false);
+		return bcCurve.createPoint(point.getAffineX(), point.getAffineY());
 		// return new org.bouncycastle.math.ec.ECPoint.Fp(bcCurve, bcCurve.fromBigInteger(point.getAffineX()), bcCurve.fromBigInteger(point.getAffineY()));
 	}
 

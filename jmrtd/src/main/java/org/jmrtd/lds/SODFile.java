@@ -316,19 +316,19 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		if (asn1Encodable instanceof DERTaggedObject) {
 			DERTaggedObject derTaggedObject = (DERTaggedObject)asn1Encodable;
 			tagNo = derTaggedObject.getTagNo();
-			content = derTaggedObject.getObject();
+			content = derTaggedObject.getBaseObject().toASN1Primitive();
 		} else if (asn1Encodable instanceof BERTaggedObject) {
 			BERTaggedObject berTaggedObject = (BERTaggedObject)asn1Encodable;
 			tagNo = berTaggedObject.getTagNo();
-			content = berTaggedObject.getObject();
+			content = berTaggedObject.getBaseObject().toASN1Primitive();
 		} else if (asn1Encodable instanceof ASN1TaggedObject) {
 			DLTaggedObject dlTaggedObject = (DLTaggedObject)asn1Encodable;
 			tagNo = dlTaggedObject.getTagNo();
-			content = dlTaggedObject.getObject();			
+			content = dlTaggedObject.getBaseObject().toASN1Primitive();			
 		} else if (asn1Encodable instanceof ASN1TaggedObject) {
 			ASN1TaggedObject asn1TaggedObject = (ASN1TaggedObject)asn1Encodable;
 			tagNo = asn1TaggedObject.getTagNo();
-			content = asn1TaggedObject.getObject();			
+			content = asn1TaggedObject.getBaseObject().toASN1Primitive();			
 		} else {
 			throw new IOException("Was expecting an ASN1TaggedObject, found " + asn1Encodable.getClass().getCanonicalName());
 		}
@@ -776,7 +776,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		byte[] content = ((DEROctetString)contentInfo.getContent()).getOctets();
 		ASN1Set certificates =  createSingletonSet(createCertificate(docSigningCertificate));
 		ASN1Set crls = null;
-		ASN1Set signerInfos = createSingletonSet(createSignerInfo(digestAlgorithm, digestEncryptionAlgorithm, content, encryptedDigest, docSigningCertificate).toASN1Object());
+		ASN1Set signerInfos = createSingletonSet(createSignerInfo(digestAlgorithm, digestEncryptionAlgorithm, content, encryptedDigest, docSigningCertificate).toASN1Primitive());
 		return new SignedData(digestAlgorithmsSet, contentInfo, certificates, crls, signerInfos);
 	}
 
@@ -820,7 +820,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		ASN1Set crls = null;
 		ASN1Set signerInfos = createSingletonSet(createSignerInfo(
 				digestAlgorithm, digestEncryptionAlgorithm, content,
-				encryptedDigest, docSigningCertificate).toASN1Object());
+				encryptedDigest, docSigningCertificate).toASN1Primitive());
 		return new SignedData(digestAlgorithmsSet, contentInfo, certificates, crls, signerInfos);
 	}
 
@@ -885,8 +885,8 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		BigInteger serial = ((X509Certificate)docSigningCertificate).getSerialNumber();
 		SignerIdentifier sid = new SignerIdentifier(new IssuerAndSerialNumber(docSignerName, serial));
 
-		AlgorithmIdentifier digestAlgorithmObject = new AlgorithmIdentifier(lookupOIDByMnemonic(digestAlgorithm)); 
-		AlgorithmIdentifier digestEncryptionAlgorithmObject = new AlgorithmIdentifier(lookupOIDByMnemonic(digestEncryptionAlgorithm));
+		AlgorithmIdentifier digestAlgorithmObject = new AlgorithmIdentifier(new ASN1ObjectIdentifier(lookupOIDByMnemonic(digestAlgorithm))); 
+		AlgorithmIdentifier digestEncryptionAlgorithmObject = new AlgorithmIdentifier(new ASN1ObjectIdentifier(lookupOIDByMnemonic(digestEncryptionAlgorithm)));
 
 		ASN1Set authenticatedAttributes = createAuthenticatedAttributes(digestAlgorithm, content); // struct containing the hash of content
 		ASN1OctetString encryptedDigestObject = new DEROctetString(encryptedDigest); // this is the signature
