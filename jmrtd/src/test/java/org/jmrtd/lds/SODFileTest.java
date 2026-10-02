@@ -8,6 +8,7 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 
 public class SODFileTest {
 
