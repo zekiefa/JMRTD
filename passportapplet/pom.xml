@@ -1,24 +1,14 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jmrtd</groupId>
+  <parent>
+    <groupId>org.jmrtd</groupId>
+    <artifactId>jmrtd-parent</artifactId>
+    <version>0.5.2</version>
+  </parent>
   <artifactId>passportapplet</artifactId>
-  <version>0.5.2</version>
   <name>Passport Applet</name>
   <description>MRTD Java Card applet.</description>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
-        <configuration>
-          <release>25</release>
-          
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencies>
+<dependencies>
     <dependency>
       <groupId>com.klinec</groupId>
       <artifactId>jcardsim</artifactId>

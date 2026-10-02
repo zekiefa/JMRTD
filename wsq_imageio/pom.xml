@@ -1,20 +1,11 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.jmrtd</groupId>
+  <parent>
+    <groupId>org.jmrtd</groupId>
+    <artifactId>jmrtd-parent</artifactId>
+    <version>0.5.2</version>
+  </parent>
   <artifactId>wsq_imageio</artifactId>
-  <version>0.5.2</version>
   <name>WSQ ImageIO</name>
   <description>WSQ wavelet scalar quantization image I/O for ImageIO.</description>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
-        <configuration>
-          <release>25</release>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
