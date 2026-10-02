@@ -639,7 +639,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 			LOGGER.warning("Found " + signerInfos.size() + " signerInfos");
 		}
 		for (int i = 0; i < signerInfos.size(); i++) {
-			SignerInfo info = new SignerInfo((ASN1Sequence)signerInfos.getObjectAt(i));
+			SignerInfo info = SignerInfo.getInstance(signerInfos.getObjectAt(i));
 			return info;
 		}
 		return null;

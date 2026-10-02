@@ -106,7 +106,7 @@ public class DG12File extends DataGroup {
 		this.issuingAuthority = issuingAuthority;
 		this.dateOfIssue = dateOfIssue;
 		this.namesOfOtherPersons = namesOfOtherPersons == null ? new ArrayList<String>() : new ArrayList<String>(namesOfOtherPersons);
-		this.endorseMentsAndObservations = endorseMentsAndObservations;
+		this.endorseMentsAndObservations = endorsementsAndObservations;
 		this.taxOrExitRequirements = taxOrExitRequirements;
 		this.imageOfFront = imageOfFront;
 		this.imageOfRear = imageOfRear;
