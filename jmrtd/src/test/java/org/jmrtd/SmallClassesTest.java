@@ -99,4 +99,24 @@ class SmallClassesTest {
 	void testSecureMessagingWrapperIsAbstract() {
 		assertTrue(java.lang.reflect.Modifier.isAbstract(SecureMessagingWrapper.class.getModifiers()));
 	}
+
+	@Test
+	void testJMRTDSecurityProviderDeep() {
+		Provider p = JMRTDSecurityProvider.getInstance();
+		assertNotNull(p);
+		Provider bc = JMRTDSecurityProvider.getBouncyCastleProvider();
+		assertNotNull(bc);
+		/* singleton consistency */
+		assertSame(bc, JMRTDSecurityProvider.getBouncyCastleProvider());
+		assertNotNull(p.getName());
+	}
+
+	@Test
+	void testBACKeyDateParsingEquality() throws Exception {
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyMMdd");
+		BACKey viaDates = new BACKey("L898902C", sdf.parse("740812"), sdf.parse("120415"));
+		BACKey viaStrings = new BACKey("L898902C", "740812", "120415");
+		assertEquals(viaStrings, viaDates);
+		assertEquals(viaStrings.hashCode(), viaDates.hashCode());
+	}
 }
