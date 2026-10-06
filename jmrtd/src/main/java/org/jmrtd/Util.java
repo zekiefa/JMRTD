@@ -99,6 +99,7 @@ import org.jmrtd.lds.SecurityInfo;
  * 
  * @version $Revision$
  */
+@Deprecated
 public class Util {
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
