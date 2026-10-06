@@ -562,19 +562,19 @@ public class FaceImageInfo extends AbstractImageInfo {
 	}
 	
 	private String hairColorToString() {
-		switch(hairColor) {
-		case HAIR_COLOR_UNSPECIFIED: return "unspecified";
-		case HAIR_COLOR_BALD: return "bald";
-		case HAIR_COLOR_BLACK: return "black";
-		case HAIR_COLOR_BLONDE: return "blonde";
-		case HAIR_COLOR_BROWN: return "brown";
-		case HAIR_COLOR_GRAY: return "gray";
-		case HAIR_COLOR_WHITE: return "white";
-		case HAIR_COLOR_RED: return "red";
-		case HAIR_COLOR_GREEN: return "green";
-		case HAIR_COLOR_BLUE: return "blue";
-		}
-		return "unknown";
+		return switch (hairColor) {
+		case HAIR_COLOR_UNSPECIFIED -> "unspecified";
+		case HAIR_COLOR_BALD -> "bald";
+		case HAIR_COLOR_BLACK -> "black";
+		case HAIR_COLOR_BLONDE -> "blonde";
+		case HAIR_COLOR_BROWN -> "brown";
+		case HAIR_COLOR_GRAY -> "gray";
+		case HAIR_COLOR_WHITE -> "white";
+		case HAIR_COLOR_RED -> "red";
+		case HAIR_COLOR_GREEN -> "green";
+		case HAIR_COLOR_BLUE -> "blue";
+		default -> "unknown";
+		};
 	}
 
 	private String featureMaskToString() {
@@ -621,25 +621,17 @@ public class FaceImageInfo extends AbstractImageInfo {
 	}
 
 	private String expressionToString() {
-		switch (expression) {
-		case EXPRESSION_UNSPECIFIED:
-			return "unspecified";
-		case EXPRESSION_NEUTRAL:
-			return "neutral (non-smiling) with both eyes open and mouth closed";
-		case EXPRESSION_SMILE_CLOSED:
-			return "a smile where the inside of the mouth and/or teeth is not exposed (closed jaw)";
-		case EXPRESSION_SMILE_OPEN:
-			return "a smile where the inside of the mouth and/or teeth is exposed";
-		case EXPRESSION_RAISED_EYEBROWS:
-			return "raised eyebrows";
-		case EXPRESSION_EYES_LOOKING_AWAY:
-			return "eyes looking away from the camera";
-		case EXPRESSION_SQUINTING:
-			return "squinting";
-		case EXPRESSION_FROWNING:
-			return "frowning";
-		}
-		return "unknown";
+		return switch (expression) {
+		case EXPRESSION_UNSPECIFIED -> "unspecified";
+		case EXPRESSION_NEUTRAL -> "neutral (non-smiling) with both eyes open and mouth closed";
+		case EXPRESSION_SMILE_CLOSED -> "a smile where the inside of the mouth and/or teeth is not exposed (closed jaw)";
+		case EXPRESSION_SMILE_OPEN -> "a smile where the inside of the mouth and/or teeth is exposed";
+		case EXPRESSION_RAISED_EYEBROWS -> "raised eyebrows";
+		case EXPRESSION_EYES_LOOKING_AWAY -> "eyes looking away from the camera";
+		case EXPRESSION_SQUINTING -> "squinting";
+		case EXPRESSION_FROWNING -> "frowning";
+		default -> "unknown";
+		};
 	}
 
 	private String poseAngleToString() {

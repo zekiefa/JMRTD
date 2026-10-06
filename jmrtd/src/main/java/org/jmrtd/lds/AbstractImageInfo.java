@@ -246,9 +246,9 @@ abstract class AbstractImageInfo implements ImageInfo {
 	 */
 	protected void readImage(InputStream inputStream, long imageLength) throws IOException {
 		/* DEBUG: START */
-		if (inputStream instanceof SplittableInputStream) {
+		if (inputStream instanceof SplittableInputStream splittable) {
 			this.imageBytes = null;
-			this.splittableInputStream = (SplittableInputStream)inputStream;
+			this.splittableInputStream = splittable;
 			this.imagePositionInInputStream = splittableInputStream.getPosition();
 
 			this.imageLength = (int)imageLength;
@@ -310,12 +310,12 @@ abstract class AbstractImageInfo implements ImageInfo {
 	}
 
 	private static String typeToString(int type) {
-		switch (type) {
-		case TYPE_PORTRAIT: return "Portrait";
-		case TYPE_SIGNATURE_OR_MARK: return "Signature or usual mark";
-		case TYPE_FINGER: return "Finger";
-		case TYPE_IRIS: return "Iris";
-		default: throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
-		}
+		return switch (type) {
+		case TYPE_PORTRAIT -> "Portrait";
+		case TYPE_SIGNATURE_OR_MARK -> "Signature or usual mark";
+		case TYPE_FINGER -> "Finger";
+		case TYPE_IRIS -> "Iris";
+		default -> throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
+		};
 	}	
 }

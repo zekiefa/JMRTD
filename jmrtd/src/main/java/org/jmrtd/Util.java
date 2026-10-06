@@ -604,12 +604,10 @@ public class Util {
 	 */
 	public static String getDetailedPublicKeyAlgorithm(PublicKey publicKey) {
 		String publicKeyAlgorithm = publicKey.getAlgorithm();
-		if (publicKey instanceof RSAPublicKey) {
-			RSAPublicKey rsaPublicKey = (RSAPublicKey)publicKey;
+		if (publicKey instanceof RSAPublicKey rsaPublicKey) {
 			int publicKeyBitLength = rsaPublicKey.getModulus().bitLength();
 			publicKeyAlgorithm += " [" + publicKeyBitLength + " bit]";
-		} else if (publicKey instanceof ECPublicKey) {
-			ECPublicKey ecPublicKey = (ECPublicKey)publicKey;
+		} else if (publicKey instanceof ECPublicKey ecPublicKey) {
 			ECParameterSpec ecParams = ecPublicKey.getParams();
 			String name = getCurveName(ecParams);
 			if (name != null) {
@@ -652,14 +650,14 @@ public class Util {
 			BigInteger a = curve.getA();
 			BigInteger b = curve.getB();
 			ECField field = curve.getField();
-			if (field instanceof ECFieldFp) {
-				BigInteger p = ((ECFieldFp)field).getP();
+			if (field instanceof ECFieldFp fieldFp) {
+				BigInteger p = fieldFp.getP();
 				ECField resultField = new ECFieldFp(p);
 				EllipticCurve resultCurve = new EllipticCurve(resultField, a, b);
 				ECParameterSpec resultParams = new ECParameterSpec(resultCurve, g, n, h);
 				return resultParams;
-			} else if (field instanceof ECFieldF2m) {
-				int m = ((ECFieldF2m)field).getM();
+			} else if (field instanceof ECFieldF2m fieldF2m) {
+				int m = fieldF2m.getM();
 				ECField resultField = new ECFieldF2m(m);
 				EllipticCurve resultCurve = new EllipticCurve(resultField, a, b);
 				ECParameterSpec resultParams = new ECParameterSpec(resultCurve, g, n, h);
@@ -740,8 +738,7 @@ public class Util {
 				}
 				ASN1Primitive derEncodedParams = algorithmIdentifier.getParameters().toASN1Primitive();
 				X9ECParameters params = null;
-				if (derEncodedParams instanceof ASN1ObjectIdentifier) {
-					ASN1ObjectIdentifier paramsOID = (ASN1ObjectIdentifier)derEncodedParams;
+				if (derEncodedParams instanceof ASN1ObjectIdentifier paramsOID) {
 
 					/* It's a named curve from X9.62. */
 					params = X962NamedCurves.getByOID(paramsOID);
@@ -757,8 +754,7 @@ public class Util {
 					return subjectPublicKeyInfo;
 				}
 
-				if (publicKey instanceof org.bouncycastle.jce.interfaces.ECPublicKey) {
-					org.bouncycastle.jce.interfaces.ECPublicKey ecPublicKey = (org.bouncycastle.jce.interfaces.ECPublicKey)publicKey;
+				if (publicKey instanceof org.bouncycastle.jce.interfaces.ECPublicKey ecPublicKey) {
 					AlgorithmIdentifier id = new AlgorithmIdentifier(subjectPublicKeyInfo.getAlgorithm().getAlgorithm(), params.toASN1Primitive());
 					org.bouncycastle.math.ec.ECPoint q = ecPublicKey.getQ();
 					/* FIXME: investigate the compressed versus uncompressed point issue. What is allowed in TR03110? -- MO */
@@ -863,8 +859,7 @@ public class Util {
 		TLVOutputStream tlvOut = new TLVOutputStream(bOut);
 		try {
 			tlvOut.writeTag(0x7F49); // FIXME: constant for 7F49 */
-			if (publicKey instanceof DHPublicKey) {
-				DHPublicKey dhPublicKey = (DHPublicKey)publicKey;
+			if (publicKey instanceof DHPublicKey dhPublicKey) {
 				DHParameterSpec params = dhPublicKey.getParams();
 				BigInteger p = params.getP();
 				int l = params.getL();

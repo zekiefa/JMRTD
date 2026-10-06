@@ -128,27 +128,26 @@ public class DisplayedImageInfo extends AbstractImageInfo {
 	 * Displayed Signature/ usual mark: ISO 10918, JFIF option
 	 */	
 	private static String getMimeTypeFromType(int type) {
-		switch (type) {
-		case TYPE_PORTRAIT: return "image/jpeg";
-		case TYPE_FINGER: return "image/x-wsq";
-		case TYPE_SIGNATURE_OR_MARK: return "image/jpeg";
-		default: throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
-		}
+		return switch (type) {
+		case TYPE_PORTRAIT, TYPE_SIGNATURE_OR_MARK -> "image/jpeg";
+		case TYPE_FINGER -> "image/x-wsq";
+		default -> throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
+		};
 	}
 	
 	private static int getDisplayedImageTagFromType(int type) {
-		switch(type) {
-		case TYPE_PORTRAIT: return DISPLAYED_PORTRAIT_TAG;
-		case TYPE_SIGNATURE_OR_MARK: return DISPLAYED_SIGNATURE_OR_MARK_TAG;
-		default: throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
-		}
+		return switch (type) {
+		case TYPE_PORTRAIT -> DISPLAYED_PORTRAIT_TAG;
+		case TYPE_SIGNATURE_OR_MARK -> DISPLAYED_SIGNATURE_OR_MARK_TAG;
+		default -> throw new NumberFormatException("Unknown type: " + Integer.toHexString(type));
+		};
 	}
 	
 	private static int getTypeFromDisplayedImageTag(int tag) {
-		switch(tag) {
-		case DISPLAYED_PORTRAIT_TAG: return DisplayedImageInfo.TYPE_PORTRAIT;
-		case DISPLAYED_SIGNATURE_OR_MARK_TAG: return DisplayedImageInfo.TYPE_SIGNATURE_OR_MARK;
-		default: throw new NumberFormatException("Unknown tag: " + Integer.toHexString(tag));
-		}
+		return switch (tag) {
+		case DISPLAYED_PORTRAIT_TAG -> DisplayedImageInfo.TYPE_PORTRAIT;
+		case DISPLAYED_SIGNATURE_OR_MARK_TAG -> DisplayedImageInfo.TYPE_SIGNATURE_OR_MARK;
+		default -> throw new NumberFormatException("Unknown tag: " + Integer.toHexString(tag));
+		};
 	}
 }

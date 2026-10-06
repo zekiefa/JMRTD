@@ -322,54 +322,56 @@ public class FingerImageInfo extends AbstractImageInfo {
 		return result.toString();
 	}
 
+	
+
 	private static String positionToString(int position) {
-		switch (position) {
-		case POSITION_UNKNOWN_FINGER: return "Unknown finger";
-		case POSITION_RIGHT_THUMB: return "Right thumb";
-		case POSITION_RIGHT_INDEX_FINGER: return "Right index finger";
-		case POSITION_RIGHT_MIDDLE_FINGER: return "Right middle finger";
-		case POSITION_RIGHT_RING_FINGER: return "Right ring finger";
-		case POSITION_RIGHT_LITTLE_FINGER: return "Right little finger";
-		case POSITION_LEFT_THUMB: return "Left thumb";
-		case POSITION_LEFT_INDEX_FINGER: return "Left index finger";
-		case POSITION_LEFT_MIDDLE_FINGER: return "Left middle finger";
-		case POSITION_LEFT_RING_FINGER: return "Left ring finger";
-		case POSITION_LEFT_LITTLE_FINGER: return "Left little finger";
-		case POSITION_PLAIN_RIGHT_FOUR_FINGERS: return "Right four fingers";
-		case POSITION_PLAIN_LEFT_FOUR_FINGERS: return "Left four fingers";
-		case POSITION_PLAIN_THUMBS: return "Plain thumbs";
-		case POSITION_UNKNOWN_PALM: return "Unknown palm";
-		case POSITION_RIGHT_FULL_PALM: return "Right full palm";
-		case POSITION_RIGHT_WRITER_S_PALM: return "Right writer's palm";
-		case POSITION_LEFT_FULL_PALM: return "Left full palm";
-		case POSITION_LEFT_WRITER_S_PALM: return "Left writer's palm";
-		case POSITION_RIGHT_LOWER_PALM: return "Right lower palm";
-		case POSITION_RIGHT_UPPER_PALM: return "Right upper palm";
-		case POSITION_LEFT_LOWER_PALM: return "Left lower palm";
-		case POSITION_LEFT_UPPER_PALM: return "Left upper palm";
-		case POSITION_RIGHT_OTHER: return "Right other";
-		case POSITION_LEFT_OTHER: return "Left other";
-		case POSITION_RIGHT_INTERDIGITAL: return "Right interdigital";
-		case POSITION_RIGHT_THENAR: return "Right thenar";
-		case POSITION_RIGHT_HYPOTHENAR: return "Right hypothenar";
-		case POSITION_LEFT_INTERDIGITAL: return "Left interdigital";
-		case POSITION_LEFT_THENAR: return "Left thenar";
-		case POSITION_LEFT_HYPOTHENAR: return "Left hypothenar";
-		default: return null;
-		}
+		return switch (position) {
+		case POSITION_UNKNOWN_FINGER -> "Unknown finger";
+		case POSITION_RIGHT_THUMB -> "Right thumb";
+		case POSITION_RIGHT_INDEX_FINGER -> "Right index finger";
+		case POSITION_RIGHT_MIDDLE_FINGER -> "Right middle finger";
+		case POSITION_RIGHT_RING_FINGER -> "Right ring finger";
+		case POSITION_RIGHT_LITTLE_FINGER -> "Right little finger";
+		case POSITION_LEFT_THUMB -> "Left thumb";
+		case POSITION_LEFT_INDEX_FINGER -> "Left index finger";
+		case POSITION_LEFT_MIDDLE_FINGER -> "Left middle finger";
+		case POSITION_LEFT_RING_FINGER -> "Left ring finger";
+		case POSITION_LEFT_LITTLE_FINGER -> "Left little finger";
+		case POSITION_PLAIN_RIGHT_FOUR_FINGERS -> "Right four fingers";
+		case POSITION_PLAIN_LEFT_FOUR_FINGERS -> "Left four fingers";
+		case POSITION_PLAIN_THUMBS -> "Plain thumbs";
+		case POSITION_UNKNOWN_PALM -> "Unknown palm";
+		case POSITION_RIGHT_FULL_PALM -> "Right full palm";
+		case POSITION_RIGHT_WRITER_S_PALM -> "Right writer's palm";
+		case POSITION_LEFT_FULL_PALM -> "Left full palm";
+		case POSITION_LEFT_WRITER_S_PALM -> "Left writer's palm";
+		case POSITION_RIGHT_LOWER_PALM -> "Right lower palm";
+		case POSITION_RIGHT_UPPER_PALM -> "Right upper palm";
+		case POSITION_LEFT_LOWER_PALM -> "Left lower palm";
+		case POSITION_LEFT_UPPER_PALM -> "Left upper palm";
+		case POSITION_RIGHT_OTHER -> "Right other";
+		case POSITION_LEFT_OTHER -> "Left other";
+		case POSITION_RIGHT_INTERDIGITAL -> "Right interdigital";
+		case POSITION_RIGHT_THENAR -> "Right thenar";
+		case POSITION_RIGHT_HYPOTHENAR -> "Right hypothenar";
+		case POSITION_LEFT_INTERDIGITAL -> "Left interdigital";
+		case POSITION_LEFT_THENAR -> "Left thenar";
+		case POSITION_LEFT_HYPOTHENAR -> "Left hypothenar";
+		default -> null;
+		};
 	}
 
 	private static String impressionTypeToString(int impressionType) {
-		switch (impressionType) {
-		case IMPRESSION_TYPE_LIVE_SCAN_PLAIN: return "Live scan plain";
-		case IMPRESSION_TYPE_LIVE_SCAN_ROLLED: return "Live scan rolled";
-		case IMPRESSION_TYPE_NON_LIVE_SCAN_PLAIN: return "Non-live scan plain";
-		case IMPRESSION_TYPE_NON_LIVE_SCAN_ROLLED: return "Non-live scan rolled";
-		case IMPRESSION_TYPE_LATENT: return "Latent";
-		case IMPRESSION_TYPE_SWIPE: return "Swipe";
-		case IMPRESSION_TYPE_LIVE_SCAN_CONTACTLESS: return "Live scan contactless";
-		default: return null;
-		}
+		return switch (impressionType) {
+		case IMPRESSION_TYPE_LIVE_SCAN_PLAIN -> "Live scan plain";
+		case IMPRESSION_TYPE_LIVE_SCAN_ROLLED -> "Live scan rolled";
+		case IMPRESSION_TYPE_NON_LIVE_SCAN_PLAIN -> "Non-live scan plain";
+		case IMPRESSION_TYPE_NON_LIVE_SCAN_ROLLED -> "Non-live scan rolled";
+		case IMPRESSION_TYPE_LATENT -> "Latent";
+		case IMPRESSION_TYPE_SWIPE -> "Swipe";
+		case IMPRESSION_TYPE_LIVE_SCAN_CONTACTLESS -> "Live scan contactless";
+		default -> null;
+		};
 	}
 	
 	/**

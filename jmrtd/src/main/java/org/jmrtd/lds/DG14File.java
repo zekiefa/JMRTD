@@ -118,8 +118,8 @@ public class DG14File extends DataGroup {
 	public List<Short> getCVCAFileIds() {
 		List<Short> cvcaFiles = new ArrayList<Short>();
 		for (SecurityInfo si : securityInfos) {
-			if (si instanceof TerminalAuthenticationInfo) {
-				int i = ((TerminalAuthenticationInfo) si).getFileId();
+			if (si instanceof TerminalAuthenticationInfo tai) {
+				int i = tai.getFileId();
 				if (i != -1) {
 					cvcaFiles.add((short)i);
 				}
@@ -137,9 +137,9 @@ public class DG14File extends DataGroup {
 	 */
 	public byte getCVCAShortFileId(int fileId) {
 		for (SecurityInfo si : securityInfos) {
-			if (si instanceof TerminalAuthenticationInfo) {
-				if (((TerminalAuthenticationInfo) si).getFileId() == fileId) {
-					return ((TerminalAuthenticationInfo) si).getShortFileId();
+			if (si instanceof TerminalAuthenticationInfo tai2) {
+				if (tai2.getFileId() == fileId) {
+					return tai2.getShortFileId();
 				}
 			}
 		}
@@ -156,8 +156,7 @@ public class DG14File extends DataGroup {
 	public Map<BigInteger, String> getChipAuthenticationInfos() {
 		Map<BigInteger, String> map = new TreeMap<BigInteger, String>();
 		for (SecurityInfo securityInfo : securityInfos) {
-			if (securityInfo instanceof ChipAuthenticationInfo) {
-				ChipAuthenticationInfo chipAuthNInfo = (ChipAuthenticationInfo)securityInfo;
+			if (securityInfo instanceof ChipAuthenticationInfo chipAuthNInfo) {
 				map.put(chipAuthNInfo.getKeyId(), chipAuthNInfo.getObjectIdentifier());
 				if (chipAuthNInfo.getKeyId().compareTo(BigInteger.ZERO) < 0) {
 					return map;

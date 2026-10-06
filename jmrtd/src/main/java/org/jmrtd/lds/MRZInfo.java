@@ -222,9 +222,9 @@ public class MRZInfo extends AbstractLDSInfo {
 		this.documentCode = readStringWithFillers(dataIn, 2);
 		this.documentType = getDocumentTypeFromDocumentCode(this.documentCode);
 		switch (length) {
-		case 88: this.documentType = DOC_TYPE_ID3; break;
-		case 90: this.documentType = DOC_TYPE_ID1; break;
-		default: this.documentType = getDocumentTypeFromDocumentCode(this.documentCode); break;
+		case 88 -> this.documentType = DOC_TYPE_ID3;
+		case 90 -> this.documentType = DOC_TYPE_ID1;
+		default -> this.documentType = getDocumentTypeFromDocumentCode(this.documentCode);
 		}
 		if (this.documentType == DOC_TYPE_ID1) {
 			/* line 1, pos 3 to 5 Issuing State or organization */
@@ -754,11 +754,11 @@ public class MRZInfo extends AbstractLDSInfo {
 	}
 
 	private String genderToString() {
-		switch (gender) {
-		case MALE: return "M";
-		case FEMALE: return "F";
-		default: return "<";
-		}
+			return switch (gender) {
+		case MALE -> "M";
+		case FEMALE -> "F";
+		default -> "<";
+		};
 	}
 
 	private String nameToString(int width) {

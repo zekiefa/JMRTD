@@ -48,37 +48,38 @@ public class LDSFileUtil {
 	 * @throws IOException on reading error from the input stream
 	 */
 	public static AbstractLDSFile getLDSFile(short fid, InputStream inputStream) throws IOException {
-		switch (fid) {
-		case PassportService.EF_COM: return new COMFile(inputStream);
-		case PassportService.EF_DG1: return new DG1File(inputStream);
-		case PassportService.EF_DG2: return new DG2File(inputStream);
-		case PassportService.EF_DG3: return new DG3File(inputStream);
-		case PassportService.EF_DG4: return new DG4File(inputStream);
-		case PassportService.EF_DG5: return new DG5File(inputStream);
-		case PassportService.EF_DG6: return new DG6File(inputStream);
-		case PassportService.EF_DG7: return new DG7File(inputStream);
-		case PassportService.EF_DG8: throw new IllegalArgumentException("DG8 files are not yet supported");
-		case PassportService.EF_DG9: throw new IllegalArgumentException("DG9 files are not yet supported");
-		case PassportService.EF_DG10: throw new IllegalArgumentException("DG10 files are not yet supported");
-		case PassportService.EF_DG11: return new DG11File(inputStream);
-		case PassportService.EF_DG12: return new DG12File(inputStream);
-		case PassportService.EF_DG13: throw new IllegalArgumentException("DG13 files are not yet supported");
-		case PassportService.EF_DG14: return new DG14File(inputStream);
-		case PassportService.EF_DG15: return new DG15File(inputStream);
-		case PassportService.EF_DG16: throw new IllegalArgumentException("DG16 files are not yet supported");
-		case PassportService.EF_SOD: return new SODFile(inputStream);
-		case PassportService.EF_CVCA: return new CVCAFile(inputStream);
-		default:
+		return switch (fid) {
+		case PassportService.EF_COM -> new COMFile(inputStream);
+		case PassportService.EF_DG1 -> new DG1File(inputStream);
+		case PassportService.EF_DG2 -> new DG2File(inputStream);
+		case PassportService.EF_DG3 -> new DG3File(inputStream);
+		case PassportService.EF_DG4 -> new DG4File(inputStream);
+		case PassportService.EF_DG5 -> new DG5File(inputStream);
+		case PassportService.EF_DG6 -> new DG6File(inputStream);
+		case PassportService.EF_DG7 -> new DG7File(inputStream);
+		case PassportService.EF_DG8 -> throw new IllegalArgumentException("DG8 files are not yet supported");
+		case PassportService.EF_DG9 -> throw new IllegalArgumentException("DG9 files are not yet supported");
+		case PassportService.EF_DG10 -> throw new IllegalArgumentException("DG10 files are not yet supported");
+		case PassportService.EF_DG11 -> new DG11File(inputStream);
+		case PassportService.EF_DG12 -> new DG12File(inputStream);
+		case PassportService.EF_DG13 -> throw new IllegalArgumentException("DG13 files are not yet supported");
+		case PassportService.EF_DG14 -> new DG14File(inputStream);
+		case PassportService.EF_DG15 -> new DG15File(inputStream);
+		case PassportService.EF_DG16 -> throw new IllegalArgumentException("DG16 files are not yet supported");
+		case PassportService.EF_SOD -> new SODFile(inputStream);
+		case PassportService.EF_CVCA -> new CVCAFile(inputStream);
+		default -> {
 			BufferedInputStream bufferedIn = new BufferedInputStream(inputStream, 37);
 			try {
 				bufferedIn.mark(37);
 				/* Just try, will read 36 bytes at most, and we can reset bufferedIn. */
-				return new CVCAFile(fid, bufferedIn);
+				yield new CVCAFile(fid, bufferedIn);
 			} catch (Exception e) {
 				bufferedIn.reset();
-				throw new NumberFormatException("Unknown file " + Integer.toHexString(fid));   
+				throw new NumberFormatException("Unknown file " + Integer.toHexString(fid));
 			}
 		}
+		};
 	}
 
 	/**

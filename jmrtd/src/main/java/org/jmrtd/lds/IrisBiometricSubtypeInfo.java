@@ -187,11 +187,11 @@ public class IrisBiometricSubtypeInfo extends AbstractListInfo<IrisImageInfo> {
 	/* ONLY PRIVATE METHODS BELOW */
 	
 	private static String biometricSubtypeToString(int biometricSubtype) {
-		switch (biometricSubtype) {
-		case EYE_LEFT: return "Left eye";
-		case EYE_RIGHT: return "Right eye";
-		case EYE_UNDEF: return "Undefined";
-		default: throw new NumberFormatException("Unknown biometric subtype: " + Integer.toHexString(biometricSubtype));
-		}
+		return switch (biometricSubtype) {
+		case EYE_LEFT -> "Left eye";
+		case EYE_RIGHT -> "Right eye";
+		case EYE_UNDEF -> "Undefined";
+		default -> throw new NumberFormatException("Unknown biometric subtype: " + Integer.toHexString(biometricSubtype));
+		};
 	}	
 }

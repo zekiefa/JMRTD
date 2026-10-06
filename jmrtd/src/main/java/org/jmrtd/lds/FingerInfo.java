@@ -472,15 +472,14 @@ public class FingerInfo extends AbstractListInfo<FingerImageInfo> implements Bio
 	 * @return MIME type string
 	 */
 	static String toMimeType(int imageDataType) {
-		switch (imageDataType) {
-		case FingerInfo.COMPRESSION_UNCOMPRESSED_NO_BIT_PACKING: return "image/raw";
-		case FingerInfo.COMPRESSION_UNCOMPRESSED_BIT_PACKED: return "image/raw";
-		case FingerInfo.COMPRESSION_WSQ: return "image/x-wsq";
-		case FingerInfo.COMPRESSION_JPEG: return "image/jpeg";
-		case FingerInfo.COMPRESSION_JPEG2000: return "image/jpeg2000";
-		case FingerInfo.COMPRESSION_PNG: return "image/png";
-		}
-		return null;
+		return switch (imageDataType) {
+		case FingerInfo.COMPRESSION_UNCOMPRESSED_NO_BIT_PACKING, FingerInfo.COMPRESSION_UNCOMPRESSED_BIT_PACKED -> "image/raw";
+		case FingerInfo.COMPRESSION_WSQ -> "image/x-wsq";
+		case FingerInfo.COMPRESSION_JPEG -> "image/jpeg";
+		case FingerInfo.COMPRESSION_JPEG2000 -> "image/jpeg2000";
+		case FingerInfo.COMPRESSION_PNG -> "image/png";
+		default -> null;
+		};
 	}
 
 	static int fromMimeType(String mimeType) {

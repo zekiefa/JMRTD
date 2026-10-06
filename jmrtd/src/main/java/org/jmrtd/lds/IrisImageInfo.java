@@ -263,16 +263,12 @@ public class IrisImageInfo extends AbstractImageInfo {
 	}
 
 	private static String getMimeTypeFromImageFormat(int imageFormat) {
-		switch (imageFormat) {
-		case IrisInfo.IMAGEFORMAT_MONO_RAW:
-		case IrisInfo.IMAGEFORMAT_RGB_RAW: return WSQ_MIME_TYPE;
-		case IrisInfo.IMAGEFORMAT_MONO_JPEG:
-		case IrisInfo.IMAGEFORMAT_RGB_JPEG:
-		case IrisInfo.IMAGEFORMAT_MONO_JPEG_LS:
-		case IrisInfo.IMAGEFORMAT_RGB_JPEG_LS: return JPEG_MIME_TYPE;
-		case IrisInfo.IMAGEFORMAT_MONO_JPEG2000:
-		case IrisInfo.IMAGEFORMAT_RGB_JPEG2000: return JPEG2000_MIME_TYPE;
-		}
-		return null;
+		return switch (imageFormat) {
+		case IrisInfo.IMAGEFORMAT_MONO_RAW, IrisInfo.IMAGEFORMAT_RGB_RAW -> WSQ_MIME_TYPE;
+		case IrisInfo.IMAGEFORMAT_MONO_JPEG, IrisInfo.IMAGEFORMAT_RGB_JPEG,
+				IrisInfo.IMAGEFORMAT_MONO_JPEG_LS, IrisInfo.IMAGEFORMAT_RGB_JPEG_LS -> JPEG_MIME_TYPE;
+		case IrisInfo.IMAGEFORMAT_MONO_JPEG2000, IrisInfo.IMAGEFORMAT_RGB_JPEG2000 -> JPEG2000_MIME_TYPE;
+		default -> null;
+		};
 	}
 }
