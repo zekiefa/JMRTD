@@ -130,7 +130,7 @@ public class ActiveAuthenticationInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("ActiveAuthenticationInfo");
 		result.append("[");
 		result.append("signatureAlgorithmOID = " + getSignatureAlgorithmOID());

@@ -186,7 +186,7 @@ public class IrisImageInfo extends AbstractImageInfo {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("IrisImageInfo [");
 		result.append("image number: " + imageNumber + ", ");
 		result.append("quality: " + quality + ", ");

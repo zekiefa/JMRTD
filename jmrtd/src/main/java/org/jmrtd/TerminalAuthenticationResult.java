@@ -130,7 +130,7 @@ public class TerminalAuthenticationResult  {
 	}
 
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("EACEvent [chipAuthenticationResult = " + chipAuthenticationResult + ", ");
 		//    	result.append("cardKey = " + cardKey + ", ");
 		//    	result.append("keyPair = " + keyPair + ", ");

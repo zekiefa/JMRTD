@@ -148,7 +148,7 @@ public class WSQMetadata extends IIOMetadata {
 
 	/** Returns the NISTCOM metadata, formatted as a key-value pair per line */
 	public String getNistcom() {
-		StringBuffer ret=new StringBuffer();
+		StringBuilder ret=new StringBuilder();
 		ret.append("NIST_COM ").append(nistcom.size()).append("\n");
 		for (Map.Entry<String, String> entry : nistcom.entrySet()) {
 			ret.append(entry.getKey()).append(" ").append(entry.getValue()).append("\n");

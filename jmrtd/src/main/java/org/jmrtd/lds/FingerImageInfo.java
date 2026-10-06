@@ -308,7 +308,7 @@ public class FingerImageInfo extends AbstractImageInfo {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("FingerImageInfo [");
 		result.append("quality: " + quality + ", ");
 		result.append("position: " + positionToString(position)+ ", ");

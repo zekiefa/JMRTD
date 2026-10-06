@@ -162,7 +162,7 @@ public class PACEInfo extends SecurityInfo {
 	}
 
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("PaceInfo");
 		result.append("[");
 		result.append("protocol: " + protocolOID);

@@ -570,7 +570,7 @@ public class DG11File extends DataGroup {
 	 * @return a textual representation of this file
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("DG11File [");
 		result.append(nameOfHolder == null ? "" : nameOfHolder); result.append(", ");
 		result.append(otherNames == null || otherNames.size() == 0 ? "[]" : otherNames); result.append(", ");

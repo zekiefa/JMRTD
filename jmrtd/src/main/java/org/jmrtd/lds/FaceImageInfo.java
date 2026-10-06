@@ -488,7 +488,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 	 */
 	/* TODO: rename this method, distinguish between a pretty print version to be used in JMRTD GUI and a proper toString() */
 	public String toString() {
-		StringBuffer out = new StringBuffer();
+		StringBuilder out = new StringBuilder();
 		out.append("Image size: "); out.append(getWidth() + " x " + getHeight()); out.append("\n");
 		out.append("Gender: "); out.append(gender); out.append("\n");
 		out.append("Eye color: "); out.append(eyeColor); out.append("\n");
@@ -610,7 +610,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		if ((featureMask & FEATURE_DISTORTING_MEDICAL_CONDITION) != 0) {
 			features.add("distorting medical condition (which could impact feature point detection)");
 		}
-		StringBuffer out = new StringBuffer();
+		StringBuilder out = new StringBuilder();
 		for (Iterator<String> it = features.iterator(); it.hasNext();) {
 			out.append(it.next().toString());
 			if (it.hasNext()) {
@@ -635,7 +635,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 	}
 
 	private String poseAngleToString() {
-		StringBuffer out = new StringBuffer();
+		StringBuilder out = new StringBuilder();
 		out.append("(");
 		out.append("y: "); out.append(poseAngle[YAW]);
 		if (poseAngleUncertainty[YAW] != 0) {
@@ -820,7 +820,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		 * @see java.lang.Object#toString()
 		 */
 		public String toString() {
-			StringBuffer out = new StringBuffer();
+			StringBuilder out = new StringBuilder();
 			out.append("( point: "); out.append(getMajorCode()); out.append("."); out.append(getMinorCode());
 			out.append(", ");
 			out.append("type: "); out.append(Integer.toHexString(type)); out.append(", ");

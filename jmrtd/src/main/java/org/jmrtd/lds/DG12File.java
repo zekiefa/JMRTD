@@ -413,7 +413,7 @@ public class DG12File extends DataGroup {
 	 * @return a textual representation of this file
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append("DG12File [");
 		result.append(issuingAuthority == null ? "" : issuingAuthority); result.append(", ");
 		result.append(dateOfIssue == null ? "" : SDF.format(dateOfIssue)); result.append(", ");

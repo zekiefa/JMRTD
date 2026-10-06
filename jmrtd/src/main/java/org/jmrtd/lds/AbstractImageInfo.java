@@ -161,7 +161,7 @@ abstract class AbstractImageInfo implements ImageInfo {
 	 * @return a textual representation of this image info
 	 */
 	public String toString() {
-		StringBuffer result = new StringBuffer();
+		StringBuilder result = new StringBuilder();
 		result.append(this.getClass().getSimpleName());
 		result.append(" [");
 		result.append("type: " + typeToString(type) + ", ");

@@ -1658,7 +1658,7 @@ public class WSQEncoder implements WSQConstants, NISTConstants {
 
 	private static String fetToString(Map<String, String> fet) {
 		try {
-			StringBuffer result = new StringBuffer();
+			StringBuilder result = new StringBuilder();
 			Set<Map.Entry<String, String>> entries = fet.entrySet();
 			for (Map.Entry<String, String> entry: entries) {
 				if (entry.getKey()==null) continue;

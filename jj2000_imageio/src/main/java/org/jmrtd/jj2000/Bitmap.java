@@ -73,7 +73,7 @@ public class Bitmap implements Serializable {
     
     @Override
 	public String toString() {
-    	StringBuffer result = new StringBuffer();
+    	StringBuilder result = new StringBuilder();
     	result.append("Bitmap [");
     	result.append(width);
     	result.append(" x "); result.append(height);
