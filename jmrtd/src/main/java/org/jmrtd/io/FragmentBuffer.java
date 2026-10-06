@@ -291,12 +291,12 @@ public class FragmentBuffer implements Serializable {
 
 	/**
 	 * Fragments encapsulate pairs of offset and length.
+	 * Implemented as a record; access via {@link #offset()} and {@link #length()}
+	 * (legacy getters {@link #getOffset()}/{@link #getLength()} are preserved).
 	 */
-	public static class Fragment implements Serializable {
+	public record Fragment(int offset, int length) implements Serializable {
 
 		private static final long serialVersionUID = -3795931618553980328L;
-
-		private int offset, length;
 
 		public int getOffset() {
 			return offset;
@@ -306,29 +306,13 @@ public class FragmentBuffer implements Serializable {
 			return length;
 		}
 
-		private Fragment(int offset, int length) {
-			this.offset = offset;
-			this.length = length;
-		}
-
 		public static Fragment getInstance(int offset, int length) {
 			return new Fragment(offset, length);
 		}
 
+		@Override
 		public String toString() {
-			return "[" + offset + " .. " + (offset + length - 1)  + " (" + length + ")]";
-		}
-
-		public boolean equals(Object otherObject) {
-			if (otherObject == null) { return false; }
-			if (otherObject == this) { return true; }
-			if (!otherObject.getClass().equals(Fragment.class)) { return false; }
-			Fragment otherFragment = (Fragment)otherObject;
-			return otherFragment.offset == offset && otherFragment.length == length;
-		}
-
-		public int hashCode() {
-			return 2 * offset + 3 * length + 5;
+			return "[" + offset + " .. " + (offset + length - 1) + " (" + length + ")]";
 		}
 	}
 }
