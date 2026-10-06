@@ -158,6 +158,9 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 
 	private static final Logger LOGGER = Logger.getLogger("org.jmrtd");
 
+	/** Digest-encryption OID alias used in some signedData signer infos. */
+	private static final String DIGEST_ENC_ALG_RSA_SSA_PSS = "SSAwithRSA/PSS";
+
 	private SignedData signedData;
 
 	/**
@@ -554,7 +557,7 @@ public class SODFile extends DataGroup { /* FIXME: strictly speaking this is not
 		 *    2. The hash id is not encoded in OID
 		 * So it has to be specified "manually".
 		 */
-		if ("SSAwithRSA/PSS".equals(digestEncryptionAlgorithm)) {
+		if (DIGEST_ENC_ALG_RSA_SSA_PSS.equals(digestEncryptionAlgorithm)) {
 			String digestAlg = getSignerInfoDigestAlgorithm();
 			digestEncryptionAlgorithm = digestAlg.replace("-", "") + "withRSA/PSS";
 		}

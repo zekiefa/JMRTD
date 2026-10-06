@@ -561,9 +561,12 @@ public class FaceImageInfo extends AbstractImageInfo {
 		dataOut.close();
 	}
 	
+	private static final String UNKNOWN_LABEL = "unknown";
+	private static final String HAIR_UNSPECIFIED_LABEL = "unspecified";
+
 	private String hairColorToString() {
 		return switch (hairColor) {
-		case HAIR_COLOR_UNSPECIFIED -> "unspecified";
+		case HAIR_COLOR_UNSPECIFIED -> HAIR_UNSPECIFIED_LABEL;
 		case HAIR_COLOR_BALD -> "bald";
 		case HAIR_COLOR_BLACK -> "black";
 		case HAIR_COLOR_BLONDE -> "blonde";
@@ -573,7 +576,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		case HAIR_COLOR_RED -> "red";
 		case HAIR_COLOR_GREEN -> "green";
 		case HAIR_COLOR_BLUE -> "blue";
-		default -> "unknown";
+		default -> UNKNOWN_LABEL;
 		};
 	}
 
@@ -622,7 +625,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 
 	private String expressionToString() {
 		return switch (expression) {
-		case EXPRESSION_UNSPECIFIED -> "unspecified";
+		case EXPRESSION_UNSPECIFIED -> HAIR_UNSPECIFIED_LABEL;
 		case EXPRESSION_NEUTRAL -> "neutral (non-smiling) with both eyes open and mouth closed";
 		case EXPRESSION_SMILE_CLOSED -> "a smile where the inside of the mouth and/or teeth is not exposed (closed jaw)";
 		case EXPRESSION_SMILE_OPEN -> "a smile where the inside of the mouth and/or teeth is exposed";
@@ -630,7 +633,7 @@ public class FaceImageInfo extends AbstractImageInfo {
 		case EXPRESSION_EYES_LOOKING_AWAY -> "eyes looking away from the camera";
 		case EXPRESSION_SQUINTING -> "squinting";
 		case EXPRESSION_FROWNING -> "frowning";
-		default -> "unknown";
+		default -> UNKNOWN_LABEL;
 		};
 	}
 

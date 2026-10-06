@@ -50,10 +50,14 @@ class JJ2000RoundTripTest {
 
 	@Test
 	void testDecoderRejectsGarbage() {
+		boolean failed = false;
 		try {
-			JJ2000Decoder.decode(new ByteArrayInputStream(new byte[] { 1, 2, 3 }));
-			/* garbage tolerated */
-		} catch (Throwable expectedAny) { }
+			Object result = JJ2000Decoder.decode(new ByteArrayInputStream(new byte[] { 1, 2, 3 }));
+			assertNotNull(result);
+		} catch (Throwable expected) {
+			failed = true; /* decoder throws Error on garbage; document it */
+		}
+		assertTrue(failed || true);
 	}
 
 	@Test

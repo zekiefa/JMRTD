@@ -728,43 +728,7 @@ public class Util {
 		try {
 			String algorithm = publicKey.getAlgorithm();
 			if ("EC".equals(algorithm) || "ECDH".equals(algorithm) || (publicKey instanceof ECPublicKey)) {
-				ASN1InputStream asn1In = new ASN1InputStream(publicKey.getEncoded());
-				SubjectPublicKeyInfo subjectPublicKeyInfo = new SubjectPublicKeyInfo((ASN1Sequence)asn1In.readObject());
-				asn1In.close();
-				AlgorithmIdentifier algorithmIdentifier = subjectPublicKeyInfo.getAlgorithm();
-				String algOID = algorithmIdentifier.getAlgorithm().getId();
-				if (!SecurityInfo.ID_EC_PUBLIC_KEY.equals(algOID)) {
-					throw new IllegalStateException("Was expecting id-ecPublicKey (" + SecurityInfo.ID_EC_PUBLIC_KEY_TYPE + "), found " + algOID);
-				}
-				ASN1Primitive derEncodedParams = algorithmIdentifier.getParameters().toASN1Primitive();
-				X9ECParameters params = null;
-				if (derEncodedParams instanceof ASN1ObjectIdentifier paramsOID) {
-
-					/* It's a named curve from X9.62. */
-					params = X962NamedCurves.getByOID(paramsOID);
-					if (params == null) { throw new IllegalStateException("Could not find X9.62 named curve for OID " + paramsOID.getId()); }
-
-					/* Reconstruct the parameters. */
-					org.bouncycastle.math.ec.ECPoint generator = params.getG();
-					org.bouncycastle.math.ec.ECCurve curve = generator.getCurve();
-					generator = curve.createPoint(generator.getAffineXCoord().toBigInteger(), generator.getAffineYCoord().toBigInteger());
-					params = new X9ECParameters(params.getCurve(), new X9ECPoint(generator, false), params.getN(), params.getH(), params.getSeed());
-				} else {
-					/* It's not a named curve, we can just return the decoded public key info. */
-					return subjectPublicKeyInfo;
-				}
-
-				if (publicKey instanceof org.bouncycastle.jce.interfaces.ECPublicKey ecPublicKey) {
-					AlgorithmIdentifier id = new AlgorithmIdentifier(subjectPublicKeyInfo.getAlgorithm().getAlgorithm(), params.toASN1Primitive());
-					org.bouncycastle.math.ec.ECPoint q = ecPublicKey.getQ();
-					/* FIXME: investigate the compressed versus uncompressed point issue. What is allowed in TR03110? -- MO */
-					// In case we would like to compress the point:
-					// p = p.getCurve().createPoint(p.getX().toBigInteger(), p.getY().toBigInteger(), true);
-					subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded(false));
-					return subjectPublicKeyInfo;
-				} else {
-					return subjectPublicKeyInfo;
-				}
+				return ecsSubjectPublicKeyInfo(publicKey);
 			} else if ("DH".equals(algorithm) || (publicKey instanceof DHPublicKey)) {
 				DHPublicKey dhPublicKey = (DHPublicKey)publicKey;
 				DHParameterSpec dhSpec = dhPublicKey.getParams();
@@ -779,6 +743,35 @@ public class Util {
 			LOGGER.severe("Exception: " + e.getMessage());
 			return null;
 		}
+	}
+
+	private static SubjectPublicKeyInfo ecsSubjectPublicKeyInfo(PublicKey publicKey) throws IOException {
+		ASN1InputStream asn1In = new ASN1InputStream(publicKey.getEncoded());
+		SubjectPublicKeyInfo subjectPublicKeyInfo = new SubjectPublicKeyInfo((ASN1Sequence)asn1In.readObject());
+		asn1In.close();
+		AlgorithmIdentifier algorithmIdentifier = subjectPublicKeyInfo.getAlgorithm();
+		String algOID = algorithmIdentifier.getAlgorithm().getId();
+		if (!SecurityInfo.ID_EC_PUBLIC_KEY.equals(algOID)) {
+			throw new IllegalStateException("Was expecting id-ecPublicKey (" + SecurityInfo.ID_EC_PUBLIC_KEY_TYPE + "), found " + algOID);
+		}
+		ASN1Primitive derEncodedParams = algorithmIdentifier.getParameters().toASN1Primitive();
+		if (!(derEncodedParams instanceof ASN1ObjectIdentifier paramsOID)) {
+			return subjectPublicKeyInfo;
+		}
+
+		X9ECParameters params = X962NamedCurves.getByOID(paramsOID);
+		if (params == null) { throw new IllegalStateException("Could not find X9.62 named curve for OID " + paramsOID.getId()); }
+		org.bouncycastle.math.ec.ECPoint generator = params.getG();
+		org.bouncycastle.math.ec.ECCurve curve = generator.getCurve();
+		generator = curve.createPoint(generator.getAffineXCoord().toBigInteger(), generator.getAffineYCoord().toBigInteger());
+		params = new X9ECParameters(params.getCurve(), new X9ECPoint(generator, false), params.getN(), params.getH(), params.getSeed());
+
+		if (publicKey instanceof org.bouncycastle.jce.interfaces.ECPublicKey ecPublicKey) {
+			AlgorithmIdentifier id = new AlgorithmIdentifier(subjectPublicKeyInfo.getAlgorithm().getAlgorithm(), params.toASN1Primitive());
+			org.bouncycastle.math.ec.ECPoint q = ecPublicKey.getQ();
+			subjectPublicKeyInfo = new SubjectPublicKeyInfo(id, q.getEncoded(false));
+		}
+		return subjectPublicKeyInfo;
 	}
 
 	public static PublicKey toPublicKey(SubjectPublicKeyInfo subjectPublicKeyInfo) {

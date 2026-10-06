@@ -216,7 +216,7 @@ public class PassportService extends PassportApduService implements Serializable
 	 * @deprecated visibility will be set to private
 	 */
 	@Deprecated
-	protected SecureMessagingWrapper wrapper;
+	protected transient SecureMessagingWrapper wrapper;
 
 	protected Random random;
 	private MRTDFileSystem fs;

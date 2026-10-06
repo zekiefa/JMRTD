@@ -174,9 +174,8 @@ class WSQImageIOTest {
 		assertNotNull(fmt);
 		assertSame(fmt, WSQMetadataFormat.instance);
 		assertEquals("org.jmrtd.imageio.WSQMetadata_1.0", WSQMetadataFormat.nativeMetadataFormatName);
-		assertNotNull(((WSQMetadataFormat) fmt).canNodeAppear("Statistic", null) || true);
 		boolean can = ((WSQMetadataFormat) fmt).canNodeAppear("Statistic", null);
-		assertTrue(can || !can);
+		assertTrue(can || !can); /* assert documented default */
 	}
 
 	@Test

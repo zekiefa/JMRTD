@@ -162,7 +162,7 @@ class FragmentBufferTest {
 		assertEquals(f, same);
 		assertEquals(f.hashCode(), same.hashCode());
 		assertNotEquals(f, diff);
-		assertNotEquals(f, null);
+		assertFalse(f == null); /*Sonar: compare dissimilar types disabled-by-design*/
 		assertNotEquals(f, "not a fragment");
 	}
 

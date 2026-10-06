@@ -145,8 +145,8 @@ public class DisplayedImageInfo extends AbstractImageInfo {
 	
 	private static int getTypeFromDisplayedImageTag(int tag) {
 		return switch (tag) {
-		case DISPLAYED_PORTRAIT_TAG -> DisplayedImageInfo.TYPE_PORTRAIT;
-		case DISPLAYED_SIGNATURE_OR_MARK_TAG -> DisplayedImageInfo.TYPE_SIGNATURE_OR_MARK;
+		case DISPLAYED_PORTRAIT_TAG -> ImageInfo.TYPE_PORTRAIT;
+		case DISPLAYED_SIGNATURE_OR_MARK_TAG -> ImageInfo.TYPE_SIGNATURE_OR_MARK;
 		default -> throw new NumberFormatException("Unknown tag: " + Integer.toHexString(tag));
 		};
 	}

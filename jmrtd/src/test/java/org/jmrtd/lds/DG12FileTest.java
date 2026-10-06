@@ -132,8 +132,8 @@ public class DG12FileTest {
 
 	@Test
 	public void testDateOfIssueBadLength() throws Exception {
-		assertThrows(Exception.class, () -> new DG12File(new ByteArrayInputStream(
-				buildDG12(DG12File.DATE_OF_ISSUE_TAG, new byte[] { 0x01, 0x02 }))));
+		byte[] bytes = buildDG12(DG12File.DATE_OF_ISSUE_TAG, new byte[] { 0x01, 0x02 });
+		assertThrows(Exception.class, () -> new DG12File(new ByteArrayInputStream(bytes)));
 	}
 
 	@Test
