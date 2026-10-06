@@ -60,7 +60,7 @@ public class ISO781611Encoder<B extends BiometricDataBlock> implements ISO781611
 	 */
 	public void encode(CBEFFInfo cbeffInfo, OutputStream outputStream) throws IOException {
 		if (cbeffInfo instanceof SimpleCBEFFInfo) {
-			writeBITGroup(Arrays.asList(cbeffInfo), outputStream);
+			writeBITGroup(java.util.List.of(cbeffInfo), outputStream);
 		} else if (cbeffInfo instanceof ComplexCBEFFInfo complexCBEFFInfo) {
 			writeBITGroup(complexCBEFFInfo.getSubRecords(), outputStream);
 		}

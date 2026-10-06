@@ -218,16 +218,16 @@ public class JMRTDSecurityProvider extends Provider {
 	private static List<Provider> getProviders(String serviceName, String algorithmName) {
 		if (Security.getAlgorithms(serviceName).contains(algorithmName)) {
 			Provider[] providers = Security.getProviders(serviceName + "." + algorithmName);
-			return new ArrayList<Provider>(Arrays.asList(providers));
+			return new ArrayList<>(java.util.List.of(providers));
 		}
 		if (BC_PROVIDER != null && BC_PROVIDER.getService(serviceName, algorithmName) != null) {
-			return new ArrayList<Provider>(Collections.singletonList(BC_PROVIDER));
+			return new ArrayList<>(java.util.List.of(BC_PROVIDER));
 		}
 		if (SC_PROVIDER != null && SC_PROVIDER.getService(serviceName, algorithmName) != null) {
-			return new ArrayList<Provider>(Collections.singletonList(SC_PROVIDER));
+			return new ArrayList<>(java.util.List.of(SC_PROVIDER));
 		}
 		if (JMRTD_PROVIDER != null && JMRTD_PROVIDER.getService(serviceName, algorithmName) != null) {
-			return new ArrayList<Provider>(Collections.singletonList(JMRTD_PROVIDER));
+			return new ArrayList<>(java.util.List.of(JMRTD_PROVIDER));
 		}
 		return null;
 	}
