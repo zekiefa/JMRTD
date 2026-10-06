@@ -99,11 +99,9 @@ public class WSQImageWriter extends ImageWriter {
 	 * Converts the given image into a BufferedImage of type {@link BufferedImage#TYPE_BYTE_GRAY}. 
 	 */
 	private BufferedImage convertRenderedImage(RenderedImage renderedImage) {
-		if (renderedImage instanceof BufferedImage) {
-			BufferedImage bufferedImage = (BufferedImage)renderedImage;
-			if (bufferedImage.getType() == BufferedImage.TYPE_BYTE_GRAY) {
-				return bufferedImage;
-			}
+		if (renderedImage instanceof BufferedImage bufferedImage
+				&& bufferedImage.getType() == BufferedImage.TYPE_BYTE_GRAY) {
+			return bufferedImage;
 		}
 		BufferedImage result = new BufferedImage(renderedImage.getWidth(), renderedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 		renderedImage.copyData(result.getRaster());

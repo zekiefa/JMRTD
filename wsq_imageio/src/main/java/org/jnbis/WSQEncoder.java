@@ -61,8 +61,8 @@ public class WSQEncoder implements WSQConstants, NISTConstants {
 	
 	public static void encode(DataOutput dataOutput, Bitmap _bitmap, double bitRate, Map<String, String> metadata, String ... comments) throws IOException {
 		BitmapWithMetadata bitmap;
-		if (_bitmap instanceof BitmapWithMetadata) {
-			bitmap = (BitmapWithMetadata)_bitmap;
+		if (_bitmap instanceof BitmapWithMetadata bitmapWithMetadata) {
+			bitmap = bitmapWithMetadata;
 		} else {
 			bitmap = new BitmapWithMetadata(_bitmap.getPixels(), _bitmap.getWidth(), _bitmap.getHeight(), _bitmap.getPpi(), _bitmap.getDepth(), _bitmap.getLossyflag());
 		}

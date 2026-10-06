@@ -120,8 +120,7 @@ public class JJ2000ImageWriter extends ImageWriter {
 	 * Converts the given image into a BufferedImage. 
 	 */
 	private BufferedImage convertRenderedImage(RenderedImage renderedImage) {
-		if (renderedImage instanceof BufferedImage) {
-			BufferedImage bufferedImage = (BufferedImage)renderedImage;
+		if (renderedImage instanceof BufferedImage bufferedImage) {
 			return bufferedImage;
 		}
 		BufferedImage result = new BufferedImage(renderedImage.getWidth(), renderedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
