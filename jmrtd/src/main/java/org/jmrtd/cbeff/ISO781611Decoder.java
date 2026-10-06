@@ -25,7 +25,6 @@ package org.jmrtd.cbeff;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.AccessControlException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -209,7 +208,7 @@ public class ISO781611Decoder implements ISO781611 {
 			return tlvIn.readValue();
 		case SMT_DO_CG /* 0x85 */:
 			/* NOTE: content of payload is encrypted */
-			throw new AccessControlException("Access denied. Biometric Information Template is statically protected.");
+			throw new SecurityException("Access denied. Biometric Information Template is statically protected.");
 		case SMT_DO_CC /* 0x8E */:
 			/* NOTE: payload contains a MAC */
 			long skippedBytes = 0;

@@ -125,6 +125,7 @@ public abstract class SecurityInfo extends AbstractLDSInfo {
 	 * 
 	 * @deprecated Remove this method from visible interface (because of dependency on BC API)
 	 */
+	@Deprecated
 	abstract ASN1Primitive getDERObject();
 	
 	/**

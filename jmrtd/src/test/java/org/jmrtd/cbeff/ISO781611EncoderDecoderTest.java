@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.AccessControlException;
+import java.lang.SecurityException;
 import java.util.List;
 
 import org.jmrtd.cbeff.CBEFFTestUtil.TestBiometricDataBlock;
@@ -256,7 +256,7 @@ public class ISO781611EncoderDecoderTest {
 	@Test
 	public void testDecodeStaticallyProtectedBITEncryptedThrows() throws Exception {
 		byte[] bytes = bytesForSMTDO(ISO781611.SMT_DO_CG);
-		assertThrows(AccessControlException.class,
+		assertThrows(SecurityException.class,
 				() -> newDecoder().decode(new ByteArrayInputStream(bytes)));
 	}
 

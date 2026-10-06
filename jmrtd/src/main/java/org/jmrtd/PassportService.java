@@ -191,6 +191,7 @@ public class PassportService extends PassportApduService implements Serializable
 	 * 
 	 * @deprecated hack
 	 */
+	@Deprecated
 	public static int maxBlockSize = 223;
 
 	private static final int SESSION_STOPPED_STATE = 0;
@@ -214,6 +215,7 @@ public class PassportService extends PassportApduService implements Serializable
 	/**
 	 * @deprecated visibility will be set to private
 	 */
+	@Deprecated
 	protected SecureMessagingWrapper wrapper;
 
 	protected Random random;
@@ -879,7 +881,10 @@ public class PassportService extends PassportApduService implements Serializable
 	 * @deprecated hack
 	 * 
 	 * @param wrapper wrapper
+	 *
+	 * @deprecated internal use only
 	 */
+	@Deprecated
 	public void setWrapper(SecureMessagingWrapper wrapper) {
 		this.wrapper = wrapper;
 	}

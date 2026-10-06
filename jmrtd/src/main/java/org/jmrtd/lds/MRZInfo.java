@@ -62,7 +62,10 @@ public class MRZInfo extends AbstractLDSInfo {
 	/** All valid characters in MRZ. */
 	private static final String MRZ_CHARS = "<0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	/** @deprecated to be replaced with documentCode */
+	/**
+	 * @deprecated to be replaced with documentCode
+	 */
+	@Deprecated
 	private int documentType;
 
 	private String documentCode;
