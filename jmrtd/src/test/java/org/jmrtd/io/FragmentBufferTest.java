@@ -186,4 +186,13 @@ class FragmentBufferTest {
 		assertNotNull(frags);
 		assertEquals(1, frags.size());
 	}
+
+	@Test
+	void testBoundaryMutants() {
+		FragmentBuffer fb = new FragmentBuffer(16);
+		fb.addFragment(2, new byte[] { 1, 2, 3 });
+		assertTrue(fb.isCoveredByFragment(2, 3));
+		assertFalse(fb.isCoveredByFragment(2, 4)); /* boundary: beyond length */
+		assertFalse(fb.isCoveredByFragment(1, 1)); /* boundary: before offset */
+	}
 }
