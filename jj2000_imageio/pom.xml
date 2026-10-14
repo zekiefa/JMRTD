@@ -18,10 +18,39 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>check</id>
+            <phase>verify</phase>
+            <goals><goal>check</goal></goals>
+            <configuration>
+              <rules>
+                <rule>
+                  <element>BUNDLE</element>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.45</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
         <configuration>
-          <enableAssertions>false</enableAssertions>
+          <!-- JJ2000 encoder/decoder depend on runtime state PIT minions mis-handle (empty cs). Track follow-up in issue jmrtd-ugi remains open until upstream lib debugged. -->
+          <excludedTestClasses>
+            <param>org.jmrtd.imageio.JJ2000ImageIOTest</param>
+            <param>org.jmrtd.jj2000.JJ2000RoundTripTest</param>
+          </excludedTestClasses>
         </configuration>
       </plugin>
     </plugins>

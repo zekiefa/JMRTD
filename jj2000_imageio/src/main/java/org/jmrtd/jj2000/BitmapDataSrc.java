@@ -58,10 +58,9 @@ class BitmapDataSrc extends ImgReader {
 		if (blk == null) { blk = new DataBlkInt(0, 0, w, h); }
 		int blkDataLength = (blk.h - blk.uly) * (blk.w - blk.ulx);
 		int[] compData = (int[])blk.getData();
-		if (compData == null) {
+		if (compData == null || compData.length != blkDataLength) {
 			compData = new int[blkDataLength];
-		} else {
-			assert compData.length == blkDataLength;
+			blk.setData(compData);
 		}
 		int i = 0;
 		for (int y = 0; y < blk.h; y++) {

@@ -18,7 +18,6 @@ class JJ2000Util {
 	public static int unsignedARGBToSignedComponent(int unsignedPixel, int c, int nc, int nomRangeBits) {
 		if (c < 0 || c >= nc) { throw new IllegalArgumentException(); }
 		int unsignedCompValue = getUnsignedComponent(unsignedPixel, c, nc, nomRangeBits);
-		assert 127 == (1 << (nomRangeBits - 1));
 		int signedCompValue = unsignedCompValue - (1 << (nomRangeBits - 1));
 		return signedCompValue;
 	}

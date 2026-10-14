@@ -1290,7 +1290,7 @@ public class WSQEncoder implements WSQConstants, NISTConstants {
 		int number_of_codes = 1;
 		
 		/** table of huffman codes and sizes */
-		WSQHelper.HuffCode[] huffcode_table = new WSQHelper.HuffCode[max_huffcounts + 1];
+		WSQHelper.HuffCode[] huffcode_table = new WSQHelper.HuffCode[max_huffcounts + 2]; /* sentinel + guard cell */
 		for (int i = 0; i < huffcode_table.length; i++) { huffcode_table[i] = new WSQHelper.HuffCode(); }
 
 		temp_size.value = 0;
@@ -1476,7 +1476,7 @@ public class WSQEncoder implements WSQConstants, NISTConstants {
 				huffcode_table[pointer].code = temp_code;
 				temp_code++;
 				pointer++;
-			} while (huffcode_table[pointer].size == temp_size);
+			} while (pointer < huffcode_table.length && huffcode_table[pointer].size == temp_size);
 
 			if (huffcode_table[pointer].size == 0) {
 				return;
@@ -1485,8 +1485,8 @@ public class WSQEncoder implements WSQConstants, NISTConstants {
 			do {
 				temp_code <<= 1;
 				temp_size++;
-			} while (huffcode_table[pointer].size != temp_size);
-		} while (huffcode_table[pointer].size == temp_size);
+			} while (pointer < huffcode_table.length && huffcode_table[pointer].size != temp_size);
+		} while (pointer < huffcode_table.length && huffcode_table[pointer].size == temp_size);
 	}
 
 	private static void check_huffcodes_wsq(WSQHelper.HuffCode[] hufftable, int last_size) {
