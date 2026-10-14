@@ -425,9 +425,8 @@ public class Util {
 	 * @throws IOException on error
 	 */
 	public static byte[] getRawECDSASignature(byte[] signedData, int keySize) throws IOException {
-		ASN1InputStream asn1In = new ASN1InputStream(signedData);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		try {
+		try (ASN1InputStream asn1In = new ASN1InputStream(signedData);
+				ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 			ASN1Sequence obj = (ASN1Sequence)asn1In.readObject();
 			Enumeration<ASN1Primitive> e = obj.getObjects();
 			while (e.hasMoreElements()) {
@@ -438,9 +437,6 @@ public class Util {
 			}
 			out.flush();
 			return out.toByteArray();
-		} finally {
-			asn1In.close();
-			out.close();
 		}
 	}
 
